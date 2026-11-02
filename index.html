@@ -81,6 +81,7 @@ button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100%
 .studio-note{margin-top:18px;color:var(--muted);font-size:11px;line-height:1.9}
 .backup-row{display:flex;justify-content:flex-end;margin-top:28px}
 .backup{border:1px solid var(--line);background:transparent;border-radius:999px;padding:11px 16px;color:var(--muted);font-size:11px;cursor:pointer}
+.room-nav{position:fixed;z-index:5;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(620px,calc(100% - 32px));display:none;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:7px;border:1px solid var(--line);border-radius:18px;background:var(--surface);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.room-nav.visible{display:grid}.room-tab{min-width:0;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);cursor:pointer;transition:background 160ms ease,border-color 160ms ease,color 160ms ease}.room-tab:hover{color:var(--ink);background:var(--surface2)}.room-tab[aria-current="page"]{color:var(--ink);background:var(--surface2);border-color:var(--line)}.room-tab-mark{font-size:16px;line-height:1}.room-tab-label{font-size:10px;letter-spacing:.06em;white-space:nowrap}.room{padding-bottom:110px}.room-nav button:focus-visible{outline:1px solid var(--red-line);outline-offset:2px}
 .gate{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;padding:24px;background:var(--bg)}
 .gate.show{display:flex}.gate-card{width:min(390px,100%);padding:34px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
 .gate-brand{font-family:var(--serif);letter-spacing:.2em;font-size:19px}.gate-copy{font-size:12px;color:var(--muted);line-height:1.8;margin:18px 0 24px}
@@ -135,6 +136,7 @@ button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100%
   <div id="room-content"></div>
   <div class="backup-row"><button class="backup" id="backup">导出这间家的数据备份 ↓</button></div>
 </section>
+<nav class="room-nav" id="room-nav" aria-label="房间导航"></nav>
 <script src="./config.js"></script>
 <script>
 const $=id=>document.getElementById(id);
@@ -183,9 +185,15 @@ async function loadData(){
 }
 function empty(title,copy){return '<div class="empty"><i class="empty-mark"></i><h3 class="empty-title">'+title+'</h3><p class="empty-copy">'+copy+'</p></div>'}
 function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function buildRoomNav(activeKey){
+ const nav=$("room-nav");
+ nav.innerHTML=Object.entries(roomData).map(([key,d],i)=>'<button class="room-tab" type="button" data-nav-room="'+key+'" aria-current="'+(key===activeKey?"page":"false")+'"><span class="room-tab-mark">'+["⌂","▧","♫","≡","✧"][i%5]+'</span><span class="room-tab-label">'+safe(d.title)+'</span></button>').join("");
+ nav.classList.add("visible");
+ nav.querySelectorAll("[data-nav-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.navRoom)));
+}
 function showRoom(key){
  const d=roomData[key];if(!d)return;
- $("home").style.display="none";$("room").classList.add("active");
+ $("home").style.display="none";$("room").classList.add("active");buildRoomNav(key);
  $("room-title").textContent=d.title;$("room-kicker").textContent=d.kicker;$("room-intro").textContent=d.intro;
  let html="";
  if(key==="chat"){
@@ -206,7 +214,7 @@ function showRoom(key){
  window.scrollTo({top:0,behavior:"instant"});
 }
 document.querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.room)));
-$("back").addEventListener("click",()=>{$("room").classList.remove("active");$("home").style.display="block";window.scrollTo({top:0,behavior:"instant"})});
+$("back").addEventListener("click",()=>{$("room").classList.remove("active");$("room-nav").classList.remove("visible");$("home").style.display="block";window.scrollTo({top:0,behavior:"instant"})});
 $("backup").addEventListener("click",()=>{
  const payload={exportedAt:new Date().toISOString(),config:{togetherSince:cfg.togetherSince||""},memories:cache.memories,gallery:cache.gallery,nowPlaying:cache.music};
  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
