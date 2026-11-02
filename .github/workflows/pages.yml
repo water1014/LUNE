@@ -1,4 +1,4 @@
-name: Deploy Ocean interface to GitHub Pages
+name: Deploy LUNE
 
 on:
   push:
@@ -19,38 +19,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout LUNE deployment configuration
+      - name: Checkout LUNE
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Fetch the original Ocean source
+      - name: Prepare LUNE site
         run: |
-          git clone https://github.com/fishwithoctopus/Ocean.git /tmp/ocean
-          git -C /tmp/ocean checkout c1bf8c6f5bf96d37e1791c22d5c81f057dadcefe
-
-      - name: Install dependencies
-        working-directory: /tmp/ocean
-        run: npm ci
-
-      - name: Build the original Ocean client for LUNE Pages
-        working-directory: /tmp/ocean
-        env:
-          VITE_OCEAN_BASE_PATH: /LUNE/
-        run: |
-          find src -type f -name '*.css' -exec sed -i "s|url('/assets/|url('/LUNE/assets/|g" {} +
-          npm run build:client
+          mkdir -p /tmp/lune-site
+          cp index.html config.js /tmp/lune-site/
+          cp -R data /tmp/lune-site/data
+          if [ -d images ]; then cp -R images /tmp/lune-site/images; fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Pages artifact
+      - name: Upload LUNE site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: /tmp/ocean/dist
+          path: /tmp/lune-site
 
   deploy:
     runs-on: ubuntu-latest
@@ -74,11 +59,8 @@ jobs:
             state=$(echo "$response" | jq -r '
               [.workflow_runs[] | select(.path == "dynamic/pages/pages-build-deployment")]
               | sort_by(.created_at) | last | .status // empty')
-            conclusion=$(echo "$response" | jq -r '
-              [.workflow_runs[] | select(.path == "dynamic/pages/pages-build-deployment")]
-              | sort_by(.created_at) | last | .conclusion // empty')
             if [ "$state" = "completed" ]; then
-              echo "Default Pages workflow finished ($conclusion). Ocean can deploy now."
+              echo "Default Pages workflow finished. LUNE can deploy now."
               exit 0
             fi
             echo "Default Pages workflow state: ${state:-not-created}; waiting ($attempt/60)"
@@ -87,6 +69,6 @@ jobs:
           echo "Timed out waiting for the default Pages workflow."
           exit 1
 
-      - name: Deploy Ocean to GitHub Pages
+      - name: Deploy LUNE
         id: deployment
         uses: actions/deploy-pages@v4
