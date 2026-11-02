@@ -38,7 +38,7 @@
       grid-template-columns: minmax(0, 1fr) auto;
       align-items: end;
       column-gap: 48px;
-      padding-bottom: 52px;
+      padding-bottom: 58px;
     }
     .time {
       margin: 0;
@@ -93,7 +93,7 @@
     .door {
       position: relative;
       display: flex;
-      min-height: 218px;
+      min-height: 236px;
       flex-direction: column;
       justify-content: space-between;
       overflow: hidden;
@@ -146,6 +146,64 @@
       text-transform: uppercase;
     }
     .chat .door-copy { color: var(--text); }
+    .chat-mark {
+      position: relative;
+      width: 48px;
+      height: 34px;
+      border: 1px solid rgba(221, 228, 232, .32);
+      border-radius: 12px 12px 12px 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      padding: 0 10px;
+    }
+    .chat-mark::before, .chat-mark::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: rgba(233, 232, 227, .7);
+    }
+    .chat-mark::after { width: 58%; background: var(--muted); }
+    .music-disc {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(221, 228, 232, .34);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: 0 0 38px;
+    }
+    .music-disc::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(221, 228, 232, .24);
+      border-radius: 50%;
+    }
+    .music-disc::after {
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+    .memory-lines {
+      width: 54px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-bottom: 3px;
+    }
+    .memory-lines span {
+      display: block;
+      height: 1px;
+      background: rgba(221, 228, 232, .38);
+    }
+    .memory-lines span:nth-child(2) { width: 78%; }
+    .memory-lines span:nth-child(3) { width: 52%; }
     .album-stack {
       position: relative;
       width: 48px;
@@ -210,7 +268,7 @@
       .together { text-align: left; }
       .days { font-size: 72px; }
       .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .door { min-height: 205px; }
+      .door { min-height: 220px; }
     }
     @media (max-width: 480px) {
       .page {
@@ -220,7 +278,7 @@
       .time { font-size: clamp(68px, 21vw, 88px); }
       .days { font-size: 72px; }
       .doors { grid-template-columns: 1fr; gap: 12px; }
-      .door { min-height: 176px; }
+      .door { min-height: 190px; }
       .phrase { margin-top: 18px; }
     }
     @media (prefers-reduced-motion: no-preference) {
@@ -250,7 +308,7 @@
           <h2 class="door-title">聊天</h2>
           <p class="door-copy">我在，慢慢说。</p>
         </div>
-        <div class="door-bottom"><span class="door-note">THE DOOR IS OPEN</span></div>
+        <div class="door-bottom"><span class="door-note">THE DOOR IS OPEN</span><span class="chat-mark" aria-hidden="true"></span></div>
       </article>
 
       <article class="door">
@@ -273,7 +331,7 @@
         </div>
         <div class="door-bottom">
           <span class="door-note">NOW PLAYING · NONE</span>
-          <span class="music-progress" aria-hidden="true"><span></span></span>
+          <span class="music-disc" aria-hidden="true"></span>
         </div>
       </article>
 
@@ -283,7 +341,7 @@
           <h2 class="door-title">记忆库</h2>
           <p class="door-copy">把发生过的事，一条一条留下。</p>
         </div>
-        <div class="door-bottom"><span class="memory-date" id="memory-date">TODAY · --.--</span></div>
+        <div class="door-bottom"><span class="memory-date" id="memory-date">TODAY · --.--</span><span class="memory-lines" aria-hidden="true"><span></span><span></span><span></span></span></div>
       </article>
 
       <article class="door">
