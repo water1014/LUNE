@@ -192,50 +192,65 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
 @media(max-width:480px){.home-intro{padding:27px 0 18px}.home-intro h1{font-size:26px}.home-clock strong{font-size:22px}.ocean-board{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(104px,auto);gap:8px}.calendar-board{grid-column:span 2;grid-row:span 1;min-height:260px}.couple-board{grid-column:span 2;min-height:145px}.together-board{grid-column:span 2;min-height:105px}.photo-board,.memory-board,.music-board{grid-column:span 1;min-height:174px}.photo-board{grid-row:span 1}.music-board{grid-column:span 2;min-height:135px;display:grid;grid-template-columns:1fr 68px;grid-template-rows:auto 1fr;align-items:center}.music-board>.board-label{grid-column:1/-1}.music-disc{width:58px;height:58px;grid-column:2;grid-row:2;margin:0}.music-copy{grid-column:1;grid-row:2}.note-board{grid-column:span 2;min-height:126px}.studio-board{grid-column:span 2;min-height:112px}.home-quick-nav{justify-content:space-between;gap:4px}.quick-nav-label{width:100%;margin-bottom:3px}.home-quick-nav button{padding:5px 2px;font-size:10px}.person-avatar{width:46px;height:46px}.room-nav{backdrop-filter:none;-webkit-backdrop-filter:none}}
 
 
-/* LUNE home canvas: compact couple card and a tactile photo collection */
-.couple-board{grid-column:span 2;min-height:154px;max-width:340px;width:100%;justify-self:start;padding:15px 16px}
-.calendar-board{grid-column:span 2;grid-row:span 1;min-height:252px}
-.together-board{grid-column:span 2;min-height:154px}
-.people-pair{max-width:260px;margin:13px auto 0;grid-template-columns:1fr 24px 1fr;gap:6px}
-.person-avatar{width:46px;height:46px;font-size:19px}
-.couple-note{font-size:9px;margin-top:8px}
-.photo-board{grid-column:span 4;min-height:236px;padding:16px 18px}
-.memory-board{grid-column:span 2;min-height:236px}
-.photo-preview{position:relative;display:block;min-height:148px;height:148px;margin:8px 0 7px;background:transparent;overflow:visible}
-.polaroid-stack{position:relative;width:100%;height:100%;max-width:420px;margin:0 auto}
-.polaroid{position:absolute;top:7px;width:104px;height:128px;margin:0;padding:7px 7px 17px;background:#f4f0e9;border:1px solid rgba(55,48,43,.16);box-shadow:0 7px 17px rgba(0,0,0,.18);color:#34312f;transform-origin:50% 80%;transition:transform .22s ease,box-shadow .22s ease}
-.polaroid img{display:block;width:100%;height:88px;object-fit:cover;background:#d9d4cb}
-.polaroid figcaption{padding:6px 1px 0;font:10px/1.2 var(--serif);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#57514b}
-.polaroid-1{left:calc(50% - 151px);transform:rotate(-10deg);z-index:1}
-.polaroid-2{left:calc(50% - 52px);top:1px;transform:rotate(3deg);z-index:3}
-.polaroid-3{left:calc(50% + 47px);transform:rotate(11deg);z-index:2}
-.polaroid:hover{z-index:5;transform:translateY(-5px) rotate(0deg);box-shadow:0 12px 22px rgba(0,0,0,.24)}
-.empty-polaroid{display:grid;place-items:center;text-align:center;font:11px/1.7 var(--serif);color:#777067}
-.empty-polaroid:nth-child(1){left:calc(50% - 151px);transform:rotate(-10deg);z-index:1}
-.empty-polaroid:nth-child(2){left:calc(50% - 52px);top:1px;transform:rotate(3deg);z-index:3}
-.empty-polaroid:nth-child(3){left:calc(50% + 47px);transform:rotate(11deg);z-index:2}
+/* LUNE home canvas: compact bento proportions */
+.couple-board{grid-column:span 2;min-height:142px;max-width:310px;width:100%;justify-self:start;padding:13px 14px}
+.calendar-board{grid-column:span 2;grid-row:span 1;min-height:226px;padding:16px}
+.together-board{grid-column:span 2;min-height:112px;padding:14px}
+.people-pair{max-width:238px;margin:10px auto 0;grid-template-columns:1fr 20px 1fr;gap:5px}
+.person-avatar{width:42px;height:42px;font-size:17px}
+.couple-note{font-size:8px;margin-top:7px}
+.photo-board{grid-column:span 4;min-height:190px;padding:13px 15px}
+.memory-board{grid-column:span 2;min-height:190px;padding:14px}
+.photo-preview{position:relative;display:block;min-height:116px;height:116px;margin:5px 0 5px;background:transparent;overflow:visible}
+.polaroid-stack{position:relative;width:100%;height:100%;max-width:330px;margin:0 auto}
+.polaroid{position:absolute;top:6px;width:82px;height:102px;margin:0;padding:6px 6px 14px;background:#f4f0e9;border:1px solid rgba(55,48,43,.16);box-shadow:0 5px 12px rgba(0,0,0,.16);color:#34312f;transform-origin:50% 80%;transition:transform .22s ease,box-shadow .22s ease}
+.polaroid img{display:block;width:100%;height:70px;object-fit:cover;background:#d9d4cb}
+.polaroid figcaption{padding:5px 1px 0;font:9px/1.1 var(--serif);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#57514b}
+.polaroid-1{left:calc(50% - 119px);transform:rotate(-9deg);z-index:1}
+.polaroid-2{left:calc(50% - 41px);top:1px;transform:rotate(2deg);z-index:3}
+.polaroid-3{left:calc(50% + 37px);transform:rotate(9deg);z-index:2}
+.polaroid:hover{z-index:5;transform:translateY(-3px) rotate(0deg);box-shadow:0 9px 16px rgba(0,0,0,.2)}
+.empty-polaroid{display:grid;place-items:center;text-align:center;font:10px/1.6 var(--serif);color:#777067}
+.empty-polaroid:nth-child(1){left:calc(50% - 119px);transform:rotate(-9deg);z-index:1}
+.empty-polaroid:nth-child(2){left:calc(50% - 41px);top:1px;transform:rotate(2deg);z-index:3}
+.empty-polaroid:nth-child(3){left:calc(50% + 37px);transform:rotate(9deg);z-index:2}
 @media(max-width:760px){
- .couple-board{grid-column:span 2;max-width:340px;min-height:144px}
- .calendar-board{grid-column:span 2;grid-row:span 1;min-height:250px}
- .together-board{grid-column:span 2;min-height:112px}
- .photo-board{grid-column:span 2;min-height:224px}
- .memory-board{grid-column:span 1;min-height:190px}
- .photo-preview{height:142px;min-height:142px}
+ .couple-board{grid-column:span 1;max-width:none;min-height:174px;padding:12px}
+ .calendar-board{grid-column:span 1;grid-row:span 1;min-height:174px;padding:12px}
+ .together-board{grid-column:span 1;min-height:132px;padding:12px}
+ .photo-board{grid-column:span 2;min-height:178px;padding:12px 14px}
+ .memory-board{grid-column:span 1;min-height:174px;padding:12px}
+ .music-board,.note-board,.studio-board{grid-column:span 1;min-height:166px;padding:12px}
+ .photo-preview{height:108px;min-height:108px}
+ .calendar-month-line{margin:9px 0 7px}
+ .calendar-month-line strong{font-size:19px}
+ .calendar-week,.calendar-days{gap:2px}
+ .calendar-week span{font-size:8px;padding:2px 0}
+ .calendar-day,.calendar-blank{font-size:9px}
+ .calendar-foot{font-size:8px;margin-top:8px}
+ .people-pair{grid-template-columns:1fr 13px 1fr;gap:3px;margin-top:12px}
+ .person-avatar{width:38px;height:38px;font-size:16px;margin-bottom:4px}
+ .person-name{font-size:12px}
+ .person-caption{font-size:7px;letter-spacing:.04em}
+ .couple-note{font-size:7px;line-height:1.5}
 }
 @media(max-width:480px){
- .couple-board{grid-column:span 2;max-width:min(340px,100%);min-height:140px}
- .calendar-board{grid-column:span 2;min-height:246px}
- .together-board{grid-column:span 2;min-height:104px}
- .photo-board{grid-column:span 2;min-height:218px}
- .memory-board{grid-column:span 1;min-height:174px}
- .photo-preview{height:138px;min-height:138px}
- .polaroid{width:94px;height:119px;padding:6px 6px 15px}
- .polaroid img{height:82px}
- .polaroid-1,.empty-polaroid:nth-child(1){left:calc(50% - 137px)}
- .polaroid-2,.empty-polaroid:nth-child(2){left:calc(50% - 47px)}
- .polaroid-3,.empty-polaroid:nth-child(3){left:calc(50% + 43px)}
+ .couple-board{grid-column:span 1;min-height:166px}
+ .calendar-board{grid-column:span 1;min-height:166px}
+ .together-board{grid-column:span 1;min-height:124px}
+ .photo-board{grid-column:span 2;min-height:170px}
+ .memory-board{grid-column:span 1;min-height:166px}
+ .music-board,.note-board,.studio-board{grid-column:span 1;min-height:154px}
+ .photo-preview{height:100px;min-height:100px}
+ .polaroid{width:74px;height:94px;padding:5px 5px 13px}
+ .polaroid img{height:64px}
+ .polaroid-1,.empty-polaroid:nth-child(1){left:calc(50% - 106px)}
+ .polaroid-2,.empty-polaroid:nth-child(2){left:calc(50% - 37px)}
+ .polaroid-3,.empty-polaroid:nth-child(3){left:calc(50% + 32px)}
+ .calendar-month-line strong{font-size:17px}
+ .calendar-week,.calendar-days{gap:1px}
+ .calendar-day,.calendar-blank{font-size:8px}
 }
-
 </style>
 </head>
 <body>
