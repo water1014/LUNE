@@ -25,13 +25,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: /tmp/ocean/package-lock.json
 
       - name: Fetch the original Ocean source
         run: |
           git clone --depth 1 https://github.com/fishwithoctopus/Ocean.git /tmp/ocean
-          cp LICENSE /tmp/ocean/LICENSE-LUNE
         working-directory: .
 
       - name: Install dependencies
