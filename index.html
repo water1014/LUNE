@@ -8,9 +8,11 @@
 <title>LUNE · 我们的家</title>
 <style>
 :root{color-scheme:dark;--bg:#121518;--surface:#1b2024;--surface2:#20262b;--ink:#ece9e2;--muted:#8c969b;--line:rgba(226,232,232,.15);--softline:rgba(226,232,232,.09);--red:#89505a;--red-line:#7b555b;--hero-em:#b7b4ab;--hint:#69747a;--hover-border:rgba(226,232,232,.34);--hover-surface:#20262b;--art-line:#657178;--art-soft:#aab0ae;--art-fill:#273139;--memory-ink:#b5b9b6;--progress-bg:#394147;--progress-fill:#b4aaa0;--input-bg:#12171b;--gate-button:#282125;--gate-border:#76545a;--gate-focus:#8d7778;--serif:"Iowan Old Style","Baskerville","Songti SC","Noto Serif CJK SC",serif;--sans:Inter,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif}
-[data-theme="day"]{color-scheme:light;--bg:#f1f0ec;--surface:#faf9f6;--surface2:#e9e7e1;--ink:#292c2d;--muted:#777d7c;--line:rgba(49,55,55,.17);--softline:rgba(49,55,55,.10);--red:#89505a;--red-line:#a77b80;--hero-em:#6d7371;--hint:#8a908e;--hover-border:rgba(49,55,55,.34);--hover-surface:#eeece7;--art-line:#818b89;--art-soft:#697471;--art-fill:#e4e4df;--memory-ink:#555d5b;--progress-bg:#d9d8d2;--progress-fill:#7f7770;--input-bg:#fffefa;--gate-button:#f1eeea;--gate-border:#b58b90;--gate-focus:#a77b80}\n*{box-sizing:border-box}html{min-width:320px;background:var(--bg)}body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+[data-theme="day"]{color-scheme:light;--bg:#f1f0ec;--surface:#faf9f6;--surface2:#e9e7e1;--ink:#292c2d;--muted:#777d7c;--line:rgba(49,55,55,.17);--softline:rgba(49,55,55,.10);--red:#89505a;--red-line:#a77b80;--hero-em:#6d7371;--hint:#8a908e;--hover-border:rgba(49,55,55,.34);--hover-surface:#eeece7;--art-line:#818b89;--art-soft:#697471;--art-fill:#e4e4df;--memory-ink:#555d5b;--progress-bg:#d9d8d2;--progress-fill:#7f7770;--input-bg:#fffefa;--gate-button:#f1eeea;--gate-border:#b58b90;--gate-focus:#a77b80}
+*{box-sizing:border-box}html{min-width:320px;background:var(--bg)}body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100% - 64px));margin:auto;padding:38px 0 72px}
-.masthead{display:flex;align-items:center;justify-content:space-between;padding-bottom:24px;border-bottom:1px solid var(--line)}\n.mast-actions{display:flex;align-items:center;gap:18px}.theme-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);padding:8px 12px;font-size:10px;letter-spacing:.08em;cursor:pointer}.theme-toggle:hover{border-color:var(--hover-border);color:var(--ink)}.theme-symbol{font-size:13px;line-height:1}
+.masthead{display:flex;align-items:center;justify-content:space-between;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.mast-actions{display:flex;align-items:center;gap:18px}.theme-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);padding:8px 12px;font-size:10px;letter-spacing:.08em;cursor:pointer}.theme-toggle:hover{border-color:var(--hover-border);color:var(--ink)}.theme-symbol{font-size:13px;line-height:1}
 .brand{display:flex;align-items:baseline;gap:12px}.brand-name{font-family:var(--serif);font-size:20px;letter-spacing:.2em}.brand-sub{font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
 .mast-meta{font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:48px;align-items:end;padding:76px 0 56px}
@@ -189,6 +191,51 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
 @media(max-width:760px){.shell{width:calc(100% - 36px);padding-top:22px}.ocean-board{gap:9px;grid-auto-rows:minmax(105px,auto)}.calendar-board{min-height:258px;padding:16px}.calendar-month-line strong{font-size:21px}.calendar-week,.calendar-days{gap:3px}.calendar-day,.calendar-blank{font-size:10px}.couple-board{min-height:150px;padding:14px}.together-board{min-height:105px;padding:14px}.photo-board,.memory-board,.music-board{min-height:185px;padding:13px}.note-board,.studio-board{min-height:120px;padding:14px}.home-quick-nav{gap:5px}.home-quick-nav button{padding-left:6px}}
 @media(max-width:480px){.home-intro{padding:27px 0 18px}.home-intro h1{font-size:26px}.home-clock strong{font-size:22px}.ocean-board{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(104px,auto);gap:8px}.calendar-board{grid-column:span 2;grid-row:span 1;min-height:260px}.couple-board{grid-column:span 2;min-height:145px}.together-board{grid-column:span 2;min-height:105px}.photo-board,.memory-board,.music-board{grid-column:span 1;min-height:174px}.photo-board{grid-row:span 1}.music-board{grid-column:span 2;min-height:135px;display:grid;grid-template-columns:1fr 68px;grid-template-rows:auto 1fr;align-items:center}.music-board>.board-label{grid-column:1/-1}.music-disc{width:58px;height:58px;grid-column:2;grid-row:2;margin:0}.music-copy{grid-column:1;grid-row:2}.note-board{grid-column:span 2;min-height:126px}.studio-board{grid-column:span 2;min-height:112px}.home-quick-nav{justify-content:space-between;gap:4px}.quick-nav-label{width:100%;margin-bottom:3px}.home-quick-nav button{padding:5px 2px;font-size:10px}.person-avatar{width:46px;height:46px}.room-nav{backdrop-filter:none;-webkit-backdrop-filter:none}}
 
+
+/* LUNE home canvas: compact couple card and a tactile photo collection */
+.couple-board{grid-column:span 2;min-height:154px;max-width:340px;width:100%;justify-self:start;padding:15px 16px}
+.calendar-board{grid-column:span 2;grid-row:span 1;min-height:252px}
+.together-board{grid-column:span 2;min-height:154px}
+.people-pair{max-width:260px;margin:13px auto 0;grid-template-columns:1fr 24px 1fr;gap:6px}
+.person-avatar{width:46px;height:46px;font-size:19px}
+.couple-note{font-size:9px;margin-top:8px}
+.photo-board{grid-column:span 4;min-height:236px;padding:16px 18px}
+.memory-board{grid-column:span 2;min-height:236px}
+.photo-preview{position:relative;display:block;min-height:148px;height:148px;margin:8px 0 7px;background:transparent;overflow:visible}
+.polaroid-stack{position:relative;width:100%;height:100%;max-width:420px;margin:0 auto}
+.polaroid{position:absolute;top:7px;width:104px;height:128px;margin:0;padding:7px 7px 17px;background:#f4f0e9;border:1px solid rgba(55,48,43,.16);box-shadow:0 7px 17px rgba(0,0,0,.18);color:#34312f;transform-origin:50% 80%;transition:transform .22s ease,box-shadow .22s ease}
+.polaroid img{display:block;width:100%;height:88px;object-fit:cover;background:#d9d4cb}
+.polaroid figcaption{padding:6px 1px 0;font:10px/1.2 var(--serif);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#57514b}
+.polaroid-1{left:calc(50% - 151px);transform:rotate(-10deg);z-index:1}
+.polaroid-2{left:calc(50% - 52px);top:1px;transform:rotate(3deg);z-index:3}
+.polaroid-3{left:calc(50% + 47px);transform:rotate(11deg);z-index:2}
+.polaroid:hover{z-index:5;transform:translateY(-5px) rotate(0deg);box-shadow:0 12px 22px rgba(0,0,0,.24)}
+.empty-polaroid{display:grid;place-items:center;text-align:center;font:11px/1.7 var(--serif);color:#777067}
+.empty-polaroid:nth-child(1){left:calc(50% - 151px);transform:rotate(-10deg);z-index:1}
+.empty-polaroid:nth-child(2){left:calc(50% - 52px);top:1px;transform:rotate(3deg);z-index:3}
+.empty-polaroid:nth-child(3){left:calc(50% + 47px);transform:rotate(11deg);z-index:2}
+@media(max-width:760px){
+ .couple-board{grid-column:span 2;max-width:340px;min-height:144px}
+ .calendar-board{grid-column:span 2;grid-row:span 1;min-height:250px}
+ .together-board{grid-column:span 2;min-height:112px}
+ .photo-board{grid-column:span 2;min-height:224px}
+ .memory-board{grid-column:span 1;min-height:190px}
+ .photo-preview{height:142px;min-height:142px}
+}
+@media(max-width:480px){
+ .couple-board{grid-column:span 2;max-width:min(340px,100%);min-height:140px}
+ .calendar-board{grid-column:span 2;min-height:246px}
+ .together-board{grid-column:span 2;min-height:104px}
+ .photo-board{grid-column:span 2;min-height:218px}
+ .memory-board{grid-column:span 1;min-height:174px}
+ .photo-preview{height:138px;min-height:138px}
+ .polaroid{width:94px;height:119px;padding:6px 6px 15px}
+ .polaroid img{height:82px}
+ .polaroid-1,.empty-polaroid:nth-child(1){left:calc(50% - 137px)}
+ .polaroid-2,.empty-polaroid:nth-child(2){left:calc(50% - 47px)}
+ .polaroid-3,.empty-polaroid:nth-child(3){left:calc(50% + 43px)}
+}
+
 </style>
 </head>
 <body>
@@ -211,13 +258,6 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
     <div class="home-clock"><strong id="clock">--:--</strong><span id="date">----</span></div>
   </section>
   <section class="ocean-board" aria-label="我们的生活首页">
-    <article class="board-card calendar-board">
-      <div class="board-top"><span class="board-label">OUR CALENDAR · 日历</span><span class="calendar-progress" id="calendar-progress">--%</span></div>
-      <div class="calendar-month-line"><strong id="calendar-month">----</strong><span id="calendar-today">今天</span></div>
-      <div class="calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
-      <div class="calendar-days" id="calendar-days"></div>
-      <div class="calendar-foot"><span>每一天都有自己的浓度</span><i></i></div>
-    </article>
     <article class="board-card couple-board">
       <div class="board-top"><span class="board-label">THE TWO OF US · 两个人</span><span class="board-index">01</span></div>
       <div class="people-pair" id="people-pair">
@@ -225,6 +265,14 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
       </div>
       <p class="couple-note">两个人的名字与模样，都可以慢慢换成喜欢的样子。</p>
     </article>
+    <article class="board-card calendar-board">
+      <div class="board-top"><span class="board-label">OUR CALENDAR · 日历</span><span class="calendar-progress" id="calendar-progress">--%</span></div>
+      <div class="calendar-month-line"><strong id="calendar-month">----</strong><span id="calendar-today">今天</span></div>
+      <div class="calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+      <div class="calendar-days" id="calendar-days"></div>
+      <div class="calendar-foot"><span>每一天都有自己的浓度</span><i></i></div>
+    </article>
+
     <article class="board-card together-board">
       <span class="board-label">SINCE WE FOUND HOME</span>
       <div class="together-number"><span id="days">—</span><small>DAYS</small></div>
@@ -234,7 +282,7 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
     </article>
     <button class="board-card photo-board" data-room="album">
       <span class="board-label">LITTLE MOMENTS · 最近照片</span>
-      <div class="photo-preview" id="home-photo"><span>第一张照片<br>还在路上</span></div>
+      <div class="photo-preview" id="home-photo"><div class="polaroid-stack" aria-label="最近照片收藏"><div class="polaroid empty-polaroid"><span>第一张照片<br>还在路上</span></div><div class="polaroid empty-polaroid"><span>留住一个瞬间</span></div><div class="polaroid empty-polaroid"><span>慢慢填满这里</span></div></div></div>
       <div class="board-card-bottom"><strong id="home-photo-title">打开相册</strong><span id="home-photo-count">0 PHOTOS ↗</span></div>
     </button>
     <button class="board-card memory-board" data-room="memory">
@@ -345,8 +393,9 @@ function renderOverview(){
  const latestPhoto=cache.gallery[cache.gallery.length-1];
  const music=cache.music||{};
  $("home-photo-count").textContent=cache.gallery.length+" PHOTOS ↗";
- $("home-photo-title").textContent=latestPhoto?(latestPhoto.title||"打开相册"):"打开相册";
- $("home-photo").innerHTML=latestPhoto&&latestPhoto.src?'<img src="'+safe(latestPhoto.src)+'" alt="" loading="lazy">':'<span>第一张照片<br>还在路上</span>';
+ $("home-photo-title").textContent="打开相册";
+ const recentPhotos=cache.gallery.filter(x=>x&&x.src).slice(-3).reverse();
+ $("home-photo").innerHTML='<div class="polaroid-stack" aria-label="最近照片收藏">'+(recentPhotos.length?recentPhotos.map((photo,i)=>'<figure class="polaroid polaroid-'+(i+1)+'"><img src="'+safe(photo.src)+'" alt="'+safe(photo.alt||photo.title||"LUNE photo")+'" loading="lazy" decoding="async"><figcaption>'+safe(photo.title||"a little moment")+'</figcaption></figure>').join(""):'<div class="polaroid empty-polaroid"><span>第一张照片<br>还在路上</span></div><div class="polaroid empty-polaroid"><span>留住一个瞬间</span></div><div class="polaroid empty-polaroid"><span>慢慢填满这里</span></div>')+'</div>';
  $("home-memory-title").textContent=latestMemory?(latestMemory.title||"一段新记忆"):"故事还没有写下";
  $("home-memory-date").textContent=latestMemory?.date||"OUR ARCHIVE";
  $("home-music-title").textContent=music.title||"此刻还没有播放";
