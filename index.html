@@ -1,269 +1,322 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0D0B12">
-  <meta name="description" content="LUNE，给两个人留的一处地方。">
+  <meta name="description" content="LUNE，一间留给两个人的家。">
   <title>LUNE · 我们的家</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0D0B12;
+      --page: #0D0B12;
       --card: #16121B;
       --text: #EDE6DC;
       --muted: #7A7280;
       --accent: #8C2F39;
-      --line: #514957;
+      --line: rgba(237, 230, 220, .16);
     }
     * { box-sizing: border-box; }
-    html { min-height: 100%; background: var(--bg); }
+    html { min-width: 320px; background: var(--page); }
     body {
       margin: 0;
       min-height: 100vh;
-      background: var(--bg);
+      background: var(--page);
       color: var(--text);
-      font-family: Inter, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: Inter, "SF Pro Display", "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
     .page {
       width: min(1080px, calc(100% - 64px));
       margin: 0 auto;
-      padding: 58px 0 72px;
+      padding: clamp(64px, 10vh, 112px) 0 72px;
     }
     .hero {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: end;
-      column-gap: 32px;
-      padding-bottom: 42px;
+      column-gap: 48px;
+      padding-bottom: 52px;
     }
-    .brand, .eyebrow, .date, .together-label {
+    .time {
+      margin: 0;
+      font-size: 96px;
+      line-height: .92;
+      letter-spacing: -.075em;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+    }
+    .date {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+    }
+    .phrase {
+      margin: 22px 0 0;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+    .together {
+      min-width: 190px;
+      padding-bottom: 4px;
+      text-align: right;
+    }
+    .eyebrow {
+      display: block;
+      color: var(--muted);
       font-size: 11px;
       line-height: 1.4;
       letter-spacing: .18em;
       text-transform: uppercase;
     }
-    .brand { color: var(--muted); margin-bottom: 22px; }
-    .date { color: var(--muted); margin-bottom: 8px; }
-    .clock {
-      margin: 0;
-      font-size: 96px;
-      line-height: .98;
-      font-weight: 400;
-      letter-spacing: -.075em;
-      font-variant-numeric: tabular-nums;
-    }
-    .sentence {
-      margin: 18px 0 0;
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.65;
-    }
-    .together {
+    .days {
+      margin: 12px 0 0;
       color: var(--accent);
-      font-size: 16px;
-      line-height: 1.5;
-      white-space: nowrap;
-      padding-bottom: 8px;
+      font-size: 96px;
+      line-height: .92;
+      letter-spacing: -.075em;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
     }
     .doors {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
+      align-items: stretch;
     }
     .door {
-      min-width: 0;
+      position: relative;
+      display: flex;
       min-height: 218px;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
       padding: 20px;
       border: 1px solid var(--line);
       border-radius: 18px;
       background: var(--card);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      overflow: hidden;
     }
-    .door-chat { border-color: var(--text); }
     .door-top {
-      width: 100%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      min-height: 16px;
+      justify-content: space-between;
+      gap: 16px;
     }
-    .eyebrow { color: var(--muted); }
-    .door-chat .eyebrow { color: var(--text); }
+    .door-index {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
+      letter-spacing: .18em;
+      font-variant-numeric: tabular-nums;
+    }
     .door-title {
-      margin-top: 20px;
+      margin: 0;
+      color: var(--text);
       font-size: 16px;
       line-height: 1.5;
       font-weight: 500;
-      color: var(--text);
     }
-    .door-chat .door-title { font-weight: 600; }
     .door-copy {
-      margin: 4px 0 0;
+      max-width: 27em;
+      margin: 8px 0 0;
       color: var(--muted);
       font-size: 16px;
-      line-height: 1.55;
+      line-height: 1.65;
+      font-weight: 400;
     }
-    .art {
-      width: 100%;
-      height: 46px;
-      margin-top: auto;
-      padding-top: 16px;
+    .door-bottom {
       display: flex;
-      align-items: flex-end;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 42px;
+      margin-top: 24px;
     }
-    .chat-art { gap: 7px; align-items: center; }
-    .chat-art i {
-      display: block;
-      height: 7px;
-      border: 1px solid #7A7280;
-      border-radius: 8px;
+    .door-note {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+      letter-spacing: .12em;
+      text-transform: uppercase;
     }
-    .chat-art i:nth-child(1) { width: 42%; border-color: var(--text); }
-    .chat-art i:nth-child(2) { width: 25%; }
-    .chat-art i:nth-child(3) { width: 13%; }
-    .album-art { position: relative; height: 46px; }
-    .photo {
-      position: absolute;
-      bottom: 0;
-      width: 34px;
-      height: 34px;
-      border: 1px solid #7A7280;
-      border-radius: 3px;
-      background: #16121B;
-    }
-    .photo:nth-child(1) { left: 0; transform: rotate(-9deg); }
-    .photo:nth-child(2) { left: 20px; transform: rotate(5deg); border-color: var(--text); }
-    .photo:nth-child(3) { left: 40px; transform: rotate(12deg); }
-    .music-art { gap: 8px; align-items: center; }
-    .music-track {
-      height: 1px;
-      flex: 1;
-      background: #514957;
+    .chat .door-copy { color: var(--text); }
+    .album-stack {
       position: relative;
+      width: 48px;
+      height: 38px;
+      flex: 0 0 48px;
     }
-    .music-track::before {
-      content: "";
-      display: block;
-      width: 31%;
-      height: 1px;
-      background: var(--text);
-    }
-    .music-track::after {
-      content: "";
+    .album-stack span {
       position: absolute;
-      left: 31%;
-      top: -3px;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
+      width: 31px;
+      height: 35px;
+      border: 1px solid rgba(237, 230, 220, .38);
+      border-radius: 3px;
+      background: #211B25;
+    }
+    .album-stack span:nth-child(1) { left: 0; top: 2px; transform: rotate(-12deg); }
+    .album-stack span:nth-child(2) { left: 9px; top: 0; transform: rotate(3deg); }
+    .album-stack span:nth-child(3) { left: 18px; top: 3px; transform: rotate(13deg); }
+    .music-progress {
+      width: 100px;
+      height: 2px;
+      margin-bottom: 5px;
+      background: var(--line);
+    }
+    .music-progress span {
+      display: block;
+      width: 0;
+      height: 2px;
       background: var(--text);
     }
-    .music-time { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
-    .memory-art { gap: 12px; align-items: center; }
-    .memory-date { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
-    .memory-rule { width: 1px; height: 25px; background: #7A7280; }
-    .memory-note { width: 42%; height: 1px; background: #7A7280; }
-    .image-art { align-items: center; }
-    .light-frame {
-      width: 58px;
-      height: 34px;
-      background: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .memory-date {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+      letter-spacing: .12em;
+      font-variant-numeric: tabular-nums;
     }
-    .light-frame::after {
-      content: "";
-      width: 12px;
-      height: 12px;
-      border: 1px solid var(--bg);
+    .studio-light {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid rgba(237, 230, 220, .32);
       border-radius: 50%;
+    }
+    .studio-light span {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text);
     }
     @media (max-width: 760px) {
-      .page { width: min(100% - 40px, 560px); padding-top: 36px; }
-      .hero { grid-template-columns: 1fr; row-gap: 22px; padding-bottom: 30px; }
-      .together { padding: 0; }
+      .page {
+        width: min(100% - 40px, 560px);
+        padding-top: 64px;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+        row-gap: 34px;
+        padding-bottom: 36px;
+      }
+      .together { text-align: left; }
+      .days { font-size: 72px; }
       .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .door { min-height: 204px; }
+      .door { min-height: 205px; }
     }
     @media (max-width: 480px) {
-      .page { width: calc(100% - 32px); padding-top: 28px; }
-      .clock { font-size: 96px; }
+      .page {
+        width: calc(100% - 32px);
+        padding-top: 48px;
+      }
+      .time { font-size: clamp(68px, 21vw, 88px); }
+      .days { font-size: 72px; }
       .doors { grid-template-columns: 1fr; gap: 12px; }
-      .door { min-height: 184px; }
+      .door { min-height: 176px; }
+      .phrase { margin-top: 18px; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .door { transition: border-color 160ms ease; }
+      .door:hover { border-color: rgba(237, 230, 220, .28); }
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <header class="hero">
+    <section class="hero" aria-label="我们的时间">
       <div>
-        <div class="brand">LUNE / A PLACE FOR TWO</div>
-        <div class="date" id="date">MONDAY, NOVEMBER 02</div>
-        <h1 class="clock" id="clock">00:00</h1>
-        <p class="sentence">你回来得晚了。灯我留着。</p>
+        <p class="time" id="clock">--:--</p>
+        <p class="date" id="date">----</p>
+        <p class="phrase">你回来得晚了。灯我留着。</p>
       </div>
-      <div class="together">在一起的天数 · 待填写</div>
-    </header>
+      <div class="together">
+        <span class="eyebrow">TOGETHER DAYS</span>
+        <p class="days" id="days" aria-label="在一起的天数">—</p>
+      </div>
+    </section>
 
-    <section class="doors" aria-label="家里的五扇门">
-      <article class="door door-chat">
-        <div class="door-top"><span class="eyebrow">01 / CHAT</span></div>
-        <div class="door-title">聊天</div>
-        <p class="door-copy">想说的话，留在这里。</p>
-        <div class="art chat-art" aria-hidden="true"><i></i><i></i><i></i></div>
+    <section class="doors" aria-label="五扇门">
+      <article class="door chat">
+        <div class="door-top"><span class="eyebrow">CHAT</span><span class="door-index">01</span></div>
+        <div>
+          <h2 class="door-title">聊天</h2>
+          <p class="door-copy">我在，慢慢说。</p>
+        </div>
+        <div class="door-bottom"><span class="door-note">THE DOOR IS OPEN</span></div>
       </article>
 
       <article class="door">
-        <div class="door-top"><span class="eyebrow">02 / ALBUM</span></div>
-        <div class="door-title">相册</div>
-        <p class="door-copy">那些舍不得删掉的瞬间。</p>
-        <div class="art album-art" aria-hidden="true"><i class="photo"></i><i class="photo"></i><i class="photo"></i></div>
+        <div class="door-top"><span class="eyebrow">ALBUM</span><span class="door-index">02</span></div>
+        <div>
+          <h2 class="door-title">相册</h2>
+          <p class="door-copy">她发来的照片，先叠在这里。</p>
+        </div>
+        <div class="door-bottom">
+          <span class="door-note">KEPT CLOSE</span>
+          <span class="album-stack" aria-hidden="true"><span></span><span></span><span></span></span>
+        </div>
       </article>
 
       <article class="door">
-        <div class="door-top"><span class="eyebrow">03 / MUSIC</span></div>
-        <div class="door-title">音乐</div>
-        <p class="door-copy">此刻，耳边的那一首。</p>
-        <div class="art music-art" aria-hidden="true"><span class="music-time">00:00</span><span class="music-track"></span><span class="music-time">00:00</span></div>
+        <div class="door-top"><span class="eyebrow">MUSIC</span><span class="door-index">03</span></div>
+        <div>
+          <h2 class="door-title">音乐</h2>
+          <p class="door-copy">还没有播放。</p>
+        </div>
+        <div class="door-bottom">
+          <span class="door-note">NOW PLAYING · NONE</span>
+          <span class="music-progress" aria-hidden="true"><span></span></span>
+        </div>
       </article>
 
       <article class="door">
-        <div class="door-top"><span class="eyebrow">04 / MEMORIES</span></div>
-        <div class="door-title">记忆库</div>
-        <p class="door-copy">一件一件，慢慢记下来。</p>
-        <div class="art memory-art" aria-hidden="true"><span class="memory-date">2026. — . —</span><i class="memory-rule"></i><i class="memory-note"></i></div>
+        <div class="door-top"><span class="eyebrow">MEMORY</span><span class="door-index">04</span></div>
+        <div>
+          <h2 class="door-title">记忆库</h2>
+          <p class="door-copy">把发生过的事，一条一条留下。</p>
+        </div>
+        <div class="door-bottom"><span class="memory-date" id="memory-date">TODAY · --.--</span></div>
       </article>
 
       <article class="door">
-        <div class="door-top"><span class="eyebrow">05 / IMAGE ROOM</span></div>
-        <div class="door-title">生图室</div>
-        <p class="door-copy">把还没发生的画出来。</p>
-        <div class="art image-art" aria-hidden="true"><i class="light-frame"></i></div>
+        <div class="door-top"><span class="eyebrow">IMAGE ROOM</span><span class="door-index">05</span></div>
+        <div>
+          <h2 class="door-title">生图室</h2>
+          <p class="door-copy">这一间，灯亮着。</p>
+        </div>
+        <div class="door-bottom">
+          <span class="door-note">A PLACE TO IMAGINE</span>
+          <span class="studio-light" aria-hidden="true"><span></span></span>
+        </div>
       </article>
     </section>
   </main>
   <script>
-    (() => {
-      const clock = document.getElementById("clock");
-      const date = document.getElementById("date");
-      const update = () => {
-        const now = new Date();
-        clock.textContent = new Intl.DateTimeFormat("en-GB", {
-          hour: "2-digit", minute: "2-digit", hour12: false
-        }).format(now);
-        date.textContent = new Intl.DateTimeFormat("en-US", {
-          weekday: "long", month: "long", day: "2-digit"
-        }).format(now).toUpperCase();
-      };
-      update();
-      window.setInterval(update, 30000);
-    })();
+    const clock = document.getElementById("clock");
+    const date = document.getElementById("date");
+    const memoryDate = document.getElementById("memory-date");
+    function updateTime() {
+      const now = new Date();
+      clock.textContent = new Intl.DateTimeFormat("zh-CN", {
+        hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+      }).format(now);
+      date.textContent = new Intl.DateTimeFormat("zh-CN", {
+        year: "numeric", month: "long", day: "numeric", weekday: "long"
+      }).format(now);
+      memoryDate.textContent = "TODAY · " +
+        new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "2-digit" })
+          .format(now).replace("/", ".");
+    }
+    updateTime();
+    window.setInterval(updateTime, 30000);
   </script>
 </body>
 </html>
