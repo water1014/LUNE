@@ -196,6 +196,48 @@ body{
 @media(max-width:390px){.couple .heart{height:42px}}
 @media(prefers-reduced-motion:reduce){.couple .heart path{animation:none;stroke-dashoffset:0}}
 
+
+/* HYBRID 2.5D HOME WORLD */
+.world-intro{display:flex;align-items:end;justify-content:space-between;margin:18px 0 9px;padding:0 2px}
+.world-intro strong{font:17px var(--serif);font-weight:400;letter-spacing:.05em}
+.world-intro span{font-size:8px;color:var(--muted);letter-spacing:.16em}
+.world-scene{--tilt-x:0deg;--tilt-y:0deg;position:relative;height:286px;overflow:hidden;border:1px solid rgba(255,255,255,.68);border-radius:19px;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.94),transparent 53%),linear-gradient(145deg,#e9dfe0 0%,#d9c9cc 48%,#c8b8bd 100%);box-shadow:0 18px 42px rgba(71,49,59,.15),inset 0 1px 0 rgba(255,255,255,.9);isolation:isolate;perspective:900px;touch-action:pan-y}
+.world-scene:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 20%,rgba(255,255,255,.8) 0 1px,transparent 2px),radial-gradient(circle at 82% 28%,rgba(255,255,255,.7) 0 1px,transparent 2px),linear-gradient(110deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 66%);background-size:73px 67px,91px 83px,100% 100%;opacity:.8;z-index:-1}
+[data-theme=night] .world-scene{background:radial-gradient(ellipse at 76% 12%,rgba(197,166,185,.32),transparent 34%),linear-gradient(145deg,#35303d,#282733 58%,#1e202b);border-color:rgba(255,255,255,.18);box-shadow:0 18px 42px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.1)}
+.world-glow{position:absolute;width:170px;height:170px;right:9%;top:-70px;border-radius:50%;background:rgba(255,255,255,.48);filter:blur(20px);pointer-events:none}
+.world-window{position:absolute;right:11%;top:23px;width:94px;height:108px;border:5px solid rgba(255,255,255,.74);border-radius:48px 48px 9px 9px;background:linear-gradient(160deg,#b8cbd0,#e6d8d8 62%,#c5b4bc);box-shadow:0 9px 22px rgba(74,57,66,.15),inset 0 0 0 2px rgba(255,255,255,.45);overflow:hidden}
+.world-window:before,.world-window:after{content:"";position:absolute;background:rgba(255,255,255,.66)}.world-window:before{width:2px;top:0;bottom:0;left:50%}.world-window:after{height:2px;left:0;right:0;top:52%}
+.world-moon{position:absolute;width:26px;height:26px;right:16px;top:18px;border-radius:50%;background:#f7f0df;box-shadow:0 0 22px rgba(255,245,220,.7)}
+.world-floor{position:absolute;left:7%;right:7%;bottom:-58px;height:200px;transform:rotateX(57deg) rotateZ(-3deg);transform-origin:center top;border-radius:22px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 1px,transparent 1px 52px),repeating-linear-gradient(0deg,rgba(110,79,87,.09) 0 1px,transparent 1px 43px),linear-gradient(145deg,#e7d9d7,#c8b5b7 75%);box-shadow:0 -8px 28px rgba(83,57,67,.12);z-index:0}
+[data-theme=night] .world-floor{background:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 52px),repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 1px,transparent 1px 43px),linear-gradient(145deg,#5c4d5a,#393743 75%)}
+.world-stage{position:absolute;inset:0;transform:rotateX(var(--tilt-x)) rotateY(var(--tilt-y));transform-style:preserve-3d;transition:transform .25s ease-out}
+.world-rug{position:absolute;width:53%;height:92px;left:23%;bottom:42px;border-radius:50%;transform:rotate(-8deg) skewX(-12deg);background:linear-gradient(145deg,rgba(255,255,255,.65),rgba(183,145,151,.44));box-shadow:0 14px 19px rgba(81,54,64,.15);z-index:1}
+.world-sofa{position:absolute;left:17%;bottom:82px;width:42%;height:69px;border-radius:17px 17px 12px 12px;background:linear-gradient(145deg,#f7eeee,#c5aeb5);box-shadow:0 13px 0 #a98e98,0 22px 22px rgba(62,43,53,.22);transform:rotateX(8deg) rotateZ(-5deg);z-index:3}
+.world-sofa:before{content:"";position:absolute;left:8%;right:8%;top:12px;height:43px;border-radius:12px;background:linear-gradient(135deg,#e8d9dc,#bda5ad);box-shadow:inset 0 3px 7px rgba(255,255,255,.65)}
+.world-sofa:after{content:"";position:absolute;left:45%;top:15px;width:2px;height:38px;background:rgba(130,99,111,.18)}
+.world-cushion{position:absolute;z-index:4;left:27%;bottom:112px;width:36px;height:29px;border-radius:9px;background:linear-gradient(145deg,#f7e9e8,#c99ea5);transform:rotate(-13deg);box-shadow:0 4px 7px rgba(79,54,64,.17)}
+.world-table{position:absolute;right:19%;bottom:66px;width:72px;height:42px;border-radius:50%;background:linear-gradient(145deg,#f8eeee,#c9aeb4);box-shadow:0 8px 0 #9d838d,0 17px 17px rgba(60,42,52,.22);z-index:5}
+.world-table:before{content:"";position:absolute;left:10px;right:10px;top:8px;height:23px;border-radius:50%;background:linear-gradient(145deg,#e5d2d3,#b99ba5)}
+.world-book{position:absolute;right:35%;bottom:91px;width:31px;height:7px;border-radius:2px;background:#8e6873;transform:rotate(-9deg);z-index:6;box-shadow:0 3px 0 #d4b9bb}
+.world-lamp{position:absolute;right:14%;bottom:109px;width:35px;height:58px;z-index:6}
+.world-lamp:before{content:"";position:absolute;left:8px;top:0;width:22px;height:19px;border-radius:14px 14px 5px 5px;background:linear-gradient(145deg,#fff8e7,#c6a8a4);box-shadow:0 0 22px rgba(255,226,188,.7)}
+.world-lamp:after{content:"";position:absolute;left:17px;top:18px;width:3px;height:36px;background:#a78b8c;box-shadow:0 35px 0 8px #a78b8c}
+.world-plant{position:absolute;left:8%;bottom:83px;width:46px;height:83px;z-index:4}
+.world-plant:before{content:"";position:absolute;bottom:0;left:8px;width:31px;height:28px;border-radius:4px 4px 12px 12px;background:linear-gradient(90deg,#a78c91,#e2c9c8);box-shadow:0 8px 12px rgba(58,41,48,.18)}
+.world-plant:after{content:"";position:absolute;left:19px;bottom:22px;width:3px;height:55px;background:#718078;transform:rotate(8deg);box-shadow:-13px 12px 0 -0.5px #718078,12px 8px 0 -0.5px #718078}
+.world-leaf{position:absolute;width:18px;height:29px;border-radius:100% 0 100% 0;background:linear-gradient(145deg,#aab9a5,#667d70);z-index:5}
+.world-leaf.l1{left:4px;top:8px;transform:rotate(-32deg)}.world-leaf.l2{left:23px;top:0;transform:rotate(28deg)}.world-leaf.l3{left:0;top:30px;transform:rotate(-55deg)}.world-leaf.l4{left:26px;top:28px;transform:rotate(50deg)}
+.world-frame{position:absolute;left:18%;top:33px;width:68px;height:55px;padding:5px;border:4px solid rgba(255,255,255,.85);background:#c7aeb1;transform:rotate(-5deg);box-shadow:0 8px 14px rgba(65,46,56,.17);z-index:2}
+.world-frame:after{content:"";display:block;width:100%;height:100%;background:radial-gradient(circle at 68% 35%,#f7e8dc 0 8px,transparent 9px),linear-gradient(145deg,#b9c4b7 0 45%,#d8b9b8 46% 100%)}
+.world-hotspot{position:absolute;z-index:8;display:flex;align-items:center;gap:6px;padding:7px 10px;border:1px solid rgba(255,255,255,.82);border-radius:30px;background:rgba(255,255,255,.67);color:#62545a;font-size:9px;letter-spacing:.05em;box-shadow:0 5px 16px rgba(65,46,56,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;transition:transform .2s,background .2s}
+.world-hotspot:active{transform:translateY(2px) scale(.97)}.world-hotspot i{width:6px;height:6px;border-radius:50%;background:#a46d7a;box-shadow:0 0 0 3px rgba(164,109,122,.13)}
+.world-hotspot.bedroom{left:7%;top:12px}.world-hotspot.album{left:7%;bottom:18px}.world-hotspot.memory{right:6%;top:147px}.world-hotspot.garden{right:7%;bottom:18px}
+.world-caption{position:absolute;left:15px;bottom:15px;z-index:7;color:rgba(79,62,69,.68);font:italic 10px var(--serif);letter-spacing:.09em;pointer-events:none}
+[data-theme=night] .world-hotspot{background:rgba(45,41,52,.78);border-color:rgba(255,255,255,.18);color:#eee5e8}.world-caption{color:rgba(79,62,69,.68)}[data-theme=night] .world-caption{color:rgba(244,226,234,.58)}
+.world-hint{display:flex;justify-content:space-between;padding:8px 3px 0;color:var(--muted);font-size:7px;letter-spacing:.1em}
+@media(max-width:390px){.world-scene{height:260px;border-radius:16px}.world-window{right:9%;width:78px;height:96px}.world-sofa{left:16%;width:46%;bottom:76px;height:63px}.world-rug{bottom:35px}.world-table{right:16%;bottom:59px;width:64px}.world-lamp{right:10%;bottom:98px}.world-plant{left:6%;bottom:76px}.world-frame{left:17%;top:29px;width:58px;height:48px}.world-hotspot{font-size:8px;padding:6px 8px}.world-hotspot.bedroom{left:5%;top:10px}.world-hotspot.memory{right:4%;top:133px}.world-hotspot.album{left:5%;bottom:13px}.world-hotspot.garden{right:4%;bottom:13px}}
+@media(prefers-reduced-motion:reduce){.world-stage{transition:none}}
+
 </style>
 </head>
 <body>
@@ -203,6 +245,18 @@ body{
 <main class="shell" id="home">
 
 <section class="intro"><div><div class="eyebrow">A QUIET PLACE FOR US</div><h1>把日子，慢慢收藏。</h1></div><div class="clock"><strong id="clock">--:--</strong><span id="date"></span></div></section>
+
+<div class="world-intro"><strong>回到我们的小屋</strong><span>OUR LITTLE WORLD · 01</span></div>
+<section class="world-scene" id="world-scene" aria-label="可探索的立体小屋">
+ <div class="world-glow"></div><div class="world-window"><div class="world-moon"></div></div>
+ <div class="world-stage" id="world-stage"><div class="world-floor"></div><div class="world-rug"></div><div class="world-frame"></div><div class="world-sofa"></div><div class="world-cushion"></div><div class="world-table"></div><div class="world-book"></div><div class="world-lamp"></div><div class="world-plant"><i class="world-leaf l1"></i><i class="world-leaf l2"></i><i class="world-leaf l3"></i><i class="world-leaf l4"></i></div></div>
+ <button class="world-hotspot bedroom" data-world-room="chat"><i></i>坐一会儿</button>
+ <button class="world-hotspot album" data-world-room="album"><i></i>照片墙</button>
+ <button class="world-hotspot memory" data-world-room="memory"><i></i>记忆抽屉</button>
+ <button class="world-hotspot garden" data-world-room="calendar"><i></i>小花园</button>
+ <div class="world-caption">a home made of little moments</div>
+</section><div class="world-hint"><span>轻轻移动，看看光影</span><span>点击空间里的物件进入房间 ↗</span></div>
+
 <section class="home" aria-label="我们的生活首页">
 <div class="surface couple"><div class="person"><div class="avatar" id="avatar-me">我</div><div class="person-name" id="name-me">我</div></div><div class="pair-center"><svg class="heart" viewBox="0 0 120 58" aria-hidden="true"><path class="heart-outline" pathLength="1" d="M60 48 C52 41 23 25 23 15 C23 5 36 2 44 9 C51 15 56 21 60 26 C64 21 69 15 76 9 C84 2 97 5 97 15 C97 25 68 42 60 48 Z"/><path class="heart-weave" pathLength="1" d="M37 20 C43 27 49 35 56 31 C63 27 66 16 74 18 C83 20 82 31 74 34 C67 37 62 29 60 26 C57 22 53 17 47 18 C42 19 40 23 43 27 C47 33 54 35 60 30"/></svg><div class="days">相伴 <b id="days">—</b> 天</div></div><div class="person"><div class="avatar" id="avatar-partner">L</div><div class="person-name" id="name-partner">家机</div></div></div>
 <button class="surface memory" data-room="memory"><span class="memory-mark">✧</span><span class="memory-copy"><strong id="home-memory-title">故事还没有写下</strong><small id="home-memory-date">最近的一段记忆</small></span><span class="arrow">↗</span></button>
@@ -247,6 +301,10 @@ $("photo-viewer-close").addEventListener("click",closePhoto);
 $("photo-viewer").addEventListener("click",e=>{if(e.target.id==="photo-viewer")closePhoto()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhoto()});
 function home(){ $("room").classList.remove("active");$("home").style.display="block";document.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom==="home"?"page":"false"));window.scrollTo(0,0)}
+
+document.querySelectorAll("[data-world-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.worldRoom)));
+const worldScene=$("world-scene"),worldStage=$("world-stage");
+if(worldScene&&worldStage){worldScene.addEventListener("pointermove",e=>{const r=worldScene.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;worldStage.style.setProperty("--tilt-y",(x*3.2)+"deg");worldStage.style.setProperty("--tilt-x",(-y*2.2)+"deg")});worldScene.addEventListener("pointerleave",()=>{worldStage.style.setProperty("--tilt-x","0deg");worldStage.style.setProperty("--tilt-y","0deg")})}
 document.querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.room)));document.querySelectorAll("[data-nav-room]").forEach(b=>b.addEventListener("click",()=>b.dataset.navRoom==="home"?home():showRoom(b.dataset.navRoom)));$("back").addEventListener("click",home);
 $("backup").addEventListener("click",()=>{const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),config:{togetherSince:cfg.togetherSince||""},memories:cache.memories,gallery:cache.gallery,nowPlaying:cache.music},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="LUNE-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url)});
 if(cfg.userName||cfg.userAvatar)setPerson("name-me","avatar-me",cfg.userName,cfg.userAvatar,"我");if(cfg.companionName||cfg.companionAvatar)setPerson("name-partner","avatar-partner",cfg.companionName,cfg.companionAvatar,"L");
