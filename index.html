@@ -350,6 +350,81 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
 .room-nav{grid-template-columns:repeat(6,minmax(0,1fr))}
 @media(max-width:600px){.lune-home{gap:7px}.lune-home .couple-board{min-height:72px;padding:5px 7px}.lune-home .people-pair{grid-template-columns:54px minmax(72px,1fr) 54px;gap:4px}.lune-home .person-avatar{width:46px;height:46px}.thread-heart{height:32px;width:min(100%,105px)}.couple-days{font-size:7px}.lune-home .memory-board{min-height:39px;padding:5px 9px}.lune-home .photo-board{padding:8px 9px 6px}.photo-slide{flex-basis:38%;min-width:94px}.photo-rail{gap:7px;padding:6px 1px 4px}.lower-pair,.bottom-pair{gap:7px}.lune-home .calendar-board,.lune-home .music-board{padding:7px 8px}.lune-home .calendar-month-line{margin:4px 0 3px}.lune-home .calendar-month-line strong{font-size:14px}.lune-home .calendar-day,.lune-home .calendar-blank{min-height:13px}.lune-home .music-board{grid-template-columns:45px 1fr;gap:2px 6px}.lune-home .music-disc{width:42px;height:42px}.lune-home .music-copy strong{font-size:9px}.lune-home .music-copy span{font-size:6px}.lune-home .note-board,.lune-home .capture-board{min-height:43px;padding:5px 7px;grid-template-columns:17px 1fr}.note-symbol,.capture-symbol{font-size:17px}.lune-home .note-copy,.capture-board>span:nth-child(2){font-size:10px}.room-nav{grid-template-columns:repeat(6,minmax(0,1fr));left:7px;right:7px;bottom:calc(6px + env(safe-area-inset-bottom));padding:5px 2px;gap:0}.room-tab{min-height:44px;gap:2px}.room-tab-mark,.room-tab-mark svg{width:19px;height:19px}.room-tab-label{font-size:7px;letter-spacing:0}.shell{padding-bottom:76px}}
 @media(max-width:360px){.photo-slide{flex-basis:43%}.room-tab-label{font-size:6.5px}}
+
+/* Final LUNE home refinements: follow the approved editorial sketch */
+.brand-sub{letter-spacing:.19em}
+.home-intro{padding:24px 0 18px;align-items:end}
+.home-intro h1{font-size:clamp(23px,3vw,30px);font-weight:400;letter-spacing:.08em}
+.home-kicker{font-size:8px;letter-spacing:.2em}
+.lune-home{gap:9px}
+.lune-home .couple-board{min-height:94px}
+.lune-home .people-pair{max-width:430px;grid-template-columns:72px minmax(100px,1fr) 72px}
+.lune-home .person-avatar{width:58px;height:58px}
+.thread-heart{width:min(100%,132px);height:42px}
+.lune-home .memory-board{min-height:48px;padding:9px 14px}
+.memory-mini-mark{font-size:19px}
+.memory-mini-copy strong{font-size:13px}
+.lune-home .photo-board{padding:12px 13px 9px}
+.photo-rail{gap:10px;padding:10px 1px 7px}
+.photo-slide{flex-basis:29%;min-width:112px;aspect-ratio:1.18/1;border-radius:7px}
+.photo-slide i{font-size:10px}
+.photo-rail-hint{font-size:8px}
+.lower-pair,.bottom-pair{gap:9px}
+.lune-home .calendar-board,.lune-home .music-board{min-height:124px}
+.lune-home .calendar-board{padding:11px 12px}
+.lune-home .calendar-month-line strong{font-size:18px}
+.lune-home .calendar-week span{font-size:8px}
+.lune-home .calendar-day,.lune-home .calendar-blank{font-size:8px;min-height:17px}
+.lune-home .music-board{grid-template-columns:62px minmax(0,1fr);padding:11px 13px}
+.lune-home .music-disc{width:55px;height:55px}
+.lune-home .music-copy strong{font-size:12px}
+.lune-home .music-copy span{font-size:8px}
+.music-open{font-size:8px}
+.lune-home .note-board,.lune-home .capture-board{min-height:54px;padding:8px 12px}
+.lune-home .note-copy,.capture-board>span:nth-child(2){font-size:12px}
+.lune-home .note-board small,.lune-home .capture-board small{font-size:8px}
+.room-nav{width:min(560px,calc(100% - 32px));grid-template-columns:repeat(6,minmax(0,1fr))}
+@media(max-width:600px){
+ .home-intro{padding:14px 0 13px}
+ .home-intro h1{font-size:21px;letter-spacing:.06em}
+ .home-kicker{font-size:6.5px}
+ .home-clock strong{font-size:20px}
+ .lune-home{gap:7px}
+ .lune-home .couple-board{min-height:78px;padding:6px 8px}
+ .lune-home .people-pair{grid-template-columns:58px minmax(78px,1fr) 58px;gap:4px}
+ .lune-home .person-avatar{width:48px;height:48px}
+ .thread-heart{height:34px;width:min(100%,112px)}
+ .couple-days{font-size:7px}
+ .lune-home .memory-board{min-height:43px;padding:6px 10px}
+ .memory-mini-copy strong{font-size:11px}
+ .lune-home .photo-board{padding:9px 10px 7px}
+ .photo-slide{flex-basis:39%;min-width:102px;aspect-ratio:1.2/1}
+ .photo-rail{gap:7px;padding:7px 1px 5px}
+ .photo-slide i{font-size:8px}
+ .lower-pair,.bottom-pair{gap:7px}
+ .lune-home .calendar-board,.lune-home .music-board{min-height:112px;padding:8px 9px}
+ .lune-home .calendar-month-line strong{font-size:15px}
+ .lune-home .calendar-week span{font-size:7px}
+ .lune-home .calendar-day,.lune-home .calendar-blank{font-size:7px;min-height:14px}
+ .lune-home .music-board{grid-template-columns:46px minmax(0,1fr);gap:2px 7px}
+ .lune-home .music-disc{width:42px;height:42px}
+ .lune-home .music-copy strong{font-size:10px}
+ .lune-home .music-copy span{font-size:7px}
+ .music-open{font-size:7px}
+ .lune-home .note-board,.lune-home .capture-board{min-height:46px;padding:6px 8px;grid-template-columns:17px minmax(0,1fr)}
+ .lune-home .note-copy,.capture-board>span:nth-child(2){font-size:10px}
+ .lune-home .note-board small,.lune-home .capture-board small{font-size:7px}
+ .room-nav{width:calc(100% - 14px);left:7px;right:7px;bottom:calc(6px + env(safe-area-inset-bottom));padding:5px 2px;gap:0}
+ .room-tab{min-height:44px;gap:2px}
+ .room-tab-mark,.room-tab-mark svg{width:19px;height:19px}
+ .room-tab-label{font-size:7px;letter-spacing:0}
+ .shell{padding-bottom:76px}
+}
+@media(max-width:360px){
+ .photo-slide{flex-basis:43%;min-width:94px}
+ .room-tab-label{font-size:6.5px}
+}
+
 </style>
 </head>
 <body>
@@ -364,10 +439,10 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
 </div>
 <main class="shell" id="home">
   <header class="masthead">
-    <div class="brand"><span class="brand-name">LUNE</span><span class="brand-sub">A little home for two</span></div>
+    <div class="brand"><span class="brand-name">LUNE</span><span class="brand-sub">A PLACE FOR TWO</span></div>
     <div class="mast-actions"><div class="mast-meta">PRIVATE SPACE · EST. <span id="year">----</span></div><button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换日间与夜间主题"><span class="theme-symbol" id="theme-symbol">☼</span><span id="theme-label">日间</span></button></div>
   </header>
-  <section class="home-intro" aria-label="当前时间"><div class="home-clock"><strong id="clock">--:--</strong><span id="date">----</span></div></section>
+  <section class="home-intro" aria-label="当前时间"><div><span class="home-kicker">A QUIET PLACE FOR US</span><h1>把日子，慢慢收藏。</h1></div><div class="home-clock"><strong id="clock">--:--</strong><span id="date">----</span></div></section>
   <section class="ocean-board lune-home" aria-label="我们的生活首页">
 <article class="board-card couple-board"><div class="people-pair" id="people-pair"><div class="person"><div class="person-avatar">我</div><div class="person-name">我</div></div><div class="pair-center"><svg class="thread-heart" viewBox="0 0 100 58" aria-hidden="true"><path class="thread-path" d="M5 29 C22 29 22 9 38 14 C49 18 49 39 61 29 C73 18 77 9 88 18 C101 29 85 48 68 47 C55 46 51 33 50 29 C46 16 35 9 25 17 C14 26 25 42 39 39"/></svg><span class="couple-days">相伴 <b id="days">—</b> 天</span></div><div class="person"><div class="person-avatar">L</div><div class="person-name">家机</div></div></div></article>
 <button class="board-card memory-board" data-room="memory"><span class="memory-mini-mark">✧</span><span class="memory-mini-copy"><strong id="home-memory-title">故事还没有写下</strong><small id="home-memory-date">最近的一段记忆</small></span><span class="memory-mini-arrow">↗</span></button>
@@ -430,8 +505,7 @@ function tick(){
   const start=new Date(cfg.togetherSince+"T00:00:00");
   const days=Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-start)/86400000)+1;
   $("days").textContent=Number.isFinite(days)&&days>0?days:"—";
-  $("together-date").textContent="从 "+cfg.togetherSince+" 开始";
- }else{$("days").textContent="—";$("together-date").textContent="纪念日 · 等待设置"}
+ }else{$("days").textContent="—"}
 }
 tick();setInterval(tick,30000);
 async function readJSON(path,fallback){try{const r=await fetch(path,{cache:"no-store"});if(!r.ok)throw Error("load");return await r.json()}catch(e){return fallback}}
@@ -459,7 +533,7 @@ function renderCalendar(now){
  $("calendar-progress").textContent=Math.round(today/count*100)+"%";
  let cells="";
  for(let i=0;i<first;i++)cells+='<span class="calendar-blank"></span>';
- for(let day=1;day<=count;day++)cells+='<button type="button" class="calendar-day '+(day===today?"today":"")+' '+(day>today?"future":"")+'" aria-label="'+(month+1)+"月"+day+"日"+'">'+day+'</button>';
+ for(let day=1;day<=count;day++)cells+='<span class="calendar-day '+(day===today?"today":"")+' '+(day>today?"future":"")+'" aria-label="'+(month+1)+"月"+day+"日"+'">'+day+'</span>';
  $("calendar-days").innerHTML=cells;
 }
 function renderOverview(){
