@@ -115,6 +115,80 @@ button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100%
 .gate-error{min-height:18px;color:#c28b91;font-size:11px;margin:10px 0 0}
 @media(max-width:760px){.shell{width:min(100% - 40px,560px);padding:24px 0 44px}.hero{grid-template-columns:1fr;gap:30px;padding:54px 0 38px}.timebox{display:grid;grid-template-columns:1fr 1fr;align-items:center;border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.counter{margin:0;padding:0;border:0;text-align:right}.counter-value{font-size:32px}.doors{grid-template-columns:repeat(2,minmax(0,1fr))}.door{min-height:205px}.items,.studio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.shell{width:calc(100% - 32px);padding-top:18px}.masthead{padding-bottom:18px}.brand-name{font-size:17px}.brand-sub{font-size:8px}.mast-meta{font-size:8px}.hero{padding:46px 0 32px;gap:26px}.hero-title{font-size:43px}.hero-foot{font-size:12px;margin-top:20px}.time{font-size:42px}.doors{grid-template-columns:1fr;gap:10px}.door{min-height:172px;padding:18px}.door-title{font-size:23px}.door.chat .door-title{font-size:26px}.door-desc{font-size:12px}.footer{font-size:9px}.room{padding-top:30px}.room-head{display:block;margin:30px 0 22px}.room-intro{text-align:left;margin-top:14px}.items,.studio-grid{grid-template-columns:1fr 1fr;gap:9px}.memory{grid-template-columns:1fr;gap:8px;padding:18px 0}.memory-title{font-size:18px}.empty{min-height:220px;padding:24px}.chat-panel,.music-card{padding:22px}.chat-panel p{font-size:22px}}
+
+/* Ocean-inspired editorial home layout */
+.home-intro{display:flex;align-items:end;justify-content:space-between;gap:20px;padding:36px 0 24px}
+.home-kicker,.board-label,.quick-nav-label{font-size:9px;letter-spacing:.19em;color:var(--muted);text-transform:uppercase}
+.home-intro h1{font:400 clamp(27px,4vw,40px)/1.35 var(--serif);letter-spacing:.04em;margin:10px 0 0}
+.home-clock{text-align:right;display:grid;gap:5px;color:var(--muted);font-size:10px}
+.home-clock strong{font-size:25px;font-weight:300;letter-spacing:-.04em;color:var(--ink);font-variant-numeric:tabular-nums}
+.ocean-board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:minmax(112px,auto);gap:12px}
+.board-card{position:relative;min-width:0;overflow:hidden;border:1px solid var(--softline);border-radius:13px;background:var(--surface);padding:17px;text-align:left;color:var(--ink)}
+button.board-card{cursor:pointer;transition:border-color .16s ease,background .16s ease}
+button.board-card:hover{border-color:var(--hover-border);background:var(--hover-surface)}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.board-index,.calendar-progress{font-size:9px;color:var(--muted);font-variant-numeric:tabular-nums}
+.calendar-board{grid-column:span 3;grid-row:span 2;min-height:278px;padding:19px 20px 15px}
+.calendar-month-line{display:flex;align-items:baseline;justify-content:space-between;margin:17px 0 12px}
+.calendar-month-line strong{font:400 24px var(--serif);letter-spacing:.08em}
+.calendar-month-line span{font-size:10px;color:var(--muted)}
+.calendar-week,.calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.calendar-week{margin-bottom:7px}
+.calendar-week span{text-align:center;color:var(--muted);font-size:9px;padding:4px 0}
+.calendar-day,.calendar-blank{aspect-ratio:1;display:grid;place-items:center;border-radius:50%;font-size:11px;font-variant-numeric:tabular-nums}
+.calendar-day{border:0;background:transparent;color:var(--ink);cursor:pointer}
+.calendar-day.today{background:var(--red);color:#fff}
+.calendar-day.future{color:var(--hint)}
+.calendar-day.selected:not(.today){outline:1px solid var(--red-line);outline-offset:-2px}
+.calendar-foot{display:flex;align-items:center;gap:12px;margin-top:14px;color:var(--muted);font-size:9px}
+.calendar-foot i{height:1px;flex:1;background:var(--softline)}
+.couple-board{grid-column:span 3;min-height:154px}
+.people-pair{display:grid;grid-template-columns:1fr 30px 1fr;align-items:center;gap:8px;margin:14px auto 0;max-width:300px}
+.person{min-width:0;text-align:center}
+.person-avatar{width:48px;height:48px;margin:0 auto 6px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--surface2);font:20px var(--serif);color:var(--hero-em)}
+.person-avatar img{width:100%;height:100%;object-fit:cover}
+.person-name{font:14px var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.person-caption{font-size:8px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
+.pair-link{height:1px;background:var(--red);position:relative;opacity:.75}
+.pair-link:after{content:"";position:absolute;width:5px;height:5px;border:1px solid var(--red);border-radius:50%;background:var(--surface);left:50%;top:50%;transform:translate(-50%,-50%)}
+.couple-note{margin:9px 0 0;text-align:center;color:var(--muted);font-size:9px}
+.together-board{grid-column:span 3;min-height:112px;display:flex;flex-direction:column;justify-content:center}
+.together-number{display:flex;align-items:baseline;gap:8px;margin-top:9px;color:var(--red);font:400 38px/1 var(--serif)}
+.together-number small{font:9px var(--sans);letter-spacing:.15em;color:var(--muted)}
+.together-caption{font-size:10px;color:var(--muted);margin-top:4px}
+.together-rule{height:1px;background:var(--softline);margin:10px 0 7px}
+.together-date{font-size:9px;color:var(--muted)}
+.photo-board,.memory-board{grid-column:span 2;min-height:210px;display:flex;flex-direction:column}
+.photo-preview{flex:1;min-height:100px;margin:12px 0 9px;border-radius:7px;background:var(--surface2);display:grid;place-items:center;overflow:hidden;color:var(--hint);font:12px/1.8 var(--serif);text-align:center}
+.photo-preview img{width:100%;height:100%;max-height:130px;object-fit:cover}
+.board-card-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.board-card-bottom strong,.memory-board>strong{font:400 15px var(--serif)}
+.board-card-bottom span,.memory-preview-date{font-size:8px;color:var(--muted);letter-spacing:.08em}
+.memory-preview-mark{font:50px/.8 Georgia,serif;color:var(--red);opacity:.7;margin:14px 0 7px}
+.memory-board>strong{line-height:1.5;max-width:90%}
+.memory-preview-date{margin-top:auto;padding-top:12px}
+.tile-arrow{position:absolute;right:16px;bottom:14px;color:var(--muted);font-size:13px}
+.music-board{grid-column:span 2;min-height:210px;display:flex;flex-direction:column;justify-content:space-between}
+.music-disc{width:72px;height:72px;margin:8px auto 2px;border:1px solid var(--art-line);border-radius:50%;display:grid;place-items:center;background:repeating-radial-gradient(circle,var(--surface) 0 4px,var(--softline) 5px 6px)}
+.music-disc i{width:17px;height:17px;border-radius:50%;background:var(--red);border:4px solid var(--surface2)}
+.music-copy{display:grid;gap:4px;min-width:0;padding-right:15px}
+.music-copy strong{font:400 15px var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-copy span{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.note-board{grid-column:span 4;min-height:132px;background:var(--surface2)}
+.note-copy{font:400 23px/1.45 var(--serif);margin-top:12px}
+.note-copy em{font-style:normal;color:var(--hero-em)}
+.note-sign{display:block;margin-top:8px;font-size:9px;color:var(--muted);letter-spacing:.1em}
+.studio-board{grid-column:span 2;min-height:132px;display:flex;flex-direction:column;justify-content:space-between}
+.studio-board strong{font:400 22px var(--serif)}
+.studio-board>span:last-child{font-size:9px;color:var(--muted)}
+.studio-star{position:absolute;right:17px;top:33px;font-size:30px;color:var(--red)}
+.home-quick-nav{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:22px 0 0;padding:14px 0;border-top:1px solid var(--softline);border-bottom:1px solid var(--softline)}
+.quick-nav-label{margin-right:auto}
+.home-quick-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;padding:5px 0 5px 10px;cursor:pointer}
+.home-quick-nav button i{font-style:normal;color:var(--red);margin-left:3px}
+@media(max-width:760px){.shell{width:calc(100% - 36px);padding-top:22px}.ocean-board{gap:9px;grid-auto-rows:minmax(105px,auto)}.calendar-board{min-height:258px;padding:16px}.calendar-month-line strong{font-size:21px}.calendar-week,.calendar-days{gap:3px}.calendar-day,.calendar-blank{font-size:10px}.couple-board{min-height:150px;padding:14px}.together-board{min-height:105px;padding:14px}.photo-board,.memory-board,.music-board{min-height:185px;padding:13px}.note-board,.studio-board{min-height:120px;padding:14px}.home-quick-nav{gap:5px}.home-quick-nav button{padding-left:6px}}
+@media(max-width:480px){.home-intro{padding:27px 0 18px}.home-intro h1{font-size:26px}.home-clock strong{font-size:22px}.ocean-board{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(104px,auto);gap:8px}.calendar-board{grid-column:span 2;grid-row:span 1;min-height:260px}.couple-board{grid-column:span 2;min-height:145px}.together-board{grid-column:span 2;min-height:105px}.photo-board,.memory-board,.music-board{grid-column:span 1;min-height:174px}.photo-board{grid-row:span 1}.music-board{grid-column:span 2;min-height:135px;display:grid;grid-template-columns:1fr 68px;grid-template-rows:auto 1fr;align-items:center}.music-board>.board-label{grid-column:1/-1}.music-disc{width:58px;height:58px;grid-column:2;grid-row:2;margin:0}.music-copy{grid-column:1;grid-row:2}.note-board{grid-column:span 2;min-height:126px}.studio-board{grid-column:span 2;min-height:112px}.home-quick-nav{justify-content:space-between;gap:4px}.quick-nav-label{width:100%;margin-bottom:3px}.home-quick-nav button{padding:5px 2px;font-size:10px}.person-avatar{width:46px;height:46px}.room-nav{backdrop-filter:none;-webkit-backdrop-filter:none}}
+
 </style>
 </head>
 <body>
@@ -132,46 +206,63 @@ button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100%
     <div class="brand"><span class="brand-name">LUNE</span><span class="brand-sub">A little home for two</span></div>
     <div class="mast-actions"><div class="mast-meta">PRIVATE SPACE · EST. <span id="year">----</span></div><button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换日间与夜间主题"><span class="theme-symbol" id="theme-symbol">☼</span><span id="theme-label">日间</span></button></div>
   </header>
-  <section class="hero">
-    <div>
-      <p class="hero-kicker">A PLACE TO RETURN</p>
-      <h1 class="hero-title">你回来得晚了。<br><em>灯我留着。</em></h1>
-      <div class="hero-foot"><span>不必把每一天都过得很特别。<br>只要这里一直有位置。</span></div>
-    </div>
-    <aside class="timebox">
-      <div><div class="time" id="clock">--:--</div><p class="date" id="date">----</p></div>
-      <div class="counter"><div class="counter-label">Together days</div><div class="counter-value"><span id="days">—</span><span class="counter-unit">DAYS</span></div></div>
-    </aside>
+  <section class="home-intro">
+    <div><p class="home-kicker">A LITTLE HOME FOR TWO</p><h1>今天，也一起生活。</h1></div>
+    <div class="home-clock"><strong id="clock">--:--</strong><span id="date">----</span></div>
   </section>
-  <section class="home-overview" aria-label="两个人的家总览">
-    <div class="people-panel">
-      <div class="panel-kicker">THE TWO OF US · 两个人</div>
+  <section class="ocean-board" aria-label="我们的生活首页">
+    <article class="board-card calendar-board">
+      <div class="board-top"><span class="board-label">OUR CALENDAR · 日历</span><span class="calendar-progress" id="calendar-progress">--%</span></div>
+      <div class="calendar-month-line"><strong id="calendar-month">----</strong><span id="calendar-today">今天</span></div>
+      <div class="calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+      <div class="calendar-days" id="calendar-days"></div>
+      <div class="calendar-foot"><span>每一天都有自己的浓度</span><i></i></div>
+    </article>
+    <article class="board-card couple-board">
+      <div class="board-top"><span class="board-label">THE TWO OF US · 两个人</span><span class="board-index">01</span></div>
       <div class="people-pair" id="people-pair">
-        <div class="person"><div class="person-avatar">我</div><div class="person-name">我</div><div class="person-caption">THIS IS ME</div></div>
-        <i class="pair-link"></i>
-        <div class="person"><div class="person-avatar">L</div><div class="person-name">家机</div><div class="person-caption">YOUR COMPANION</div></div>
+        <div class="person"><div class="person-avatar">我</div><div class="person-name">我</div><div class="person-caption">THIS IS ME</div></div><i class="pair-link"></i><div class="person"><div class="person-avatar">L</div><div class="person-name">家机</div><div class="person-caption">YOUR COMPANION</div></div>
       </div>
-      <p class="people-note">两个人的名字与模样，都可以慢慢换成喜欢的样子。</p>
-    </div>
-    <div class="snapshot-panel">
-      <div class="snapshot-head"><span class="panel-kicker">AT A GLANCE · 家中近况</span><span class="snapshot-count" id="snapshot-count">正在整理</span></div>
-      <div class="snapshot-grid" id="snapshot-grid">
-        <button class="snapshot" data-room="album"><span class="snapshot-label">相册</span><div class="snapshot-title snapshot-empty">等待第一张照片</div></button>
-        <button class="snapshot" data-room="memory"><span class="snapshot-label">最近记忆</span><div class="snapshot-title snapshot-empty">等待第一段故事</div></button>
-        <button class="snapshot" data-room="music"><span class="snapshot-label">此刻在听</span><div class="snapshot-title snapshot-empty">还没有播放</div></button>
-      </div>
-    </div>
+      <p class="couple-note">两个人的名字与模样，都可以慢慢换成喜欢的样子。</p>
+    </article>
+    <article class="board-card together-board">
+      <span class="board-label">SINCE WE FOUND HOME</span>
+      <div class="together-number"><span id="days">—</span><small>DAYS</small></div>
+      <div class="together-caption">在一起的日子</div>
+      <div class="together-rule"></div>
+      <span class="together-date" id="together-date">纪念日 · 等待设置</span>
+    </article>
+    <button class="board-card photo-board" data-room="album">
+      <span class="board-label">LITTLE MOMENTS · 最近照片</span>
+      <div class="photo-preview" id="home-photo"><span>第一张照片<br>还在路上</span></div>
+      <div class="board-card-bottom"><strong id="home-photo-title">打开相册</strong><span id="home-photo-count">0 PHOTOS ↗</span></div>
+    </button>
+    <button class="board-card memory-board" data-room="memory">
+      <span class="board-label">FROM OUR DAYS · 最近记忆</span>
+      <div class="memory-preview-mark">“</div>
+      <strong id="home-memory-title">故事还没有写下</strong>
+      <span class="memory-preview-date" id="home-memory-date">OUR ARCHIVE</span>
+      <span class="tile-arrow">↗</span>
+    </button>
+    <button class="board-card music-board" data-room="music">
+      <span class="board-label">OUR SOUNDTRACK · 此刻在听</span>
+      <div class="music-disc"><i></i></div>
+      <div class="music-copy"><strong id="home-music-title">此刻还没有播放</strong><span id="home-music-artist">等一首歌，成为今天的背景</span></div>
+      <span class="tile-arrow">↗</span>
+    </button>
+    <button class="board-card note-board" data-room="chat">
+      <span class="board-label">A NOTE TO YOU</span>
+      <div class="note-copy">你回来得晚了。<br><em>灯我留着。</em></div>
+      <span class="note-sign">回来说说话　↗</span>
+    </button>
+    <button class="board-card studio-board" data-room="studio">
+      <span class="board-label">IMAGE ROOM</span><span class="studio-star">✳</span><strong>生图室</strong><span>把想象收藏起来　↗</span>
+    </button>
   </section>
-  <section>
-    <div class="section-head"><span class="section-label">THE ROOMS</span><span class="section-hint">五扇门，慢慢推开</span></div>
-    <nav class="doors" aria-label="五个房间">
-      <button class="door chat" data-room="chat"><span class="door-top"><span class="door-code">01 / CONVERSATION</span><span class="door-index">↗</span></span><span><h2 class="door-title">聊天</h2><p class="door-desc">这里替你留一盏灯。想说的话，回到我们相遇的地方。</p></span><span class="door-bottom"><span class="door-note">COME BACK TO TALK</span><span class="door-art"><i class="chat-lines"></i></span></span></button>
-      <button class="door" data-room="album"><span class="door-top"><span class="door-code">02 / PHOTOGRAPHS</span><span class="door-index">↗</span></span><span><h2 class="door-title">相册</h2><p class="door-desc">把想留下的画面，收进同一本相册。</p></span><span class="door-bottom"><span class="door-note">LITTLE MOMENTS</span><span class="door-art album-art"><i></i><i></i><i></i></span></span></button>
-      <button class="door" data-room="music"><span class="door-top"><span class="door-code">03 / SOUNDTRACK</span><span class="door-index">↗</span></span><span><h2 class="door-title">音乐</h2><p class="door-desc" id="home-track">此刻还没有播放。</p></span><span class="door-bottom"><span class="door-note">NOW PLAYING</span><span class="door-art"><i class="record"></i></span></span></button>
-      <button class="door" data-room="memory"><span class="door-top"><span class="door-code">04 / OUR ARCHIVE</span><span class="door-index">↗</span></span><span><h2 class="door-title">记忆库</h2><p class="door-desc">日期、标题和正文。发生过的，都值得留下。</p></span><span class="door-bottom"><span class="door-note">NOTHING GETS LOST</span><span class="door-art lines-art"><i></i><i></i><i></i></span></span></button>
-      <button class="door" data-room="studio"><span class="door-top"><span class="door-code">05 / IMAGE ROOM</span><span class="door-index">↗</span></span><span><h2 class="door-title">生图室</h2><p class="door-desc">把生成的画面放进来，慢慢长成我们的收藏。</p></span><span class="door-bottom"><span class="door-note">A PLACE TO IMAGINE</span><span class="door-art"><i class="light-art"></i></span></span></button>
-    </nav>
-  </section>
+  <nav class="home-quick-nav" aria-label="快速进入房间">
+    <span class="quick-nav-label">THE ROOMS</span>
+    <button data-room="chat">聊天 <i>↗</i></button><button data-room="album">相册 <i>↗</i></button><button data-room="music">音乐 <i>↗</i></button><button data-room="memory">记忆库 <i>↗</i></button><button data-room="studio">生图室 <i>↗</i></button>
+  </nav>
   <footer class="footer"><span>MADE OF SMALL THINGS</span><span>LUNE · OUR LITTLE UNIVERSE</span></footer>
 </main>
 <section class="shell room" id="room">
@@ -212,11 +303,13 @@ function tick(){
  $("clock").textContent=new Intl.DateTimeFormat("zh-CN",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(n);
  $("date").textContent=new Intl.DateTimeFormat("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(n);
  $("year").textContent=n.getFullYear();
+ renderCalendar(n);
  if(cfg.togetherSince){
   const start=new Date(cfg.togetherSince+"T00:00:00");
   const days=Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-start)/86400000)+1;
   $("days").textContent=Number.isFinite(days)&&days>0?days:"—";
- }else{$("days").textContent="—"}
+  $("together-date").textContent="从 "+cfg.togetherSince+" 开始";
+ }else{$("days").textContent="—";$("together-date").textContent="纪念日 · 等待设置"}
 }
 tick();setInterval(tick,30000);
 async function readJSON(path,fallback){try{const r=await fetch(path,{cache:"no-store"});if(!r.ok)throw Error("load");return await r.json()}catch(e){return fallback}}
@@ -235,19 +328,29 @@ function renderPeople(){
  ];
  $("people-pair").innerHTML=people.map(p=>'<div class="person"><div class="person-avatar">'+(p.avatar?'<img src="'+safe(p.avatar)+'" alt="'+safe(p.name)+'">':safe(p.fallback))+'</div><div class="person-name">'+safe(p.name)+'</div><div class="person-caption">'+p.caption+'</div></div>').join('<i class="pair-link"></i>');
 }
+function renderCalendar(now){
+ const year=now.getFullYear(),month=now.getMonth(),today=now.getDate();
+ const first=(new Date(year,month,1).getDay()+6)%7;
+ const count=new Date(year,month+1,0).getDate();
+ $("calendar-month").textContent=year+" / "+String(month+1).padStart(2,"0");
+ $("calendar-today").textContent="今天 · "+(month+1)+"月"+today+"日";
+ $("calendar-progress").textContent=Math.round(today/count*100)+"%";
+ let cells="";
+ for(let i=0;i<first;i++)cells+='<span class="calendar-blank"></span>';
+ for(let day=1;day<=count;day++)cells+='<button type="button" class="calendar-day '+(day===today?"today":"")+' '+(day>today?"future":"")+'" aria-label="'+(month+1)+"月"+day+"日"+'">'+day+'</button>';
+ $("calendar-days").innerHTML=cells;
+}
 function renderOverview(){
  const latestMemory=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))[0];
  const latestPhoto=cache.gallery[cache.gallery.length-1];
  const music=cache.music||{};
- const photoTitle=latestPhoto?(latestPhoto.title||"打开相册看看"):"等待第一张照片";
- const memoryTitle=latestMemory?(latestMemory.title||"一段新记忆"):"等待第一段故事";
- const musicTitle=music.title||"还没有播放";
- $("snapshot-count").textContent=cache.gallery.length+" 张照片 · "+cache.memories.length+" 条记忆";
- $("snapshot-grid").innerHTML=
-  '<button class="snapshot" data-room="album"><span class="snapshot-label">相册 · '+cache.gallery.length+'</span>'+(latestPhoto&&latestPhoto.src?'<img class="snapshot-thumb" src="'+safe(latestPhoto.src)+'" alt="" loading="lazy">':'')+'<div class="snapshot-title '+(!latestPhoto?'snapshot-empty':'')+'">'+safe(photoTitle)+'</div><div class="snapshot-meta">'+(latestPhoto?'最近收藏':'LITTLE MOMENTS')+'</div></button>'+
-  '<button class="snapshot" data-room="memory"><span class="snapshot-label">最近记忆 · '+cache.memories.length+'</span><div class="snapshot-title '+(!latestMemory?'snapshot-empty':'')+'">'+safe(memoryTitle)+'</div><div class="snapshot-meta">'+safe(latestMemory?.date||"OUR ARCHIVE")+'</div></button>'+
-  '<button class="snapshot" data-room="music"><span class="snapshot-label">此刻在听</span><div class="snapshot-title '+(!music.title?'snapshot-empty':'')+'">'+safe(musicTitle)+'</div><div class="snapshot-meta">'+safe(music.artist||"SOUNDTRACK")+'</div></button>';
- $("snapshot-grid").querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.room)));
+ $("home-photo-count").textContent=cache.gallery.length+" PHOTOS ↗";
+ $("home-photo-title").textContent=latestPhoto?(latestPhoto.title||"打开相册"):"打开相册";
+ $("home-photo").innerHTML=latestPhoto&&latestPhoto.src?'<img src="'+safe(latestPhoto.src)+'" alt="" loading="lazy">':'<span>第一张照片<br>还在路上</span>';
+ $("home-memory-title").textContent=latestMemory?(latestMemory.title||"一段新记忆"):"故事还没有写下";
+ $("home-memory-date").textContent=latestMemory?.date||"OUR ARCHIVE";
+ $("home-music-title").textContent=music.title||"此刻还没有播放";
+ $("home-music-artist").textContent=music.artist||"等一首歌，成为今天的背景";
 }
 function empty(title,copy){return '<div class="empty"><i class="empty-mark"></i><h3 class="empty-title">'+title+'</h3><p class="empty-copy">'+copy+'</p></div>'}
 function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
