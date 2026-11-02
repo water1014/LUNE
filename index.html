@@ -35,6 +35,37 @@
 .room{display:none}.room.active{display:block}.room-head{display:flex;justify-content:space-between;align-items:end;gap:20px;border-bottom:1px solid var(--line);padding:24px 0 17px;margin-bottom:20px}.room-kicker{font-size:8px;letter-spacing:.2em;color:var(--muted)}.room-title{font:36px var(--serif);font-weight:400;margin:7px 0 0}.room-intro{font-size:10px;color:var(--muted);line-height:1.7;max-width:230px;text-align:right}.back{border:0;background:none;padding:0;color:var(--muted);font-size:9px;letter-spacing:.14em}.empty{min-height:200px;display:grid;place-content:center;text-align:center;padding:24px}.empty strong{font:20px var(--serif);font-weight:400}.empty p{font-size:10px;color:var(--muted);line-height:1.8;max-width:300px}.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.items figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}.items img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}.items figcaption{padding:9px;font-size:9px;color:var(--muted)}.memory-list{border-top:1px solid var(--line)}.memory-entry{display:grid;grid-template-columns:82px 1fr;gap:14px;padding:17px 0;border-bottom:1px solid var(--soft)}.memory-entry time{font-size:9px;color:var(--muted)}.memory-entry h3{font:18px var(--serif);font-weight:400;margin:0 0 7px}.memory-entry p{font-size:11px;line-height:1.8;color:var(--muted);white-space:pre-wrap;margin:0}.room-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px}.room-card h3{font:23px var(--serif);font-weight:400;margin:0 0 8px}.room-card p{font-size:11px;color:var(--muted);line-height:1.8}.backup{margin-top:25px;border:1px solid var(--line);background:transparent;border-radius:30px;padding:10px 14px;color:var(--muted);font-size:9px}
 .gate{display:none;position:fixed;inset:0;z-index:20;background:var(--bg);place-items:center;padding:20px}.gate.show{display:grid}.gate-card{width:min(360px,100%);padding:28px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}.gate-title{font:22px var(--serif);letter-spacing:.2em}.gate p{font-size:11px;color:var(--muted);line-height:1.8}.gate input{width:100%;height:43px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:7px;padding:0 12px}.gate button{width:100%;height:42px;margin-top:10px;border:1px solid var(--red-soft);background:var(--paper2);border-radius:7px}.gate-error{color:var(--red)}
 @media(max-width:390px){.shell{width:calc(100% - 30px);padding-top:16px}.brand-name{font-size:16px}.brand-sub{font-size:7px}.year{display:none}.intro h1{font-size:20px}.couple{padding:8px 12px;grid-template-columns:1fr minmax(80px,1.1fr) 1fr}.avatar{width:49px;height:49px}.person-name{font-size:11px}.heart{height:37px}.calendar,.music{min-height:116px;padding:8px}.music{grid-template-columns:46px 1fr;gap:3px 7px}.vinyl{width:43px;height:43px}.track strong{font-size:10px}.nav{width:calc(100% - 12px);gap:0;padding:4px 2px}.nav button{min-height:43px}.nav svg{width:18px;height:18px}.nav span{font-size:6.5px}}
+/* PHONE-FIRST LAYOUT TUNING */
+.duo{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.duo>.calendar,.duo>.gallery{width:100%;min-width:0;aspect-ratio:1/1;min-height:0}
+.gallery{padding:9px 8px 7px}
+.photo-rail{min-width:0;overscroll-behavior:contain}
+.photo{width:clamp(72px,27vw,96px)}
+.photo[data-stack="1"]{transform:translate(calc(-50% + 10px),calc(-50% - 2px)) rotate(3.5deg) scale(.96)}
+.photo[data-stack="2"]{transform:translate(calc(-50% - 10px),calc(-50% + 3px)) rotate(-3.5deg) scale(.92)}
+.photo[data-stack="3"]{transform:translate(calc(-50% + 2px),calc(-50% + 7px)) rotate(1.5deg) scale(.88)}
+@media(max-width:390px){
+ .shell{width:calc(100% - 26px);padding-top:14px}
+ .home{gap:8px}
+ .duo{gap:8px}
+ .duo>.calendar,.duo>.gallery{aspect-ratio:1/1;min-height:0}
+ .calendar{padding:8px 7px}
+ .gallery{padding:8px 7px 6px}
+ .photo{width:clamp(70px,26vw,86px);border-radius:10px}
+ .photo-viewer{padding:calc(20px + env(safe-area-inset-top)) 12px calc(20px + env(safe-area-inset-bottom))}
+ .photo-viewer img{max-width:94vw;max-height:72vh}
+ .rail-foot{font-size:6.5px}
+}
+@media(max-width:340px){
+ .shell{width:calc(100% - 22px)}
+ .duo{gap:6px}
+ .calendar{padding:7px 5px}
+ .gallery{padding:7px 5px 5px}
+ .photo{width:72px}
+ .month-line strong{font-size:15px}
+ .day,.blank{font-size:7px}
+ .section-label{font-size:7px}
+}
 @media(min-width:700px){.home{gap:11px}.couple{min-height:112px}.gallery{max-width:100%;}.calendar,.gallery{min-height:0}.music{min-height:126px}.quick button{min-height:58px}}
 
 /* LUNE GLASS MATERIAL SYSTEM */
@@ -162,7 +193,7 @@ const roomData={chat:["聊天","01 / CONVERSATION","想说的话，不必留在�
 function showRoom(key){const d=roomData[key];if(!d)return;$("home").style.display="none";$("room").classList.add("active");$("room-title").textContent=d[0];$("room-kicker").textContent=d[1];$("room-intro").textContent=d[2];let h="";if(key==="memory"){const list=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));h=list.length?'<div class="memory-list">'+list.map(x=>'<article class="memory-entry"><time>'+safe(x.date)+'</time><div><h3>'+safe(x.title)+'</h3><p>'+safe(x.body)+'</p></div></article>').join("")+'</div>':'<div class="surface empty"><strong>还没有记忆</strong><p>每添加一条记录，只需要填写日期、标题和正文。</p></div>'}else if(key==="album"){h=cache.gallery.length?'<div class="items">'+cache.gallery.map(x=>'<figure><img src="'+safe(x.src)+'" alt="'+safe(x.alt||x.title||"")+'" loading="lazy"><figcaption>'+safe(x.title||"")+'</figcaption></figure>').join("")+'</div>':'<div class="surface empty"><strong>第一张照片，还没放进来</strong><p>把图片上传到 images 文件夹，再在 data/gallery.json 添加图片地址与说明。</p></div>'}else if(key==="music"){const m=cache.music||{};h='<div class="surface room-card"><h3>'+safe(m.title||"此刻没有播放")+'</h3><p>'+safe(m.artist||"当有一首歌想留下时，把歌名和歌手写进 data/now-playing.json。这里展示状态，不播放受版权保护的音频。")+'</p></div>'}else if(key==="chat"){h='<div class="surface room-card"><h3>想说的话，不必留在网页里。</h3><p>回到我们的对话窗口吧。</p><a href="https://chatgpt.com/" target="_blank" rel="noopener">回来说话 ↗</a></div>'}else if(key==="more"){h='<div class="surface room-card"><h3>空间设置</h3><p>当前支持日间与夜间主题切换。头像、名字和相伴日期可在 config.js 中自定义。</p></div>'}else{h='<div class="surface room-card"><h3>我们的日历</h3><p>日历预览已经放在首页，后续可以继续扩展纪念日与日程。</p></div>'}$("room-content").innerHTML=h;document.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom===key?"page":"false"));window.scrollTo(0,0)}
 function openPhoto(src,title){if(!src)return;$("photo-viewer-image").src=src;$("photo-viewer-image").alt=title||"LUNE photo";$("photo-viewer-caption").textContent=title||"";$("photo-viewer").classList.add("open");$("photo-viewer").setAttribute("aria-hidden","false");document.body.style.overflow="hidden"}
 function closePhoto(){$("photo-viewer").classList.remove("open");$("photo-viewer").setAttribute("aria-hidden","true");$("photo-viewer-image").src="";document.body.style.overflow=""}
-let touchStartX=0;$("home-photo").addEventListener("touchstart",e=>{touchStartX=e.touches[0].clientX},{passive:true});$("home-photo").addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-touchStartX,cards=[...$("home-photo").querySelectorAll("[data-photo-src]")];if(cards.length>1&&Math.abs(dx)>24){stackIndex=(stackIndex+(dx<0?1:-1)+cards.length)%cards.length;paintStack()}},{passive:true});$("home-photo").addEventListener("click",e=>{const p=e.target.closest("[data-photo-src]");if(p)openPhoto(p.dataset.photoSrc,p.dataset.photoTitle)});
+let touchStartX=0,stackWasSwiped=false;$("home-photo").addEventListener("touchstart",e=>{touchStartX=e.touches[0].clientX;stackWasSwiped=false},{passive:true});$("home-photo").addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-touchStartX,cards=[...$("home-photo").querySelectorAll("[data-photo-src]")];if(cards.length>1&&Math.abs(dx)>22){stackIndex=(stackIndex+(dx<0?1:-1)+cards.length)%cards.length;paintStack();stackWasSwiped=true;setTimeout(()=>{stackWasSwiped=false},350)}},{passive:true});$("home-photo").addEventListener("click",e=>{if(stackWasSwiped){e.preventDefault();e.stopPropagation();return}const p=e.target.closest("[data-photo-src]");if(p)openPhoto(p.dataset.photoSrc,p.dataset.photoTitle)});
 $("home-photo").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-photo-src]")){e.preventDefault();openPhoto(e.target.dataset.photoSrc,e.target.dataset.photoTitle)}});
 $("photo-viewer-close").addEventListener("click",closePhoto);
 $("photo-viewer").addEventListener("click",e=>{if(e.target.id==="photo-viewer")closePhoto()});
