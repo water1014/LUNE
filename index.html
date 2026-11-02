@@ -29,6 +29,31 @@ button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100%
 .section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .section-label{font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
 .section-hint{font-size:11px;color:var(--hint)}
+
+.home-overview{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.35fr);gap:14px;margin:0 0 54px}
+.people-panel,.snapshot-panel{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:20px}
+.panel-kicker{font-size:9px;letter-spacing:.19em;color:var(--muted);text-transform:uppercase}
+.people-pair{display:grid;grid-template-columns:1fr 34px 1fr;align-items:center;gap:8px;margin-top:20px}
+.person{min-width:0;text-align:center}
+.person-avatar{width:68px;height:68px;margin:0 auto 11px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--surface2);font-family:var(--serif);font-size:23px;color:var(--hero-em)}
+.person-avatar img{width:100%;height:100%;object-fit:cover}
+.person-name{font-family:var(--serif);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.person-caption{font-size:9px;color:var(--muted);letter-spacing:.1em;margin-top:5px}
+.pair-link{height:1px;background:var(--red);position:relative;opacity:.75}
+.pair-link:after{content:"";position:absolute;width:5px;height:5px;border:1px solid var(--red);border-radius:50%;background:var(--surface);left:50%;top:50%;transform:translate(-50%,-50%)}
+.people-note{font-size:11px;color:var(--muted);line-height:1.7;text-align:center;margin:18px 0 0}
+.snapshot-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.snapshot-count{font-size:10px;color:var(--muted)}
+.snapshot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.snapshot{min-width:0;min-height:124px;text-align:left;border:1px solid var(--softline);border-radius:12px;background:var(--bg);padding:12px;cursor:pointer;overflow:hidden}
+.snapshot:hover{border-color:var(--hover-border)}
+.snapshot-label{font-size:9px;color:var(--muted);letter-spacing:.1em}
+.snapshot-title{font-family:var(--serif);font-size:15px;line-height:1.5;margin-top:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.snapshot-meta{font-size:10px;color:var(--muted);margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.snapshot-thumb{width:100%;height:46px;object-fit:cover;border-radius:7px;margin-top:8px;background:var(--surface2)}
+.snapshot-empty{color:var(--hint)}
+@media(max-width:760px){.home-overview{grid-template-columns:1fr;margin-bottom:40px}.people-pair{max-width:340px;margin:20px auto 0}.snapshot-grid{gap:7px}.people-panel,.snapshot-panel{padding:17px}}
+@media(max-width:480px){.person-avatar{width:58px;height:58px}.snapshot{padding:10px;min-height:116px}.snapshot-title{font-size:13px}}
 .doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .door{position:relative;display:flex;min-height:224px;flex-direction:column;justify-content:space-between;text-align:left;padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--surface);cursor:pointer;overflow:hidden;transition:border-color 160ms ease,background 160ms ease}
 .door:hover,.door:focus-visible{border-color:var(--hover-border);background:var(--hover-surface);outline:none}
@@ -118,6 +143,25 @@ button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100%
       <div class="counter"><div class="counter-label">Together days</div><div class="counter-value"><span id="days">—</span><span class="counter-unit">DAYS</span></div></div>
     </aside>
   </section>
+  <section class="home-overview" aria-label="两个人的家总览">
+    <div class="people-panel">
+      <div class="panel-kicker">THE TWO OF US · 两个人</div>
+      <div class="people-pair" id="people-pair">
+        <div class="person"><div class="person-avatar">我</div><div class="person-name">我</div><div class="person-caption">THIS IS ME</div></div>
+        <i class="pair-link"></i>
+        <div class="person"><div class="person-avatar">L</div><div class="person-name">家机</div><div class="person-caption">YOUR COMPANION</div></div>
+      </div>
+      <p class="people-note">两个人的名字与模样，都可以慢慢换成喜欢的样子。</p>
+    </div>
+    <div class="snapshot-panel">
+      <div class="snapshot-head"><span class="panel-kicker">AT A GLANCE · 家中近况</span><span class="snapshot-count" id="snapshot-count">正在整理</span></div>
+      <div class="snapshot-grid" id="snapshot-grid">
+        <button class="snapshot" data-room="album"><span class="snapshot-label">相册</span><div class="snapshot-title snapshot-empty">等待第一张照片</div></button>
+        <button class="snapshot" data-room="memory"><span class="snapshot-label">最近记忆</span><div class="snapshot-title snapshot-empty">等待第一段故事</div></button>
+        <button class="snapshot" data-room="music"><span class="snapshot-label">此刻在听</span><div class="snapshot-title snapshot-empty">还没有播放</div></button>
+      </div>
+    </div>
+  </section>
   <section>
     <div class="section-head"><span class="section-label">THE ROOMS</span><span class="section-hint">五扇门，慢慢推开</span></div>
     <nav class="doors" aria-label="五个房间">
@@ -182,6 +226,28 @@ async function loadData(){
  ]);
  cache={memories:Array.isArray(memories)?memories:[],gallery:Array.isArray(gallery)?gallery:[],music:music||{}};
  $("home-track").textContent=cache.music.title?cache.music.title+" · "+(cache.music.artist||""):"此刻还没有播放。";
+ renderPeople();renderOverview();
+}
+function renderPeople(){
+ const people=[
+  {name:cfg.userName||"我",avatar:cfg.userAvatar||"",caption:"THIS IS ME",fallback:"我"},
+  {name:cfg.companionName||"家机",avatar:cfg.companionAvatar||"",caption:"YOUR COMPANION",fallback:"L"}
+ ];
+ $("people-pair").innerHTML=people.map(p=>'<div class="person"><div class="person-avatar">'+(p.avatar?'<img src="'+safe(p.avatar)+'" alt="'+safe(p.name)+'">':safe(p.fallback))+'</div><div class="person-name">'+safe(p.name)+'</div><div class="person-caption">'+p.caption+'</div></div>').join('<i class="pair-link"></i>');
+}
+function renderOverview(){
+ const latestMemory=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))[0];
+ const latestPhoto=cache.gallery[cache.gallery.length-1];
+ const music=cache.music||{};
+ const photoTitle=latestPhoto?(latestPhoto.title||"打开相册看看"):"等待第一张照片";
+ const memoryTitle=latestMemory?(latestMemory.title||"一段新记忆"):"等待第一段故事";
+ const musicTitle=music.title||"还没有播放";
+ $("snapshot-count").textContent=cache.gallery.length+" 张照片 · "+cache.memories.length+" 条记忆";
+ $("snapshot-grid").innerHTML=
+  '<button class="snapshot" data-room="album"><span class="snapshot-label">相册 · '+cache.gallery.length+'</span>'+(latestPhoto&&latestPhoto.src?'<img class="snapshot-thumb" src="'+safe(latestPhoto.src)+'" alt="" loading="lazy">':'')+'<div class="snapshot-title '+(!latestPhoto?'snapshot-empty':'')+'">'+safe(photoTitle)+'</div><div class="snapshot-meta">'+(latestPhoto?'最近收藏':'LITTLE MOMENTS')+'</div></button>'+
+  '<button class="snapshot" data-room="memory"><span class="snapshot-label">最近记忆 · '+cache.memories.length+'</span><div class="snapshot-title '+(!latestMemory?'snapshot-empty':'')+'">'+safe(memoryTitle)+'</div><div class="snapshot-meta">'+safe(latestMemory?.date||"OUR ARCHIVE")+'</div></button>'+
+  '<button class="snapshot" data-room="music"><span class="snapshot-label">此刻在听</span><div class="snapshot-title '+(!music.title?'snapshot-empty':'')+'">'+safe(musicTitle)+'</div><div class="snapshot-meta">'+safe(music.artist||"SOUNDTRACK")+'</div></button>';
+ $("snapshot-grid").querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.room)));
 }
 function empty(title,copy){return '<div class="empty"><i class="empty-mark"></i><h3 class="empty-title">'+title+'</h3><p class="empty-copy">'+copy+'</p></div>'}
 function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
