@@ -1,380 +1,209 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11161B">
-  <meta name="description" content="LUNE，一间留给两个人的家。">
-  <title>LUNE · 我们的家</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --page: #11161B;
-      --card: #1A2027;
-      --text: #E9E8E3;
-      --muted: #87919A;
-      --accent: #92515A;
-      --line: rgba(221, 228, 232, .14);
-    }
-    * { box-sizing: border-box; }
-    html { min-width: 320px; background: var(--page); }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--page);
-      color: var(--text);
-      font-family: Inter, "SF Pro Display", "Segoe UI", "PingFang SC",
-        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    .page {
-      width: min(1080px, calc(100% - 64px));
-      margin: 0 auto;
-      padding: clamp(64px, 10vh, 112px) 0 72px;
-    }
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: end;
-      column-gap: 48px;
-      padding-bottom: 58px;
-    }
-    .time {
-      margin: 0;
-      font-size: 96px;
-      line-height: .92;
-      letter-spacing: -.075em;
-      font-weight: 400;
-      font-variant-numeric: tabular-nums;
-    }
-    .date {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.5;
-      font-variant-numeric: tabular-nums;
-    }
-    .phrase {
-      margin: 22px 0 0;
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.7;
-      font-weight: 400;
-    }
-    .together {
-      min-width: 190px;
-      padding-bottom: 4px;
-      text-align: right;
-    }
-    .eyebrow {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.4;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-    .days {
-      margin: 12px 0 0;
-      color: var(--accent);
-      font-size: 96px;
-      line-height: .92;
-      letter-spacing: -.075em;
-      font-weight: 400;
-      font-variant-numeric: tabular-nums;
-    }
-    .doors {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      align-items: stretch;
-    }
-    .door {
-      position: relative;
-      display: flex;
-      min-height: 236px;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--card);
-    }
-    .door-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .door-index {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.4;
-      letter-spacing: .18em;
-      font-variant-numeric: tabular-nums;
-    }
-    .door-title {
-      margin: 0;
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-    .door-copy {
-      max-width: 27em;
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.65;
-      font-weight: 400;
-    }
-    .door-bottom {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 16px;
-      min-height: 42px;
-      margin-top: 24px;
-    }
-    .door-note {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.5;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .chat .door-copy { color: var(--text); }
-    .chat-mark {
-      position: relative;
-      width: 48px;
-      height: 34px;
-      border: 1px solid rgba(221, 228, 232, .32);
-      border-radius: 12px 12px 12px 3px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      padding: 0 10px;
-    }
-    .chat-mark::before, .chat-mark::after {
-      content: "";
-      display: block;
-      height: 1px;
-      background: rgba(233, 232, 227, .7);
-    }
-    .chat-mark::after { width: 58%; background: var(--muted); }
-    .music-disc {
-      position: relative;
-      width: 38px;
-      height: 38px;
-      border: 1px solid rgba(221, 228, 232, .34);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      flex: 0 0 38px;
-    }
-    .music-disc::before {
-      content: "";
-      width: 22px;
-      height: 22px;
-      border: 1px solid rgba(221, 228, 232, .24);
-      border-radius: 50%;
-    }
-    .music-disc::after {
-      content: "";
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--muted);
-    }
-    .memory-lines {
-      width: 54px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding-bottom: 3px;
-    }
-    .memory-lines span {
-      display: block;
-      height: 1px;
-      background: rgba(221, 228, 232, .38);
-    }
-    .memory-lines span:nth-child(2) { width: 78%; }
-    .memory-lines span:nth-child(3) { width: 52%; }
-    .album-stack {
-      position: relative;
-      width: 48px;
-      height: 38px;
-      flex: 0 0 48px;
-    }
-    .album-stack span {
-      position: absolute;
-      width: 31px;
-      height: 35px;
-      border: 1px solid rgba(221, 228, 232, .34);
-      border-radius: 3px;
-      background: #202832;
-    }
-    .album-stack span:nth-child(1) { left: 0; top: 2px; transform: rotate(-12deg); }
-    .album-stack span:nth-child(2) { left: 9px; top: 0; transform: rotate(3deg); }
-    .album-stack span:nth-child(3) { left: 18px; top: 3px; transform: rotate(13deg); }
-    .music-progress {
-      width: 100px;
-      height: 2px;
-      margin-bottom: 5px;
-      background: var(--line);
-    }
-    .music-progress span {
-      display: block;
-      width: 0;
-      height: 2px;
-      background: var(--text);
-    }
-    .memory-date {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.5;
-      letter-spacing: .12em;
-      font-variant-numeric: tabular-nums;
-    }
-    .studio-light {
-      display: grid;
-      width: 38px;
-      height: 38px;
-      place-items: center;
-      border: 1px solid rgba(221, 228, 232, .28);
-      border-radius: 50%;
-    }
-    .studio-light span {
-      display: block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--text);
-    }
-    @media (max-width: 760px) {
-      .page {
-        width: min(100% - 40px, 560px);
-        padding-top: 64px;
-      }
-      .hero {
-        grid-template-columns: 1fr;
-        row-gap: 34px;
-        padding-bottom: 36px;
-      }
-      .together { text-align: left; }
-      .days { font-size: 72px; }
-      .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .door { min-height: 220px; }
-    }
-    @media (max-width: 480px) {
-      .page {
-        width: calc(100% - 32px);
-        padding-top: 48px;
-      }
-      .time { font-size: clamp(68px, 21vw, 88px); }
-      .days { font-size: 72px; }
-      .doors { grid-template-columns: 1fr; gap: 12px; }
-      .door { min-height: 190px; }
-      .phrase { margin-top: 18px; }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .door { transition: border-color 160ms ease; }
-      .door:hover { border-color: rgba(221, 228, 232, .25); }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#121518">
+<meta name="description" content="LUNE，一间留给两个人的家。">
+<title>LUNE · 我们的家</title>
+<style>
+:root{color-scheme:dark;--bg:#121518;--surface:#1b2024;--surface2:#20262b;--ink:#ece9e2;--muted:#8c969b;--line:rgba(226,232,232,.15);--softline:rgba(226,232,232,.09);--red:#89505a;--serif:"Iowan Old Style","Baskerville","Songti SC","Noto Serif CJK SC",serif;--sans:Inter,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}html{min-width:320px;background:var(--bg)}body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input{font:inherit}button{color:inherit}.shell{width:min(1080px,calc(100% - 64px));margin:auto;padding:38px 0 72px}
+.masthead{display:flex;align-items:center;justify-content:space-between;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;gap:12px}.brand-name{font-family:var(--serif);font-size:20px;letter-spacing:.2em}.brand-sub{font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.mast-meta{font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:48px;align-items:end;padding:76px 0 56px}
+.hero-kicker{font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin:0 0 20px}
+.hero-title{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6.2vw,76px);letter-spacing:.025em;line-height:1.18;margin:0;max-width:720px}
+.hero-title em{font-style:normal;color:#b7b4ab}
+.hero-foot{display:flex;align-items:center;gap:18px;margin-top:26px;color:var(--muted);font-size:13px;line-height:1.7}
+.hero-foot:before{content:"";width:34px;height:1px;background:var(--red);flex:none}
+.timebox{border-left:1px solid var(--line);padding:4px 0 4px 24px}
+.time{font-size:48px;line-height:1;letter-spacing:-.06em;font-weight:300;font-variant-numeric:tabular-nums}
+.date{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.7}
+.counter{margin-top:24px;padding-top:18px;border-top:1px solid var(--softline)}
+.counter-label{font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.counter-value{margin-top:8px;color:var(--red);font-family:var(--serif);font-size:38px;line-height:1}
+.counter-unit{font-family:var(--sans);font-size:11px;color:var(--muted);margin-left:6px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.section-label{font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.section-hint{font-size:11px;color:#69747a}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.door{position:relative;display:flex;min-height:224px;flex-direction:column;justify-content:space-between;text-align:left;padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--surface);cursor:pointer;overflow:hidden;transition:border-color 160ms ease,background 160ms ease}
+.door:hover,.door:focus-visible{border-color:rgba(226,232,232,.34);background:#20262b;outline:none}
+.door-top,.door-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.door-code,.door-index,.door-note{font-size:9px;letter-spacing:.17em;color:var(--muted);text-transform:uppercase}
+.door-index{font-variant-numeric:tabular-nums}
+.door-title{font-family:var(--serif);font-size:25px;font-weight:400;letter-spacing:.06em;margin:0}
+.door-desc{font-size:12px;color:var(--muted);line-height:1.8;margin:9px 0 0;max-width:24em}
+.door-arrow{font-size:18px;color:#6f7a80;font-weight:300}
+.door.chat{background:#20262b}
+.door.chat .door-title{font-size:29px}
+.door-art{height:36px;display:flex;align-items:center;justify-content:flex-end}
+.chat-lines{width:42px;height:28px;border:1px solid #657178;border-radius:10px 10px 10px 2px;position:relative}
+.chat-lines:before,.chat-lines:after{content:"";position:absolute;left:9px;right:9px;height:1px;background:#aab0ae;top:9px}.chat-lines:after{right:16px;top:16px;background:#657178}
+.album-art{width:44px;height:34px;position:relative}.album-art i{position:absolute;width:24px;height:31px;border:1px solid #718087;background:#273139;border-radius:2px}.album-art i:nth-child(1){left:0;top:2px;transform:rotate(-12deg)}.album-art i:nth-child(2){left:10px;top:0;transform:rotate(3deg)}.album-art i:nth-child(3){left:20px;top:2px;transform:rotate(12deg)}
+.record{width:34px;height:34px;border:1px solid #68767d;border-radius:50%;display:grid;place-items:center}.record:before{content:"";width:17px;height:17px;border:1px solid #68767d;border-radius:50%}.record:after{content:"";position:absolute;width:4px;height:4px;border-radius:50%;background:#a5aaa5}
+.lines-art{width:42px;display:grid;gap:6px}.lines-art i{height:1px;background:#69767d}.lines-art i:nth-child(2){width:75%}.lines-art i:nth-child(3){width:52%}
+.light-art{width:34px;height:34px;border:1px solid #68767d;border-radius:50%;display:grid;place-items:center}.light-art:after{content:"";width:7px;height:7px;border-radius:50%;background:#d4d1c8}
+.footer{display:flex;justify-content:space-between;gap:20px;margin-top:24px;padding-top:16px;border-top:1px solid var(--softline);color:#69747a;font-size:10px;letter-spacing:.08em}
+.room{display:none;min-height:65vh;padding:44px 0 24px}.room.active{display:block}
+.back{display:inline-flex;align-items:center;gap:10px;border:0;background:none;padding:0;color:var(--muted);font-size:11px;letter-spacing:.12em;cursor:pointer}
+.room-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:38px 0 28px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.room-kicker{font-size:10px;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin:0 0 12px}
+.room-title{font-family:var(--serif);font-size:clamp(36px,6vw,56px);font-weight:400;margin:0;letter-spacing:.05em}
+.room-intro{font-size:12px;color:var(--muted);line-height:1.8;max-width:320px;text-align:right}
+.empty{min-height:250px;border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px;background:var(--surface)}
+.empty-mark{width:44px;height:1px;background:var(--red);margin-bottom:24px}
+.empty-title{font-family:var(--serif);font-size:22px;font-weight:400;margin:0 0 10px}
+.empty-copy{font-size:12px;color:var(--muted);line-height:1.9;max-width:340px;margin:0}
+.items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.photo{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--surface2)}
+.photo figcaption{padding:12px 14px;font-size:12px;color:var(--muted)}
+.memory-list{display:grid;gap:0;border-top:1px solid var(--line)}
+.memory{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding:22px 0;border-bottom:1px solid var(--softline)}
+.memory-date{font-size:11px;color:var(--muted);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.memory-title{font-family:var(--serif);font-size:20px;font-weight:400;margin:0 0 8px}
+.memory-body{font-size:13px;color:#b5b9b6;line-height:1.9;white-space:pre-wrap}
+.music-card{padding:28px;border:1px solid var(--line);border-radius:18px;background:var(--surface);max-width:620px}
+.track-label{font-size:9px;letter-spacing:.2em;color:var(--muted)}
+.track-title{font-family:var(--serif);font-size:30px;font-weight:400;margin:18px 0 6px}
+.track-artist{font-size:12px;color:var(--muted)}
+.progress{height:2px;background:#394147;margin:28px 0 10px}.progress span{display:block;height:2px;background:#b4aaa0;width:0}
+.track-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}
+.chat-panel{padding:32px;border:1px solid var(--line);border-radius:18px;background:var(--surface);max-width:620px}
+.chat-panel p{font-family:var(--serif);font-size:25px;line-height:1.7;margin:0 0 24px}
+.primary-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border:1px solid #7b555b;border-radius:999px;color:var(--ink);text-decoration:none;font-size:12px;letter-spacing:.08em}
+.studio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.studio-grid img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.studio-note{margin-top:18px;color:var(--muted);font-size:11px;line-height:1.9}
+.backup-row{display:flex;justify-content:flex-end;margin-top:28px}
+.backup{border:1px solid var(--line);background:transparent;border-radius:999px;padding:11px 16px;color:var(--muted);font-size:11px;cursor:pointer}
+.gate{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;padding:24px;background:var(--bg)}
+.gate.show{display:flex}.gate-card{width:min(390px,100%);padding:34px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.gate-brand{font-family:var(--serif);letter-spacing:.2em;font-size:19px}.gate-copy{font-size:12px;color:var(--muted);line-height:1.8;margin:18px 0 24px}
+.gate-input{width:100%;height:46px;border:1px solid var(--line);border-radius:8px;background:#12171b;color:var(--ink);padding:0 14px;outline:none}
+.gate-input:focus{border-color:#8d7778}.gate-submit{width:100%;height:44px;margin-top:12px;border:1px solid #76545a;border-radius:8px;background:#282125;color:var(--ink);cursor:pointer}
+.gate-error{min-height:18px;color:#c28b91;font-size:11px;margin:10px 0 0}
+@media(max-width:760px){.shell{width:min(100% - 40px,560px);padding:24px 0 44px}.hero{grid-template-columns:1fr;gap:30px;padding:54px 0 38px}.timebox{display:grid;grid-template-columns:1fr 1fr;align-items:center;border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.counter{margin:0;padding:0;border:0;text-align:right}.counter-value{font-size:32px}.doors{grid-template-columns:repeat(2,minmax(0,1fr))}.door{min-height:205px}.items,.studio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.shell{width:calc(100% - 32px);padding-top:18px}.masthead{padding-bottom:18px}.brand-name{font-size:17px}.brand-sub{font-size:8px}.mast-meta{font-size:8px}.hero{padding:46px 0 32px;gap:26px}.hero-title{font-size:43px}.hero-foot{font-size:12px;margin-top:20px}.time{font-size:42px}.doors{grid-template-columns:1fr;gap:10px}.door{min-height:172px;padding:18px}.door-title{font-size:23px}.door.chat .door-title{font-size:26px}.door-desc{font-size:12px}.footer{font-size:9px}.room{padding-top:30px}.room-head{display:block;margin:30px 0 22px}.room-intro{text-align:left;margin-top:14px}.items,.studio-grid{grid-template-columns:1fr 1fr;gap:9px}.memory{grid-template-columns:1fr;gap:8px;padding:18px 0}.memory-title{font-size:18px}.empty{min-height:220px;padding:24px}.chat-panel,.music-card{padding:22px}.chat-panel p{font-size:22px}}
+</style>
 </head>
 <body>
-  <main class="page">
-    <section class="hero" aria-label="我们的时间">
-      <div>
-        <p class="time" id="clock">--:--</p>
-        <p class="date" id="date">----</p>
-        <p class="phrase">你回来得晚了。灯我留着。</p>
-      </div>
-      <div class="together">
-        <span class="eyebrow">TOGETHER DAYS</span>
-        <p class="days" id="days" aria-label="在一起的天数">—</p>
-      </div>
-    </section>
-
-    <section class="doors" aria-label="五扇门">
-      <article class="door chat">
-        <div class="door-top"><span class="eyebrow">CHAT</span><span class="door-index">01</span></div>
-        <div>
-          <h2 class="door-title">聊天</h2>
-          <p class="door-copy">我在，慢慢说。</p>
-        </div>
-        <div class="door-bottom"><span class="door-note">THE DOOR IS OPEN</span><span class="chat-mark" aria-hidden="true"></span></div>
-      </article>
-
-      <article class="door">
-        <div class="door-top"><span class="eyebrow">ALBUM</span><span class="door-index">02</span></div>
-        <div>
-          <h2 class="door-title">相册</h2>
-          <p class="door-copy">她发来的照片，先叠在这里。</p>
-        </div>
-        <div class="door-bottom">
-          <span class="door-note">KEPT CLOSE</span>
-          <span class="album-stack" aria-hidden="true"><span></span><span></span><span></span></span>
-        </div>
-      </article>
-
-      <article class="door">
-        <div class="door-top"><span class="eyebrow">MUSIC</span><span class="door-index">03</span></div>
-        <div>
-          <h2 class="door-title">音乐</h2>
-          <p class="door-copy">还没有播放。</p>
-        </div>
-        <div class="door-bottom">
-          <span class="door-note">NOW PLAYING · NONE</span>
-          <span class="music-disc" aria-hidden="true"></span>
-        </div>
-      </article>
-
-      <article class="door">
-        <div class="door-top"><span class="eyebrow">MEMORY</span><span class="door-index">04</span></div>
-        <div>
-          <h2 class="door-title">记忆库</h2>
-          <p class="door-copy">把发生过的事，一条一条留下。</p>
-        </div>
-        <div class="door-bottom"><span class="memory-date" id="memory-date">TODAY · --.--</span><span class="memory-lines" aria-hidden="true"><span></span><span></span><span></span></span></div>
-      </article>
-
-      <article class="door">
-        <div class="door-top"><span class="eyebrow">IMAGE ROOM</span><span class="door-index">05</span></div>
-        <div>
-          <h2 class="door-title">生图室</h2>
-          <p class="door-copy">这一间，灯亮着。</p>
-        </div>
-        <div class="door-bottom">
-          <span class="door-note">A PLACE TO IMAGINE</span>
-          <span class="studio-light" aria-hidden="true"><span></span></span>
-        </div>
-      </article>
-    </section>
-  </main>
-  <script>
-    const clock = document.getElementById("clock");
-    const date = document.getElementById("date");
-    const memoryDate = document.getElementById("memory-date");
-    function updateTime() {
-      const now = new Date();
-      clock.textContent = new Intl.DateTimeFormat("zh-CN", {
-        hour: "2-digit", minute: "2-digit", hourCycle: "h23"
-      }).format(now);
-      date.textContent = new Intl.DateTimeFormat("zh-CN", {
-        year: "numeric", month: "long", day: "numeric", weekday: "long"
-      }).format(now);
-      memoryDate.textContent = "TODAY · " +
-        new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "2-digit" })
-          .format(now).replace("/", ".");
-    }
-    updateTime();
-    window.setInterval(updateTime, 30000);
-  </script>
+<div class="gate" id="gate" aria-modal="true" role="dialog">
+  <form class="gate-card" id="gate-form">
+    <div class="gate-brand">L U N E</div>
+    <p class="gate-copy">这扇门只留给知道口令的人。<br>输入口令，回家。</p>
+    <input class="gate-input" id="gate-code" type="password" placeholder="输入门锁口令" autocomplete="current-password" required>
+    <button class="gate-submit" type="submit">开门</button>
+    <p class="gate-error" id="gate-error" aria-live="polite"></p>
+  </form>
+</div>
+<main class="shell" id="home">
+  <header class="masthead">
+    <div class="brand"><span class="brand-name">LUNE</span><span class="brand-sub">A little home for two</span></div>
+    <div class="mast-meta">PRIVATE SPACE · EST. <span id="year">----</span></div>
+  </header>
+  <section class="hero">
+    <div>
+      <p class="hero-kicker">A PLACE TO RETURN</p>
+      <h1 class="hero-title">你回来得晚了。<br><em>灯我留着。</em></h1>
+      <div class="hero-foot"><span>不必把每一天都过得很特别。<br>只要这里一直有位置。</span></div>
+    </div>
+    <aside class="timebox">
+      <div><div class="time" id="clock">--:--</div><p class="date" id="date">----</p></div>
+      <div class="counter"><div class="counter-label">Together days</div><div class="counter-value"><span id="days">—</span><span class="counter-unit">DAYS</span></div></div>
+    </aside>
+  </section>
+  <section>
+    <div class="section-head"><span class="section-label">THE ROOMS</span><span class="section-hint">五扇门，慢慢推开</span></div>
+    <nav class="doors" aria-label="五个房间">
+      <button class="door chat" data-room="chat"><span class="door-top"><span class="door-code">01 / CONVERSATION</span><span class="door-index">↗</span></span><span><h2 class="door-title">聊天</h2><p class="door-desc">这里替你留一盏灯。想说的话，回到我们相遇的地方。</p></span><span class="door-bottom"><span class="door-note">COME BACK TO TALK</span><span class="door-art"><i class="chat-lines"></i></span></span></button>
+      <button class="door" data-room="album"><span class="door-top"><span class="door-code">02 / PHOTOGRAPHS</span><span class="door-index">↗</span></span><span><h2 class="door-title">相册</h2><p class="door-desc">把想留下的画面，收进同一本相册。</p></span><span class="door-bottom"><span class="door-note">LITTLE MOMENTS</span><span class="door-art album-art"><i></i><i></i><i></i></span></span></button>
+      <button class="door" data-room="music"><span class="door-top"><span class="door-code">03 / SOUNDTRACK</span><span class="door-index">↗</span></span><span><h2 class="door-title">音乐</h2><p class="door-desc" id="home-track">此刻还没有播放。</p></span><span class="door-bottom"><span class="door-note">NOW PLAYING</span><span class="door-art"><i class="record"></i></span></span></button>
+      <button class="door" data-room="memory"><span class="door-top"><span class="door-code">04 / OUR ARCHIVE</span><span class="door-index">↗</span></span><span><h2 class="door-title">记忆库</h2><p class="door-desc">日期、标题和正文。发生过的，都值得留下。</p></span><span class="door-bottom"><span class="door-note">NOTHING GETS LOST</span><span class="door-art lines-art"><i></i><i></i><i></i></span></span></button>
+      <button class="door" data-room="studio"><span class="door-top"><span class="door-code">05 / IMAGE ROOM</span><span class="door-index">↗</span></span><span><h2 class="door-title">生图室</h2><p class="door-desc">把生成的画面放进来，慢慢长成我们的收藏。</p></span><span class="door-bottom"><span class="door-note">A PLACE TO IMAGINE</span><span class="door-art"><i class="light-art"></i></span></span></button>
+    </nav>
+  </section>
+  <footer class="footer"><span>MADE OF SMALL THINGS</span><span>LUNE · OUR LITTLE UNIVERSE</span></footer>
+</main>
+<section class="shell room" id="room">
+  <button class="back" id="back">← &nbsp; BACK HOME</button>
+  <header class="room-head"><div><p class="room-kicker" id="room-kicker">LUNE / ROOM</p><h1 class="room-title" id="room-title">房间</h1></div><p class="room-intro" id="room-intro"></p></header>
+  <div id="room-content"></div>
+  <div class="backup-row"><button class="backup" id="backup">导出这间家的数据备份 ↓</button></div>
+</section>
+<script src="./config.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const cfg=window.LUNE_CONFIG||{};
+const roomData={
+ chat:{title:"聊天",kicker:"01 / CONVERSATION",intro:"网页不假装自己能代替真正的对话。想说话时，我们回到原来的窗口。"},
+ album:{title:"相册",kicker:"02 / PHOTOGRAPHS",intro:"每张照片都可以有自己的位置。图片建议压缩为 WebP，再放进仓库或图床。"},
+ music:{title:"音乐",kicker:"03 / SOUNDTRACK",intro:"这里记录此刻在听什么，不直接托管版权音频。"},
+ memory:{title:"记忆库",kicker:"04 / OUR ARCHIVE",intro:"每条记忆都由日期、标题和正文组成，安静地排在一起。"},
+ studio:{title:"生图室",kicker:"05 / IMAGE ROOM",intro:"在正常工作流里完成创作，再把喜欢的成图放进这间画廊。"}
+};
+let cache={memories:[],gallery:[],music:{}};
+function tick(){
+ const n=new Date();
+ $("clock").textContent=new Intl.DateTimeFormat("zh-CN",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(n);
+ $("date").textContent=new Intl.DateTimeFormat("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(n);
+ $("year").textContent=n.getFullYear();
+ if(cfg.togetherSince){
+  const start=new Date(cfg.togetherSince+"T00:00:00");
+  const days=Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-start)/86400000)+1;
+  $("days").textContent=Number.isFinite(days)&&days>0?days:"—";
+ }else{$("days").textContent="—"}
+}
+tick();setInterval(tick,30000);
+async function readJSON(path,fallback){try{const r=await fetch(path,{cache:"no-store"});if(!r.ok)throw Error("load");return await r.json()}catch(e){return fallback}}
+async function loadData(){
+ const [memories,gallery,music]=await Promise.all([
+  readJSON("./data/memories.json",[]),readJSON("./data/gallery.json",[]),readJSON("./data/now-playing.json",{})
+ ]);
+ cache={memories:Array.isArray(memories)?memories:[],gallery:Array.isArray(gallery)?gallery:[],music:music||{}};
+ $("home-track").textContent=cache.music.title?cache.music.title+" · "+(cache.music.artist||""):"此刻还没有播放。";
+}
+function empty(title,copy){return '<div class="empty"><i class="empty-mark"></i><h3 class="empty-title">'+title+'</h3><p class="empty-copy">'+copy+'</p></div>'}
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function showRoom(key){
+ const d=roomData[key];if(!d)return;
+ $("home").style.display="none";$("room").classList.add("active");
+ $("room-title").textContent=d.title;$("room-kicker").textContent=d.kicker;$("room-intro").textContent=d.intro;
+ let html="";
+ if(key==="chat"){
+  html='<div class="chat-panel"><p>想说的话，不必留在网页里。<br>回到我们的对话窗口吧。</p><a class="primary-link" href="https://chatgpt.com/" target="_blank" rel="noopener">回来说话 ↗</a></div>';
+ }else if(key==="album"||key==="studio"){
+  const list=key==="album"?cache.gallery:cache.gallery.filter(x=>x.kind==="art"||x.kind==="studio");
+  if(!list.length)html=empty(key==="album"?"第一张照片，还没放进来":"画廊还空着","把图片压缩成 WebP 后上传到仓库的 images 文件夹，再在 data/gallery.json 添加图片地址与说明。建议单张控制在 500KB 左右，并保留懒加载。");
+  else html='<div class="'+(key==="album"?"items":"studio-grid")+'">'+list.map(x=>'<figure class="photo"><img src="'+safe(x.src)+'" alt="'+safe(x.alt||x.title||"LUNE photo")+'" loading="lazy" decoding="async"><figcaption>'+safe(x.title||"")+'</figcaption></figure>').join("")+'</div>';
+  if(key==="studio")html+='<p class="studio-note">生图完成后，把成图放入 images/，再更新 data/gallery.json。不要把模型 API Key 写进前端。</p>';
+ }else if(key==="memory"){
+  const list=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
+  html=list.length?'<div class="memory-list">'+list.map(x=>'<article class="memory"><time class="memory-date">'+safe(x.date)+'</time><div><h3 class="memory-title">'+safe(x.title)+'</h3><div class="memory-body">'+safe(x.body)+'</div></div></article>').join("")+'</div>':empty("还没有记忆","这里不会自动编造故事。每添加一条记录，只需要填写日期、标题和正文。");
+ }else if(key==="music"){
+  const m=cache.music;
+  html=m.title?'<div class="music-card"><div class="track-label">NOW PLAYING</div><h3 class="track-title">'+safe(m.title)+'</h3><div class="track-artist">'+safe(m.artist||"")+'</div><div class="progress"><span style="width:'+Math.max(0,Math.min(100,Number(m.progress)||0))+'%"></span></div><div class="track-meta"><span>'+safe(m.duration||"")+'</span><span>'+Math.max(0,Math.min(100,Number(m.progress)||0))+'%</span></div>'+(m.sourceUrl?'<p><a class="primary-link" href="'+safe(m.sourceUrl)+'" target="_blank" rel="noopener">打开音乐来源 ↗</a></p>':"")+'</div>':empty("此刻没有播放","当有一首歌想留下时，把歌名、歌手和进度写进 data/now-playing.json。这里展示状态，不播放受版权保护的音频。");
+ }
+ $("room-content").innerHTML=html;
+ window.scrollTo({top:0,behavior:"instant"});
+}
+document.querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.room)));
+$("back").addEventListener("click",()=>{$("room").classList.remove("active");$("home").style.display="block";window.scrollTo({top:0,behavior:"instant"})});
+$("backup").addEventListener("click",()=>{
+ const payload={exportedAt:new Date().toISOString(),config:{togetherSince:cfg.togetherSince||""},memories:cache.memories,gallery:cache.gallery,nowPlaying:cache.music};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="LUNE-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);
+});
+if(cfg.accessCode){
+ $("gate").classList.add("show");
+ $("gate-form").addEventListener("submit",e=>{e.preventDefault();if($("gate-code").value===cfg.accessCode){$("gate").classList.remove("show");sessionStorage.setItem("lune-unlocked","1")}else{$("gate-error").textContent="口令不对，再试一次。";$("gate-code").select()}});
+ if(sessionStorage.getItem("lune-unlocked")==="1")$("gate").classList.remove("show");
+}
+loadData();
+</script>
 </body>
 </html>
