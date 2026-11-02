@@ -186,6 +186,16 @@ body{
 }
 @media(prefers-reduced-motion:reduce){.couple .heart path{animation:none;stroke-dashoffset:0}}
 
+
+/* A clear heart with a fine intertwined ribbon, drawn in sequence */
+.couple .heart{height:48px;overflow:visible}
+.couple .heart path{fill:none;stroke:var(--red);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:heart-draw 3.8s cubic-bezier(.55,.05,.35,1) infinite alternate}
+.couple .heart .heart-outline{stroke-width:1.25;opacity:.9}
+.couple .heart .heart-weave{stroke-width:1.05;opacity:.72;animation-delay:.42s}
+@keyframes heart-draw{to{stroke-dashoffset:0}}
+@media(max-width:390px){.couple .heart{height:42px}}
+@media(prefers-reduced-motion:reduce){.couple .heart path{animation:none;stroke-dashoffset:0}}
+
 </style>
 </head>
 <body>
@@ -194,7 +204,7 @@ body{
 
 <section class="intro"><div><div class="eyebrow">A QUIET PLACE FOR US</div><h1>把日子，慢慢收藏。</h1></div><div class="clock"><strong id="clock">--:--</strong><span id="date"></span></div></section>
 <section class="home" aria-label="我们的生活首页">
-<div class="surface couple"><div class="person"><div class="avatar" id="avatar-me">我</div><div class="person-name" id="name-me">我</div></div><div class="pair-center"><svg class="heart" viewBox="0 0 120 58" aria-hidden="true"><path d="M4 30 C22 30 22 9 39 15 C50 19 51 40 63 30 C75 19 81 9 94 18 C111 29 91 49 73 47 C59 46 56 33 59 28 C64 16 48 8 36 17 C23 27 34 43 49 39"/></svg><div class="days">相伴 <b id="days">—</b> 天</div></div><div class="person"><div class="avatar" id="avatar-partner">L</div><div class="person-name" id="name-partner">家机</div></div></div>
+<div class="surface couple"><div class="person"><div class="avatar" id="avatar-me">我</div><div class="person-name" id="name-me">我</div></div><div class="pair-center"><svg class="heart" viewBox="0 0 120 58" aria-hidden="true"><path class="heart-outline" pathLength="1" d="M60 48 C52 41 23 25 23 15 C23 5 36 2 44 9 C51 15 56 21 60 26 C64 21 69 15 76 9 C84 2 97 5 97 15 C97 25 68 42 60 48 Z"/><path class="heart-weave" pathLength="1" d="M37 20 C43 27 49 35 56 31 C63 27 66 16 74 18 C83 20 82 31 74 34 C67 37 62 29 60 26 C57 22 53 17 47 18 C42 19 40 23 43 27 C47 33 54 35 60 30"/></svg><div class="days">相伴 <b id="days">—</b> 天</div></div><div class="person"><div class="avatar" id="avatar-partner">L</div><div class="person-name" id="name-partner">家机</div></div></div>
 <button class="surface memory" data-room="memory"><span class="memory-mark">✧</span><span class="memory-copy"><strong id="home-memory-title">故事还没有写下</strong><small id="home-memory-date">最近的一段记忆</small></span><span class="arrow">↗</span></button>
 <button class="surface music" data-room="music"><div class="section-line"><span class="section-label">OUR SOUNDTRACK · 此刻的声音</span><span class="section-label">♫</span></div><div class="vinyl"></div><div class="track"><strong id="music-title">此刻还没有播放</strong><span id="music-artist">等一首歌，成为今天的背景</span></div><div class="music-open">打开音乐 ↗</div></button>
 <div class="duo"><button class="surface calendar" data-room="calendar"><div class="section-line"><span class="section-label">OUR CALENDAR · 日历</span><span class="section-label" id="calendar-progress"></span></div><div class="month-line"><strong id="calendar-month">----</strong><span id="calendar-today">今天</span></div><div class="week"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="days-grid" id="calendar-days"></div></button>
