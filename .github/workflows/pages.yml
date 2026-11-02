@@ -1,0 +1,66 @@
+name: Deploy Ocean interface to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout LUNE deployment configuration
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: /tmp/ocean/package-lock.json
+
+      - name: Fetch the original Ocean source
+        run: |
+          git clone --depth 1 https://github.com/fishwithoctopus/Ocean.git /tmp/ocean
+          cp LICENSE /tmp/ocean/LICENSE-LUNE
+        working-directory: .
+
+      - name: Install dependencies
+        working-directory: /tmp/ocean
+        run: npm ci
+
+      - name: Build the original Ocean client for LUNE Pages
+        working-directory: /tmp/ocean
+        env:
+          VITE_OCEAN_BASE_PATH: /LUNE/
+        run: |
+          find src -type f -name '*.css' -exec sed -i "s|url('/assets/|url('/LUNE/assets/|g" {} +
+          npm run build:client
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/ocean/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
