@@ -152,6 +152,40 @@ body{
 .photo-viewer.open{display:flex}.photo-viewer img{display:block;max-width:min(92vw,620px);max-height:76vh;aspect-ratio:1/1;object-fit:contain;border-radius:13px;border:1px solid rgba(255,255,255,.42);box-shadow:0 22px 70px rgba(0,0,0,.35)}
 .photo-viewer-caption{color:rgba(255,255,255,.85);font:13px var(--serif);letter-spacing:.08em;text-align:center}
 .photo-viewer-close{position:absolute;right:20px;top:calc(18px + env(safe-area-inset-top));width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.42);background:rgba(255,255,255,.13);color:white;font-size:25px;line-height:1}
+
+/* RELATION SPACE: quieter line, more room for the two portraits */
+.couple{
+ min-height:116px;
+ grid-template-columns:minmax(0,1fr) minmax(108px,1.15fr) minmax(0,1fr);
+ gap:10px;
+ padding:13px 22px;
+ border-radius:16px;
+ background:linear-gradient(112deg,rgba(255,255,255,.66),rgba(255,250,250,.30) 52%,rgba(255,255,255,.52));
+}
+.couple .avatar{
+ width:64px;height:64px;margin-bottom:7px;
+ border:1px solid rgba(255,255,255,.92);
+ box-shadow:0 7px 20px rgba(75,51,61,.12),inset 0 1px 3px rgba(255,255,255,.95);
+}
+.couple .person-name{font-size:13px;letter-spacing:.025em}
+.couple .heart{width:min(100%,126px);height:46px}
+.couple .heart path{stroke-width:1.05;opacity:.78;animation-duration:4.6s}
+.couple .days{font-size:8px;letter-spacing:.08em}
+[data-theme=night] .couple{
+ background:linear-gradient(112deg,rgba(85,70,82,.58),rgba(51,45,55,.38) 52%,rgba(75,62,73,.52));
+}
+[data-theme=night] .couple .avatar{
+ border-color:rgba(255,255,255,.24);
+ box-shadow:0 7px 20px rgba(0,0,0,.22),inset 0 1px 3px rgba(255,255,255,.13);
+}
+@media(max-width:390px){
+ .couple{min-height:108px;padding:11px 13px;grid-template-columns:minmax(0,1fr) minmax(82px,1.05fr) minmax(0,1fr);gap:6px}
+ .couple .avatar{width:58px;height:58px;margin-bottom:6px}
+ .couple .heart{height:40px}
+ .couple .person-name{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.couple .heart path{animation:none;stroke-dashoffset:0}}
+
 </style>
 </head>
 <body>
