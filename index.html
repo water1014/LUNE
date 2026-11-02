@@ -412,6 +412,7 @@ applyTheme(savedTheme);
 themeButton.addEventListener("click",()=>applyTheme(document.documentElement.dataset.theme==="day"?"night":"day"));
 const roomData={
  chat:{title:"聊天",kicker:"01 / CONVERSATION",intro:"网页不假装自己能代替真正的对话。想说话时，我们回到原来的窗口。"},
+ more:{title:"更多",kicker:"06 / MORE",intro:"主题设置、资料编辑与空间管理会慢慢收纳在这里。"},
  album:{title:"相册",kicker:"02 / PHOTOGRAPHS",intro:"每张照片都可以有自己的位置。图片建议压缩为 WebP，再放进仓库或图床。"},
  music:{title:"音乐",kicker:"03 / SOUNDTRACK",intro:"这里记录此刻在听什么，不直接托管版权音频。"},
  memory:{title:"记忆库",kicker:"04 / OUR ARCHIVE",intro:"每条记忆都由日期、标题和正文组成，安静地排在一起。"},
@@ -438,7 +439,7 @@ async function loadData(){
   readJSON("./data/memories.json",[]),readJSON("./data/gallery.json",[]),readJSON("./data/now-playing.json",{})
  ]);
  cache={memories:Array.isArray(memories)?memories:[],gallery:Array.isArray(gallery)?gallery:[],music:music||{}};
- $("home-track").textContent=cache.music.title?cache.music.title+" · "+(cache.music.artist||""):"此刻还没有播放。";
+ 
  renderPeople();renderOverview();
 }
 function renderPeople(){
@@ -446,7 +447,7 @@ function renderPeople(){
   {name:cfg.userName||"我",avatar:cfg.userAvatar||"",caption:"THIS IS ME",fallback:"我"},
   {name:cfg.companionName||"家机",avatar:cfg.companionAvatar||"",caption:"YOUR COMPANION",fallback:"L"}
  ];
- $("people-pair").innerHTML=people.map(p=>'<div class="person"><div class="person-avatar">'+(p.avatar?'<img src="'+safe(p.avatar)+'" alt="'+safe(p.name)+'">':safe(p.fallback))+'</div><div class="person-name">'+safe(p.name)+'</div><div class="person-caption">'+p.caption+'</div></div>').join('<i class="pair-link"></i>');
+ $("people-pair").innerHTML='<div class="person"><div class="person-avatar">'+(people[0].avatar?'<img src="'+safe(people[0].avatar)+'" alt="'+safe(people[0].name)+'">':safe(people[0].fallback))+'</div><div class="person-name">'+safe(people[0].name)+'</div></div><div class="pair-center"><svg class="thread-heart" viewBox="0 0 100 58" aria-hidden="true"><path class="thread-path" d="M5 29 C22 29 22 9 38 14 C49 18 49 39 61 29 C73 18 77 9 88 18 C101 29 85 48 68 47 C55 46 51 33 50 29 C46 16 35 9 25 17 C14 26 25 42 39 39"/></svg><span class="couple-days">相伴 <b id="days">—</b> 天</span></div><div class="person"><div class="person-avatar">'+(people[1].avatar?'<img src="'+safe(people[1].avatar)+'" alt="'+safe(people[1].name)+'">':safe(people[1].fallback))+'</div><div class="person-name">'+safe(people[1].name)+'</div></div>';
 }
 function renderCalendar(now){
  const year=now.getFullYear(),month=now.getMonth(),today=now.getDate();
@@ -464,10 +465,9 @@ function renderOverview(){
  const latestMemory=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))[0];
  const latestPhoto=cache.gallery[cache.gallery.length-1];
  const music=cache.music||{};
- $("home-photo-count").textContent=cache.gallery.length+" PHOTOS ↗";
- $("home-photo-title").textContent="打开相册";
- const recentPhotos=cache.gallery.filter(x=>x&&x.src).slice(-3).reverse();
- $("home-photo").innerHTML='<div class="polaroid-stack" aria-label="最近照片收藏">'+(recentPhotos.length?recentPhotos.map((photo,i)=>'<figure class="polaroid polaroid-'+(i+1)+'"><img src="'+safe(photo.src)+'" alt="'+safe(photo.alt||photo.title||"LUNE photo")+'" loading="lazy" decoding="async"><figcaption>'+safe(photo.title||"a little moment")+'</figcaption></figure>').join(""):'<div class="polaroid empty-polaroid"><span>第一张照片<br>还在路上</span></div><div class="polaroid empty-polaroid"><span>留住一个瞬间</span></div><div class="polaroid empty-polaroid"><span>慢慢填满这里</span></div>')+'</div>';
+ $("home-photo-count").textContent=cache.gallery.length+" PHOTOS";
+ const recentPhotos=cache.gallery.filter(x=>x&&x.src).slice(-12).reverse();
+ $("home-photo").innerHTML=recentPhotos.length?recentPhotos.map((photo,i)=>'<figure class="photo-slide"><img src="'+safe(photo.src)+'" alt="'+safe(photo.alt||photo.title||"LUNE photo")+'" loading="lazy" decoding="async"><i>'+safe(photo.title||("MOMENT "+String(i+1).padStart(2,"0")))+'</i></figure>').join(""):'<div class="photo-slide photo-placeholder"><span>01</span><i>留住一个瞬间</i></div><div class="photo-slide photo-placeholder"><span>02</span><i>把日子收藏起来</i></div><div class="photo-slide photo-placeholder"><span>03</span><i>下一张美好</i></div>';
  $("home-memory-title").textContent=latestMemory?(latestMemory.title||"一段新记忆"):"故事还没有写下";
  $("home-memory-date").textContent=latestMemory?.date||"OUR ARCHIVE";
  $("home-music-title").textContent=music.title||"此刻还没有播放";
@@ -477,7 +477,7 @@ function empty(title,copy){return '<div class="empty"><i class="empty-mark"></i>
 function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function buildRoomNav(activeKey){
  const nav=$("room-nav");
- const active=activeKey==="home"?"home":(["chat","album","music"].includes(activeKey)?activeKey:"more");
+ const active=activeKey==="home"?"home":(["chat","memory","album","music","more"].includes(activeKey)?activeKey:"more");
  nav.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom===active?"page":"false"));
  nav.classList.add("visible");
 }
@@ -496,6 +496,10 @@ function showRoom(key){
  }else if(key==="memory"){
   const list=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
   html=list.length?'<div class="memory-list">'+list.map(x=>'<article class="memory"><time class="memory-date">'+safe(x.date)+'</time><div><h3 class="memory-title">'+safe(x.title)+'</h3><div class="memory-body">'+safe(x.body)+'</div></div></article>').join("")+'</div>':empty("还没有记忆","这里不会自动编造故事。每添加一条记录，只需要填写日期、标题和正文。");
+ }else if(key==="more"){
+  html=empty("更多功能，正在整理","主题设置、资料编辑与空间管理会独立放在这里。记忆库是单独的入口，不会被合并进更多。");
+ }else if(key==="calendar"){
+  html=empty("我们的日历","日历首页预览已放在这里，后续可以继续扩展纪念日与日程。");
  }else if(key==="music"){
   const m=cache.music;
   html=m.title?'<div class="music-card"><div class="track-label">NOW PLAYING</div><h3 class="track-title">'+safe(m.title)+'</h3><div class="track-artist">'+safe(m.artist||"")+'</div><div class="progress"><span style="width:'+Math.max(0,Math.min(100,Number(m.progress)||0))+'%"></span></div><div class="track-meta"><span>'+safe(m.duration||"")+'</span><span>'+Math.max(0,Math.min(100,Number(m.progress)||0))+'%</span></div>'+(m.sourceUrl?'<p><a class="primary-link" href="'+safe(m.sourceUrl)+'" target="_blank" rel="noopener">打开音乐来源 ↗</a></p>':"")+'</div>':empty("此刻没有播放","当有一首歌想留下时，把歌名、歌手和进度写进 data/now-playing.json。这里展示状态，不播放受版权保护的音频。");
@@ -510,7 +514,7 @@ function backHome(){
 $("back").addEventListener("click",backHome);
 $("room-nav").querySelectorAll("[data-nav-room]").forEach(b=>b.addEventListener("click",()=>{
  const key=b.dataset.navRoom;
- if(key==="home")backHome();else if(key==="more")showRoom("memory");else showRoom(key);
+ if(key==="home")backHome();else showRoom(key);
 }));
 buildRoomNav("home");
 $("backup").addEventListener("click",()=>{
