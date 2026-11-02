@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0D0B12">
+  <meta name="description" content="LUNE，给两个人留的一处地方。">
+  <title>LUNE · 我们的家</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0D0B12;
+      --card: #16121B;
+      --text: #EDE6DC;
+      --muted: #7A7280;
+      --accent: #8C2F39;
+      --line: #514957;
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--bg); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page {
+      width: min(1080px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 58px 0 72px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      column-gap: 32px;
+      padding-bottom: 42px;
+    }
+    .brand, .eyebrow, .date, .together-label {
+      font-size: 11px;
+      line-height: 1.4;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .brand { color: var(--muted); margin-bottom: 22px; }
+    .date { color: var(--muted); margin-bottom: 8px; }
+    .clock {
+      margin: 0;
+      font-size: 96px;
+      line-height: .98;
+      font-weight: 400;
+      letter-spacing: -.075em;
+      font-variant-numeric: tabular-nums;
+    }
+    .sentence {
+      margin: 18px 0 0;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .together {
+      color: var(--accent);
+      font-size: 16px;
+      line-height: 1.5;
+      white-space: nowrap;
+      padding-bottom: 8px;
+    }
+    .doors {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .door {
+      min-width: 0;
+      min-height: 218px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+    .door-chat { border-color: var(--text); }
+    .door-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 16px;
+    }
+    .eyebrow { color: var(--muted); }
+    .door-chat .eyebrow { color: var(--text); }
+    .door-title {
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .door-chat .door-title { font-weight: 600; }
+    .door-copy {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+    .art {
+      width: 100%;
+      height: 46px;
+      margin-top: auto;
+      padding-top: 16px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .chat-art { gap: 7px; align-items: center; }
+    .chat-art i {
+      display: block;
+      height: 7px;
+      border: 1px solid #7A7280;
+      border-radius: 8px;
+    }
+    .chat-art i:nth-child(1) { width: 42%; border-color: var(--text); }
+    .chat-art i:nth-child(2) { width: 25%; }
+    .chat-art i:nth-child(3) { width: 13%; }
+    .album-art { position: relative; height: 46px; }
+    .photo {
+      position: absolute;
+      bottom: 0;
+      width: 34px;
+      height: 34px;
+      border: 1px solid #7A7280;
+      border-radius: 3px;
+      background: #16121B;
+    }
+    .photo:nth-child(1) { left: 0; transform: rotate(-9deg); }
+    .photo:nth-child(2) { left: 20px; transform: rotate(5deg); border-color: var(--text); }
+    .photo:nth-child(3) { left: 40px; transform: rotate(12deg); }
+    .music-art { gap: 8px; align-items: center; }
+    .music-track {
+      height: 1px;
+      flex: 1;
+      background: #514957;
+      position: relative;
+    }
+    .music-track::before {
+      content: "";
+      display: block;
+      width: 31%;
+      height: 1px;
+      background: var(--text);
+    }
+    .music-track::after {
+      content: "";
+      position: absolute;
+      left: 31%;
+      top: -3px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--text);
+    }
+    .music-time { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+    .memory-art { gap: 12px; align-items: center; }
+    .memory-date { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+    .memory-rule { width: 1px; height: 25px; background: #7A7280; }
+    .memory-note { width: 42%; height: 1px; background: #7A7280; }
+    .image-art { align-items: center; }
+    .light-frame {
+      width: 58px;
+      height: 34px;
+      background: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .light-frame::after {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--bg);
+      border-radius: 50%;
+    }
+    @media (max-width: 760px) {
+      .page { width: min(100% - 40px, 560px); padding-top: 36px; }
+      .hero { grid-template-columns: 1fr; row-gap: 22px; padding-bottom: 30px; }
+      .together { padding: 0; }
+      .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .door { min-height: 204px; }
+    }
+    @media (max-width: 480px) {
+      .page { width: calc(100% - 32px); padding-top: 28px; }
+      .clock { font-size: 96px; }
+      .doors { grid-template-columns: 1fr; gap: 12px; }
+      .door { min-height: 184px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <div class="brand">LUNE / A PLACE FOR TWO</div>
+        <div class="date" id="date">MONDAY, NOVEMBER 02</div>
+        <h1 class="clock" id="clock">00:00</h1>
+        <p class="sentence">你回来得晚了。灯我留着。</p>
+      </div>
+      <div class="together">在一起的天数 · 待填写</div>
+    </header>
+
+    <section class="doors" aria-label="家里的五扇门">
+      <article class="door door-chat">
+        <div class="door-top"><span class="eyebrow">01 / CHAT</span></div>
+        <div class="door-title">聊天</div>
+        <p class="door-copy">想说的话，留在这里。</p>
+        <div class="art chat-art" aria-hidden="true"><i></i><i></i><i></i></div>
+      </article>
+
+      <article class="door">
+        <div class="door-top"><span class="eyebrow">02 / ALBUM</span></div>
+        <div class="door-title">相册</div>
+        <p class="door-copy">那些舍不得删掉的瞬间。</p>
+        <div class="art album-art" aria-hidden="true"><i class="photo"></i><i class="photo"></i><i class="photo"></i></div>
+      </article>
+
+      <article class="door">
+        <div class="door-top"><span class="eyebrow">03 / MUSIC</span></div>
+        <div class="door-title">音乐</div>
+        <p class="door-copy">此刻，耳边的那一首。</p>
+        <div class="art music-art" aria-hidden="true"><span class="music-time">00:00</span><span class="music-track"></span><span class="music-time">00:00</span></div>
+      </article>
+
+      <article class="door">
+        <div class="door-top"><span class="eyebrow">04 / MEMORIES</span></div>
+        <div class="door-title">记忆库</div>
+        <p class="door-copy">一件一件，慢慢记下来。</p>
+        <div class="art memory-art" aria-hidden="true"><span class="memory-date">2026. — . —</span><i class="memory-rule"></i><i class="memory-note"></i></div>
+      </article>
+
+      <article class="door">
+        <div class="door-top"><span class="eyebrow">05 / IMAGE ROOM</span></div>
+        <div class="door-title">生图室</div>
+        <p class="door-copy">把还没发生的画出来。</p>
+        <div class="art image-art" aria-hidden="true"><i class="light-frame"></i></div>
+      </article>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const clock = document.getElementById("clock");
+      const date = document.getElementById("date");
+      const update = () => {
+        const now = new Date();
+        clock.textContent = new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit", minute: "2-digit", hour12: false
+        }).format(now);
+        date.textContent = new Intl.DateTimeFormat("en-US", {
+          weekday: "long", month: "long", day: "2-digit"
+        }).format(now).toUpperCase();
+      };
+      update();
+      window.setInterval(update, 30000);
+    })();
+  </script>
+</body>
+</html>
