@@ -413,6 +413,7 @@ themeButton.addEventListener("click",()=>applyTheme(document.documentElement.dat
 const roomData={
  chat:{title:"聊天",kicker:"01 / CONVERSATION",intro:"网页不假装自己能代替真正的对话。想说话时，我们回到原来的窗口。"},
  more:{title:"更多",kicker:"06 / MORE",intro:"主题设置、资料编辑与空间管理会慢慢收纳在这里。"},
+ calendar:{title:"日历",kicker:"07 / CALENDAR",intro:"记录日子、纪念日和两个人的计划。"},
  album:{title:"相册",kicker:"02 / PHOTOGRAPHS",intro:"每张照片都可以有自己的位置。图片建议压缩为 WebP，再放进仓库或图床。"},
  music:{title:"音乐",kicker:"03 / SOUNDTRACK",intro:"这里记录此刻在听什么，不直接托管版权音频。"},
  memory:{title:"记忆库",kicker:"04 / OUR ARCHIVE",intro:"每条记忆都由日期、标题和正文组成，安静地排在一起。"},
@@ -440,7 +441,7 @@ async function loadData(){
  ]);
  cache={memories:Array.isArray(memories)?memories:[],gallery:Array.isArray(gallery)?gallery:[],music:music||{}};
  
- renderPeople();renderOverview();
+ renderPeople();tick();renderOverview();
 }
 function renderPeople(){
  const people=[
