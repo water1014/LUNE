@@ -28,7 +28,8 @@ jobs:
 
       - name: Fetch the original Ocean source
         run: |
-          git clone --depth 1 https://github.com/fishwithoctopus/Ocean.git /tmp/ocean
+          git clone https://github.com/fishwithoctopus/Ocean.git /tmp/ocean
+          git -C /tmp/ocean checkout c1bf8c6f5bf96d37e1791c22d5c81f057dadcefe
         working-directory: .
 
       - name: Install dependencies
