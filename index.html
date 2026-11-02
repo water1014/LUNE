@@ -305,10 +305,7 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
     <div class="brand"><span class="brand-name">LUNE</span><span class="brand-sub">A little home for two</span></div>
     <div class="mast-actions"><div class="mast-meta">PRIVATE SPACE · EST. <span id="year">----</span></div><button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换日间与夜间主题"><span class="theme-symbol" id="theme-symbol">☼</span><span id="theme-label">日间</span></button></div>
   </header>
-  <section class="home-intro">
-    <div><p class="home-kicker">A LITTLE HOME FOR TWO</p><h1>今天，也一起生活。</h1></div>
-    <div class="home-clock"><strong id="clock">--:--</strong><span id="date">----</span></div>
-  </section>
+  <section class="home-intro" aria-label="当前时间"><div class="home-clock"><strong id="clock">--:--</strong><span id="date">----</span></div></section>
   <section class="ocean-board" aria-label="我们的生活首页">
     <article class="board-card couple-board">
       <div class="board-top"><span class="board-label">THE TWO OF US · 两个人</span><span class="board-index">01</span></div>
@@ -359,10 +356,6 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
       <span class="board-label">IMAGE ROOM</span><span class="studio-star">✳</span><strong>生图室</strong><span>把想象收藏起来　↗</span>
     </button>
   </section>
-  <nav class="home-quick-nav" aria-label="快速进入房间">
-    <span class="quick-nav-label">THE ROOMS</span>
-    <button data-room="chat">聊天 <i>↗</i></button><button data-room="album">相册 <i>↗</i></button><button data-room="music">音乐 <i>↗</i></button><button data-room="memory">记忆库 <i>↗</i></button><button data-room="studio">生图室 <i>↗</i></button>
-  </nav>
   <footer class="footer"><span>MADE OF SMALL THINGS</span><span>LUNE · OUR LITTLE UNIVERSE</span></footer>
 </main>
 <section class="shell room" id="room">
@@ -371,7 +364,13 @@ button.board-card:hover{border-color:var(--hover-border);background:var(--hover-
   <div id="room-content"></div>
   <div class="backup-row"><button class="backup" id="backup">导出这间家的数据备份 ↓</button></div>
 </section>
-<nav class="room-nav" id="room-nav" aria-label="房间导航"></nav>
+<nav class="room-nav visible" id="room-nav" aria-label="主导航">
+<button class="room-tab" type="button" data-nav-room="home" aria-current="page"><span class="room-tab-mark">⌂</span><span class="room-tab-label">首页</span></button>
+<button class="room-tab" type="button" data-nav-room="chat" aria-current="false"><span class="room-tab-mark">▢</span><span class="room-tab-label">聊天</span></button>
+<button class="room-tab" type="button" data-nav-room="album" aria-current="false"><span class="room-tab-mark">▧</span><span class="room-tab-label">相册</span></button>
+<button class="room-tab" type="button" data-nav-room="music" aria-current="false"><span class="room-tab-mark">♫</span><span class="room-tab-label">音乐</span></button>
+<button class="room-tab" type="button" data-nav-room="more" aria-current="false"><span class="room-tab-mark">···</span><span class="room-tab-label">更多</span></button>
+</nav>
 <script src="./config.js"></script>
 <script>
 const $=id=>document.getElementById(id);
