@@ -168,31 +168,13 @@ body{
  box-shadow:0 7px 20px rgba(75,51,61,.12),inset 0 1px 3px rgba(255,255,255,.95);
 }
 .couple .person-name{font-size:13px;letter-spacing:.025em}
-.couple .heart{width:min(100%,126px);height:46px}
-.couple .heart path{stroke-width:1.05;opacity:.78;animation-duration:4.6s}
-.couple .days{font-size:8px;letter-spacing:.08em}
-[data-theme=night] .couple{
- background:linear-gradient(112deg,rgba(85,70,82,.58),rgba(51,45,55,.38) 52%,rgba(75,62,73,.52));
-}
-[data-theme=night] .couple .avatar{
- border-color:rgba(255,255,255,.24);
- box-shadow:0 7px 20px rgba(0,0,0,.22),inset 0 1px 3px rgba(255,255,255,.13);
-}
-@media(max-width:390px){
- .couple{min-height:108px;padding:11px 13px;grid-template-columns:minmax(0,1fr) minmax(82px,1.05fr) minmax(0,1fr);gap:6px}
- .couple .avatar{width:58px;height:58px;margin-bottom:6px}
- .couple .heart{height:40px}
- .couple .person-name{font-size:12px}
-}
-@media(prefers-reduced-motion:reduce){.couple .heart path{animation:none;stroke-dashoffset:0}}
 
-
-/* A clear heart with a fine intertwined ribbon, drawn in sequence */
-.couple .heart{height:48px;overflow:visible}
-.couple .heart path{fill:none;stroke:var(--red);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:heart-draw 3.8s cubic-bezier(.55,.05,.35,1) infinite alternate}
-.couple .heart .heart-outline{stroke-width:1.25;opacity:.9}
-.couple .heart .heart-weave{stroke-width:1.05;opacity:.72;animation-delay:.42s}
-@keyframes heart-draw{to{stroke-dashoffset:0}}
+/* A recognizable heart, with a second strand looping into a small heart-knot */
+.couple .heart{width:min(100%,132px);height:48px;overflow:visible}
+.couple .heart path{fill:none;stroke:var(--red);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:heart-cord 4.2s cubic-bezier(.45,.05,.35,1) infinite}
+.couple .heart .heart-outline{stroke-width:1.35;opacity:.88}
+.couple .heart .heart-weave{stroke-width:1.25;opacity:.96;animation-delay:.55s}
+@keyframes heart-cord{0%{stroke-dashoffset:1}78%,100%{stroke-dashoffset:0}}
 @media(max-width:390px){.couple .heart{height:42px}}
 @media(prefers-reduced-motion:reduce){.couple .heart path{animation:none;stroke-dashoffset:0}}
 
@@ -204,7 +186,7 @@ body{
 
 <section class="intro"><div><div class="eyebrow">A QUIET PLACE FOR US</div><h1>把日子，慢慢收藏。</h1></div><div class="clock"><strong id="clock">--:--</strong><span id="date"></span></div></section>
 <section class="home" aria-label="我们的生活首页">
-<div class="surface couple"><div class="person"><div class="avatar" id="avatar-me">我</div><div class="person-name" id="name-me">我</div></div><div class="pair-center"><svg class="heart" viewBox="0 0 120 58" aria-hidden="true"><path class="heart-outline" pathLength="1" d="M60 48 C52 41 23 25 23 15 C23 5 36 2 44 9 C51 15 56 21 60 26 C64 21 69 15 76 9 C84 2 97 5 97 15 C97 25 68 42 60 48 Z"/><path class="heart-weave" pathLength="1" d="M37 20 C43 27 49 35 56 31 C63 27 66 16 74 18 C83 20 82 31 74 34 C67 37 62 29 60 26 C57 22 53 17 47 18 C42 19 40 23 43 27 C47 33 54 35 60 30"/></svg><div class="days">相伴 <b id="days">—</b> 天</div></div><div class="person"><div class="avatar" id="avatar-partner">L</div><div class="person-name" id="name-partner">家机</div></div></div>
+<div class="surface couple"><div class="person"><div class="avatar" id="avatar-me">我</div><div class="person-name" id="name-me">我</div></div><div class="pair-center"><svg class="heart" viewBox="0 0 120 58" aria-hidden="true"><path class="heart-outline" pathLength="1" d="M60 49 C53 43 21 25 21 14 C21 4 34 1 43 8 C51 14 56 21 60 26 C64 21 69 14 77 8 C86 1 99 4 99 14 C99 25 67 43 60 49 Z"/><path class="heart-weave" pathLength="1" d="M25 25 C35 25 40 34 48 34 C54 34 56 29 60 25 C64 21 68 16 74 17 C82 18 84 27 78 31 C73 35 67 32 63 27 C60 23 57 18 52 17 C47 16 43 20 44 24 C45 28 51 30 55 27 C58 25 58 21 60 18"/></svg><div class="days">相伴 <b id="days">—</b> 天</div></div><div class="person"><div class="avatar" id="avatar-partner">L</div><div class="person-name" id="name-partner">家机</div></div></div>
 <button class="surface memory" data-room="memory"><span class="memory-mark">✧</span><span class="memory-copy"><strong id="home-memory-title">故事还没有写下</strong><small id="home-memory-date">最近的一段记忆</small></span><span class="arrow">↗</span></button>
 <button class="surface music" data-room="music"><div class="section-line"><span class="section-label">OUR SOUNDTRACK · 此刻的声音</span><span class="section-label">♫</span></div><div class="vinyl"></div><div class="track"><strong id="music-title">此刻还没有播放</strong><span id="music-artist">等一首歌，成为今天的背景</span></div><div class="music-open">打开音乐 ↗</div></button>
 <div class="duo"><button class="surface calendar" data-room="calendar"><div class="section-line"><span class="section-label">OUR CALENDAR · 日历</span><span class="section-label" id="calendar-progress"></span></div><div class="month-line"><strong id="calendar-month">----</strong><span id="calendar-today">今天</span></div><div class="week"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="days-grid" id="calendar-days"></div></button>
