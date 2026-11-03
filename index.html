@@ -196,6 +196,22 @@ body{
 .editor textarea{min-height:104px;resize:vertical;line-height:1.8}
 .editor .editor-submit{border:1px solid var(--red-soft);background:rgba(137,84,94,.10);border-radius:30px;padding:10px 17px;color:var(--ink);font-size:10px}
 .editor-note{font-size:9px;color:var(--muted);margin-left:10px}
+
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.profile-person{min-width:0;padding:14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.16)}
+.profile-person-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.profile-preview{width:46px;height:46px;flex:none;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--paper2);border:1px solid var(--line);font:16px var(--serif)}
+.profile-preview img{width:100%;height:100%;object-fit:cover}
+.profile-person-title{font:14px var(--serif)}
+.profile-person-sub{font-size:9px;color:var(--muted);margin-top:3px}
+.profile-person input[type=text],.profile-person input[type=file]{font-size:10px}
+.profile-date{margin-top:16px}
+.profile-date label{display:block;font-size:10px;color:var(--muted);margin:0 0 6px}
+.profile-date input{width:100%;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.28);color:var(--ink);padding:11px 12px;font:12px var(--sans)}
+.profile-save-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.profile-hint{font-size:9px;color:var(--muted);line-height:1.7}
+@media(max-width:420px){.profile-grid{gap:8px}.profile-person{padding:10px}.profile-preview{width:40px;height:40px}}
+
 </style>
 </head>
 <body>
@@ -230,11 +246,14 @@ let cache={memories:[],gallery:[],music:{}};
 let localGallery=JSON.parse(localStorage.getItem("lune-gallery")||"[]");
 let localEvents=JSON.parse(localStorage.getItem("lune-events")||"[]");let todayNotes=JSON.parse(localStorage.getItem("lune-notes")||"[]");
 let localMemories=JSON.parse(localStorage.getItem("lune-memories")||"[]");
+let profile=(()=>{try{return JSON.parse(localStorage.getItem("lune-profile")||"null")||{}}catch(e){return {}}})();
+profile={userName:profile.userName??cfg.userName??"",userAvatar:profile.userAvatar??cfg.userAvatar??"",companionName:profile.companionName??cfg.companionName??"",companionAvatar:profile.companionAvatar??cfg.companionAvatar??"",togetherSince:profile.togetherSince??cfg.togetherSince??""};
+
 const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem("lune-theme",t);const toggle=$("theme-toggle");if(toggle)toggle.textContent=t==="night"?"☼ 日间":"☾ 夜间";document.querySelector('meta[name="theme-color"]').content=t==="night"?"#171719":"#f3f0ed"}
 applyTheme(localStorage.getItem("lune-theme")||"day");
 document.addEventListener("click",e=>{if(e.target.closest("#theme-toggle"))applyTheme(document.documentElement.dataset.theme==="night"?"day":"night")});
-function tick(){const n=new Date();$("clock").textContent=new Intl.DateTimeFormat("zh-CN",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(n);$("date").textContent=new Intl.DateTimeFormat("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(n);$("year")&&($("year").textContent=n.getFullYear());calendar(n);if(cfg.togetherSince){const d=new Date(cfg.togetherSince+"T00:00:00");const days=Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-d)/86400000)+1;$("days").textContent=Number.isFinite(days)&&days>0?days:"—"}}
+function tick(){const n=new Date();$("clock").textContent=new Intl.DateTimeFormat("zh-CN",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(n);$("date").textContent=new Intl.DateTimeFormat("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(n);$("year")&&($("year").textContent=n.getFullYear());calendar(n);if(profile.togetherSince){const d=new Date(profile.togetherSince+"T00:00:00");const days=Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-d)/86400000)+1;$("days").textContent=Number.isFinite(days)&&days>0?days:"—"}else $("days").textContent="—"}
 function calendar(n){const y=n.getFullYear(),m=n.getMonth(),today=n.getDate(),first=(new Date(y,m,1).getDay()+6)%7,count=new Date(y,m+1,0).getDate();$("calendar-month").textContent=y+" / "+String(m+1).padStart(2,"0");$("calendar-today").textContent=(m+1)+"月"+today+"日";$("calendar-progress").textContent=Math.round(today/count*100)+"%";let s="";for(let i=0;i<first;i++)s+='<i class="blank"></i>';for(let d=1;d<=count;d++){const key=y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");s+='<span class="day '+(d===today?"today":"")+' '+(d>today?"future":"")+(localEvents.some(x=>x.date===key)?" has-event":"")+'">'+d+"</span>"}$("calendar-days").innerHTML=s}
 async function readJSON(p,f){try{const r=await fetch(p,{cache:"no-store"});if(!r.ok)throw 0;return await r.json()}catch(e){return f}}
 function setPerson(idName,idAvatar,name,avatar,fallback){$(idName).textContent=name||fallback;$(idAvatar).innerHTML=avatar?'<img src="'+safe(avatar)+'" alt="'+safe(name||fallback)+'">':safe(fallback)}
@@ -266,10 +285,13 @@ function showRoom(key){
  }else if(key==="chat"){
   h='<div class="surface room-card"><h3>想说的话，不必留在网页里。</h3><p>回到我们的对话窗口吧。</p><a href="https://chatgpt.com/" target="_blank" rel="noopener">回来说话 ↗</a></div>';
  }else{
-  h='<div class="surface room-card"><h3>空间设置</h3><p>让这间小屋，保持你喜欢的光线。</p><div class="setting-row"><div><strong>显示主题</strong><small>在日间与夜间氛围之间切换</small></div><button class="theme-toggle" id="theme-toggle" type="button">☾ 夜间</button></div><p>头像、名字和相伴日期可在 config.js 中自定义。</p></div>';
+  h='<form class="editor" id="profile-form"><h3 style="font:21px var(--serif);font-weight:400;margin:0 0 6px">两个人的资料</h3><p style="font-size:10px;color:var(--muted);margin:0 0 16px">把名字、头像和相伴的起点，留在这间小屋里。</p><div class="profile-grid"><section class="profile-person"><div class="profile-person-head"><div class="profile-preview" id="profile-preview-me">'+(profile.userAvatar?'<img src="'+safe(profile.userAvatar)+'" alt="">':safe(profile.userName||"我").slice(0,1))+'</div><div><div class="profile-person-title">我</div><div class="profile-person-sub">你的名字与头像</div></div></div><label for="profile-me-name">名字</label><input id="profile-me-name" name="userName" type="text" maxlength="16" value="'+safe(profile.userName)+'" placeholder="怎么称呼你"><label for="profile-me-avatar">更换头像</label><input id="profile-me-avatar" name="userAvatar" type="file" accept="image/*"></section><section class="profile-person"><div class="profile-person-head"><div class="profile-preview" id="profile-preview-partner">'+(profile.companionAvatar?'<img src="'+safe(profile.companionAvatar)+'" alt="">':safe(profile.companionName||"L").slice(0,1))+'</div><div><div class="profile-person-title">对方</div><div class="profile-person-sub">TA 的名字与头像</div></div></div><label for="profile-partner-name">名字</label><input id="profile-partner-name" name="companionName" type="text" maxlength="16" value="'+safe(profile.companionName)+'" placeholder="怎么称呼对方"><label for="profile-partner-avatar">更换头像</label><input id="profile-partner-avatar" name="companionAvatar" type="file" accept="image/*"></section></div><div class="profile-date"><label for="profile-together-date">相伴开始的日期</label><input id="profile-together-date" name="togetherSince" type="date" value="'+safe(profile.togetherSince)+'"></div><div class="profile-save-row"><button class="editor-submit" type="submit">保存资料</button><span class="profile-hint">头像会自动压缩，资料仅保存在当前设备。</span></div></form><div class="surface room-card"><h3>空间光线</h3><p>选择此刻想要的氛围。</p><div class="setting-row"><div><strong>显示主题</strong><small>在日间与夜间氛围之间切换</small></div><button class="theme-toggle" id="theme-toggle" type="button">'+(document.documentElement.dataset.theme==="night"?"☼ 日间":"☾ 夜间")+'</button></div></div>';
  }
  $("room-content").innerHTML=h;document.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom===key?"page":"false"));window.scrollTo(0,0)
 }
+
+async function compressAvatar(file){if(!file)return "";if(!file.type.startsWith("image/"))throw new Error("请选择图片文件");return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const scale=Math.min(1,512/Math.max(img.width,img.height)),canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL("image/jpeg",.86))};img.src=reader.result};reader.readAsDataURL(file)})}
+document.addEventListener("submit",async e=>{if(e.target.id!=="profile-form")return;e.preventDefault();const form=e.target,fd=new FormData(form);try{const next={...profile,userName:String(fd.get("userName")||"").trim(),companionName:String(fd.get("companionName")||"").trim(),togetherSince:String(fd.get("togetherSince")||"")};const me=form.elements.userAvatar.files[0],partner=form.elements.companionAvatar.files[0];if(me)next.userAvatar=await compressAvatar(me);if(partner)next.companionAvatar=await compressAvatar(partner);try{localStorage.setItem("lune-profile",JSON.stringify(next))}catch(err){alert("资料暂时无法保存，可能是浏览器空间不足。请换小一些的头像再试。");return}profile=next;setPerson("name-me","avatar-me",profile.userName,profile.userAvatar,"我");setPerson("name-partner","avatar-partner",profile.companionName,profile.companionAvatar,"L");tick();showRoom("more");alert("两个人的资料已经保存。")}catch(err){alert("头像读取失败，请换一张图片再试。")}});
 
 document.addEventListener("submit",e=>{
  if(e.target.id!=="memory-form")return;
@@ -299,7 +321,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhoto()});
 function home(){ $("room").classList.remove("active");$("home").style.display="block";document.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom==="home"?"page":"false"));window.scrollTo(0,0)}
 document.querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.room)));document.querySelectorAll("[data-nav-room]").forEach(b=>b.addEventListener("click",()=>b.dataset.navRoom==="home"?home():showRoom(b.dataset.navRoom)));$("back").addEventListener("click",home);
 $("backup").addEventListener("click",()=>{const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),config:{togetherSince:cfg.togetherSince||""},memories:cache.memories,gallery:[...cache.gallery,...localGallery],calendarEvents:localEvents,notes:todayNotes,nowPlaying:cache.music},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="LUNE-backup-"+localDate()+".json";a.click();URL.revokeObjectURL(url)});
-if(cfg.userName||cfg.userAvatar)setPerson("name-me","avatar-me",cfg.userName,cfg.userAvatar,"我");if(cfg.companionName||cfg.companionAvatar)setPerson("name-partner","avatar-partner",cfg.companionName,cfg.companionAvatar,"L");
+setPerson("name-me","avatar-me",profile.userName,profile.userAvatar,"我");setPerson("name-partner","avatar-partner",profile.companionName,profile.companionAvatar,"L");
 if(cfg.accessCode){$("gate").classList.add("show");$("gate-form").addEventListener("submit",e=>{e.preventDefault();if($("gate-code").value===cfg.accessCode){$("gate").classList.remove("show");sessionStorage.setItem("lune-unlocked","1")}else $("gate-error").textContent="口令不对，再试一次。"});if(sessionStorage.getItem("lune-unlocked")==="1")$("gate").classList.remove("show")}
 tick();setInterval(tick,30000);Promise.all([readJSON("./data/memories.json",[]),readJSON("./data/gallery.json",[]),readJSON("./data/now-playing.json",{})]).then(([memories,gallery,music])=>{cache={memories:[...(Array.isArray(memories)?memories:[]),...localMemories],gallery:Array.isArray(gallery)?gallery:[],music:music||{}};overview()});
 </script>
