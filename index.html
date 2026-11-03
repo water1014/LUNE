@@ -171,7 +171,7 @@ body{
 
 
 /* One unbroken red cord: it travels in, loops into a heart, knots at the centre, and travels out */
-.couple .heart{width:min(100%,132px);height:48px;overflow:visible}
+.couple .heart{width:min(100%,168px);height:52px;overflow:visible}
 .couple .heart-cord{
  fill:none;stroke:var(--red);stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;
  stroke-dasharray:1;stroke-dashoffset:1;
@@ -179,7 +179,12 @@ body{
  opacity:.9;
 }
 @keyframes heart-cord-travel{0%{stroke-dashoffset:1}82%,100%{stroke-dashoffset:0}}
-@media(max-width:390px){.couple .heart{height:42px}}
+@media(max-width:390px){
+ .couple .avatar{width:52px;height:52px}
+ .couple .heart{height:42px}
+ .couple{gap:6px;padding-left:10px;padding-right:10px}
+ .couple .person-name{font-size:11px}
+}
 @media(prefers-reduced-motion:reduce){.couple .heart-cord{animation:none;stroke-dashoffset:0}}
 
 </style>
