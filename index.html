@@ -520,6 +520,29 @@ body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
 .letter-entry .letter-content{display:none}
 .letter-entry.opened .letter-content{display:block;animation:letterReveal .55s ease both}
 @keyframes letterReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+ 
+/* Home life panel */
+.home-life{display:grid;gap:9px;padding:3px 0 2px}
+.home-life-heading{display:flex;align-items:end;justify-content:space-between;padding:2px 2px 1px}
+.home-life-heading h2{font:20px var(--serif);font-weight:400;letter-spacing:.02em;margin:5px 0 0;color:var(--ink)}
+.home-life-date{font-size:9px;color:var(--muted);letter-spacing:.08em}
+.life-mood,.life-mini{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:12px;text-align:left;min-width:0}
+.life-mood{display:flex;align-items:center;gap:12px;padding:12px 14px;width:100%;min-height:68px}
+.life-symbol{width:34px;height:34px;flex:0 0 34px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--red);font:20px var(--serif);background:var(--paper2)}
+.life-copy{display:grid;gap:4px;min-width:0;flex:1}
+.life-copy small,.life-mini small{font-size:9px;color:var(--muted);letter-spacing:.04em}
+.life-copy strong{font:14px var(--serif);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.life-copy em{font-style:normal;font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.life-arrow{color:var(--muted);font-size:14px}
+.life-pair{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.life-mini{display:grid;gap:9px;padding:11px 12px;min-height:88px}
+.life-mini-top{display:flex;justify-content:space-between;align-items:center}
+.life-mini-icon{font:17px var(--serif);color:var(--red-soft)}
+.life-mini strong{font:13px var(--serif);font-weight:400;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:19px}
+.life-mini small{line-height:1.4}
+.home-life button{transition:transform .18s ease,border-color .18s ease}
+.home-life button:active{transform:scale(.985);border-color:var(--red-soft)}
+@media(max-width:360px){.life-pair{gap:7px}.life-mini{padding:10px;min-height:84px}.life-mini strong{font-size:12px}}
 </style>
 </head>
 <body>
@@ -530,6 +553,14 @@ body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
 <section class="intro"><div><div class="eyebrow">A QUIET PLACE FOR US</div><h1>把日子，慢慢收藏。</h1></div><div class="clock"><strong id="clock">--:--</strong><span id="date"></span></div></section>
 <section class="home" aria-label="我们的生活首页">
 <div class="surface couple"><div class="person"><div class="avatar" id="avatar-me">我</div><div class="person-name" id="name-me">我</div></div><div class="pair-center"><svg class="heart" viewBox="0 0 120 58" aria-hidden="true"><path class="heart-cord" pathLength="1" d="M0 29 C10 29 19 29 27 29 C18 19 19 8 29 5 C41 2 52 16 60 27 C68 16 79 2 91 5 C101 8 102 19 93 29 C84 40 70 49 60 54 C50 49 36 40 27 29 C37 27 46 20 54 25 C63 31 55 39 48 34 C41 29 47 20 57 22 C67 24 72 33 65 36 C58 39 51 31 57 27 C61 24 65 27 68 29 C78 29 89 29 120 29"/></svg><div class="days">相伴 <b id="days">—</b> 天</div></div><div class="person"><div class="avatar" id="avatar-partner">L</div><div class="person-name" id="name-partner">家机</div></div></div>
+<section class="home-life" aria-label="今天的共同生活">
+ <div class="home-life-heading"><div><span class="section-label">A LITTLE LIFE TOGETHER</span><h2>今天，也在一起。</h2></div><span class="home-life-date" id="home-life-date"></span></div>
+ <button class="life-mood" type="button" data-room="mood"><span class="life-symbol">♡</span><span class="life-copy"><small>两个人的今日心情</small><strong id="life-mood-line">今天的心情，还等着被写下。</strong><em id="life-mood-note">给今天留一点位置</em></span><span class="life-arrow">↗</span></button>
+ <div class="life-pair">
+  <button class="life-mini" type="button" data-room="letters"><span class="life-mini-top"><span class="section-label">LETTER / 信箱</span><span class="life-mini-icon">✉</span></span><strong id="life-letter-title">信箱还安安静静</strong><small id="life-letter-state">写一封信，留给某一天</small></button>
+  <button class="life-mini" type="button" data-room="countdown"><span class="life-mini-top"><span class="section-label">NEXT DAY / 倒数日</span><span class="life-mini-icon">⌁</span></span><strong id="life-countdown-title">等待一个特别的日子</strong><small id="life-countdown-state">把期待放在这里</small></button>
+ </div>
+</section>
 <button class="surface memory" data-room="memory"><span class="memory-mark">✧</span><span class="memory-copy"><strong id="home-memory-title">故事还没有写下</strong><small id="home-memory-date">最近的一段记忆</small></span><span class="arrow">↗</span></button>
 <button class="surface music" data-room="music"><div class="section-line"><span class="section-label">OUR SOUNDTRACK · 此刻的声音</span><span class="section-label">♫</span></div><div class="vinyl" id="music-vinyl"></div><div class="track"><strong id="music-title">此刻还没有播放</strong><span id="music-artist">等一首歌，成为今天的背景</span></div><div class="music-open">打开音乐 ↗</div></button>
 <div class="duo"><button class="surface calendar" data-room="calendar"><div class="section-line"><span class="section-label">OUR CALENDAR · 日历</span><span class="section-label" id="calendar-progress"></span></div><div class="month-line"><strong id="calendar-month">----</strong><span id="calendar-today">今天</span></div><div class="week"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="days-grid" id="calendar-days"></div></button>
@@ -569,7 +600,22 @@ async function readJSON(p,f){try{const r=await fetch(p,{cache:"no-store"});if(!r
 function setPerson(idName,idAvatar,name,avatar,fallback){$(idName).textContent=name||fallback;$(idAvatar).innerHTML=avatar?'<img src="'+safe(avatar)+'" alt="'+safe(name||fallback)+'">':safe(fallback)}
 let stackIndex=0;function paintStack(){const cards=[...$("home-photo").querySelectorAll("[data-photo-src]")];cards.forEach((card,i)=>{const n=(i-stackIndex+cards.length)%cards.length;card.dataset.stack=n<4?String(n):"hidden"});$("stack-hint").textContent=cards.length>1?"轻扫翻看":""}
 function localDate(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
-function overview(){const latest=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))[0],music={...(cache.music||{}),...(localMusic||{})},allPhotos=[...cache.gallery,...localGallery].filter(x=>x&&x.src).sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));$("home-memory-title").textContent=latest?(latest.title||"一段新记忆"):"故事还没有写下";$("home-memory-date").textContent=latest?.date||"最近的一段记忆";$("music-title").textContent=music.title||"此刻还没有播放";$("music-artist").textContent=music.artist||"等一首歌，成为今天的背景";[...document.querySelectorAll("#music-vinyl,#music-room-vinyl")].forEach(v=>{v.style.backgroundImage=music.cover?"url(\""+music.cover+"\")":"";v.classList.toggle("has-cover",!!music.cover)});$("photo-count").textContent=allPhotos.length+" PHOTOS";const photos=allPhotos.slice(0,12);stackIndex=0;$("home-photo").innerHTML=photos.length?photos.map((p,i)=>'<figure class="photo" role="button" tabindex="0" data-stack="hidden" data-photo-src="'+safe(p.src)+'" data-photo-title="'+safe(p.title||("MOMENT "+String(i+1).padStart(2,"0")))+'"><img src="'+safe(p.src)+'" alt="'+safe(p.alt||p.title||"LUNE photo")+'" loading="lazy"><figcaption>'+safe(p.title||("MOMENT "+String(i+1).padStart(2,"0")))+'</figcaption></figure>').join(""):'<div class="photo photo-empty" data-stack="0">留住一个瞬间</div><div class="photo photo-empty" data-stack="1">把日子收藏起来</div><div class="photo photo-empty" data-stack="2">下一张美好</div>';paintStack()}
+function overview(){const latest=[...cache.memories].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))[0],music={...(cache.music||{}),...(localMusic||{})},allPhotos=[...cache.gallery,...localGallery].filter(x=>x&&x.src).sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));$("home-memory-title").textContent=latest?(latest.title||"一段新记忆"):"故事还没有写下";$("home-memory-date").textContent=latest?.date||"最近的一段记忆";$("music-title").textContent=music.title||"此刻还没有播放";$("music-artist").textContent=music.artist||"等一首歌，成为今天的背景";[...document.querySelectorAll("#music-vinyl,#music-room-vinyl")].forEach(v=>{v.style.backgroundImage=music.cover?"url(\""+music.cover+"\")":"";v.classList.toggle("has-cover",!!music.cover)});$("photo-count").textContent=allPhotos.length+" PHOTOS";const photos=allPhotos.slice(0,12);stackIndex=0;$("home-photo").innerHTML=photos.length?photos.map((p,i)=>'<figure class="photo" role="button" tabindex="0" data-stack="hidden" data-photo-src="'+safe(p.src)+'" data-photo-title="'+safe(p.title||("MOMENT "+String(i+1).padStart(2,"0")))+'"><img src="'+safe(p.src)+'" alt="'+safe(p.alt||p.title||"LUNE photo")+'" loading="lazy"><figcaption>'+safe(p.title||("MOMENT "+String(i+1).padStart(2,"0")))+'</figcaption></figure>').join(""):'<div class="photo photo-empty" data-stack="0">留住一个瞬间</div><div class="photo photo-empty" data-stack="1">把日子收藏起来</div><div class="photo photo-empty" data-stack="2">下一张美好</div>';paintStack();renderHomeLifePanel()}
+ 
+function renderHomeLifePanel(){
+ const today=localDate(),moods=localMoods.filter(x=>x&&x.date===today),me=moods.find(x=>x.owner==="user"),partner=moods.find(x=>x.owner==="companion");
+ $("home-life-date").textContent=today.replace(/-/g," / ");
+ const moodBits=[];if(me?.mood)moodBits.push("我："+me.mood);if(partner?.mood)moodBits.push((profile.companionName||"宋祁")+"："+partner.mood);
+ $("life-mood-line").textContent=moodBits.length?moodBits.join("　·　"):"今天的心情，还等着被写下。";
+ const note=me?.note||partner?.note||"给今天留一点位置";$("life-mood-note").textContent=note;
+ const letters=[...localLetters].sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0)),letter=letters[0];
+ if(letter){const ready=!letter.unlockAt||Date.now()>=new Date(letter.unlockAt).getTime();$("life-letter-title").textContent=letter.title||"一封没有标题的信";$("life-letter-state").textContent=ready?(letter.openedAt?"已经拆开的信":"信封已可以拆开"):"封存中 · "+String(letter.unlockAt).replace("T"," ")}
+ else{$("life-letter-title").textContent="信箱还安安静静";$("life-letter-state").textContent="写一封信，留给某一天"}
+ const now=new Date(),todayDate=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+ const upcoming=localCountdowns.map(x=>{const original=new Date(String(x.date||"")+"T00:00:00");if(!Number.isFinite(original.getTime()))return null;let target=original;if(x.repeat==="yearly"){target=new Date(todayDate.getFullYear(),original.getMonth(),original.getDate());if(target<todayDate)target=new Date(todayDate.getFullYear()+1,original.getMonth(),original.getDate())}const diff=Math.round((target-todayDate)/86400000);return {item:x,target,diff}}).filter(x=>x&&x.diff>=0).sort((a,b)=>a.diff-b.diff)[0];
+ if(upcoming){$("life-countdown-title").textContent=upcoming.item.title||"特别的日子";$("life-countdown-state").textContent=upcoming.diff===0?"就是今天 ♡":"还有 "+upcoming.diff+" 天 · "+upcoming.target.getFullYear()+"/"+String(upcoming.target.getMonth()+1).padStart(2,"0")+"/"+String(upcoming.target.getDate()).padStart(2,"0")}
+ else{$("life-countdown-title").textContent="等待一个特别的日子";$("life-countdown-state").textContent=localCountdowns.length?"已记录的日子都过去了":"把期待放在这里"}
+}
 const roomData={note:["今日纸条","A SMALL NOTE","把今天想说的话，轻轻放在这里。"],chat:["聊天","01 / CONVERSATION","想说的话，不必留在网页里。回到我们的对话窗口吧。"],memory:["记忆库","02 / OUR ARCHIVE","把重要的日子和细小的故事留在这里。"],album:["相册","03 / PHOTOGRAPHS","每张照片都可以有自己的位置。"],music:["音乐","04 / SOUNDTRACK","记录此刻在听什么，不直接托管版权音频。"],more:["更多","05 / MORE","主题设置、资料编辑与空间管理会收纳在这里。"],calendar:["日历","06 / CALENDAR","记录日子、纪念日和两个人的计划。"],mood:["心情日历","07 / TWO HEARTS","每天两颗心情豆，把心情轻轻放在这里。"],diary:["双人日记","08 / OUR DIARY","你写一页，TA 也可以留下一页。"],countdown:["倒数日","09 / IMPORTANT DAYS","把值得期待的日子，放在眼前。"],letters:["信箱","10 / LETTERS","有些话，可以留到一个特别的时刻再拆开。"]};
 function showRoom(key){
  const d=roomData[key];if(!d)return;$("home").style.display="none";$("room").classList.add("active");$("room-title").textContent=d[0];$("room-kicker").textContent=d[1];$("room-intro").textContent=d[2];let h="";
