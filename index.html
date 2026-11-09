@@ -647,7 +647,7 @@ function renderHomeLifePanel(){
 }
 
 const STUDY_DB_NAME="lune-reading-room",STUDY_DB_VERSION=1,STUDY_STORE="books";
-let studyDBPromise=null,studyActiveBookId=null,studySelectedQuote="";
+let studyDBPromise=null,studyActiveBookId=null,studySelectedQuote="",studySelectionHandler=null;
 function openStudyDB(){
  if(!("indexedDB" in window))return Promise.reject(new Error("当前环境不支持本地书架存储"));
  if(studyDBPromise)return studyDBPromise;
@@ -664,7 +664,7 @@ function studyChapterMarkup(content){
  let current={title:"正文",lines:[]};chapters.push(current);
  for(const line of lines){const hit=line.match(pattern);if(hit&&current.lines.some(x=>x.trim())){current={title:hit[1].trim(),lines:[]};chapters.push(current)}else if(hit&&!current.lines.length&&chapters.length===1){current.title=hit[1].trim();continue}current.lines.push(line)}
  const useful=chapters.filter((x,i)=>x.lines.some(v=>v.trim())||i===0);
- return {chapters:useful,html:useful.map((c,i)=>'<section id="study-chapter-'+i+'">'+(i?'<h4 class="study-chapter-title">'+safe(c.title)+'</h4>':'')+'<p>'+safe(c.lines.join("\n"))+'</p></section>').join("")};
+ return {chapters:useful,html:useful.map((c,i)=>'<section id="study-chapter-'+i+'">'+(c.title!=="正文"?'<h4 class="study-chapter-title">'+safe(c.title)+'</h4>':'')+'<p>'+safe(c.lines.join("\n"))+'</p></section>').join("")};
 }
 async function renderStudyRoom(){
  const host=$("study-room");if(!host)return;
@@ -683,7 +683,7 @@ function renderStudyReader(host,book){
  const rememberSelection=()=>{const selection=window.getSelection?.(),quote=String(selection||"").trim();if(quote&&selection?.anchorNode&&reader.contains(selection.anchorNode))studySelectedQuote=quote.slice(0,1200)};
  reader.addEventListener("touchend",()=>setTimeout(rememberSelection,80),{passive:true});
  reader.addEventListener("pointerup",()=>setTimeout(rememberSelection,0));
- document.addEventListener("selectionchange",rememberSelection);
+ if(studySelectionHandler)document.removeEventListener("selectionchange",studySelectionHandler);studySelectionHandler=rememberSelection;document.addEventListener("selectionchange",studySelectionHandler);
  reader.addEventListener("scroll",()=>{const max=reader.scrollHeight-reader.clientHeight,p=max>0?Math.min(1,reader.scrollTop/max):0;book.progress=p;$("study-progress-label").textContent="阅读进度 "+Math.round(p*100)+"%";$("study-progress-bar").style.width=Math.round(p*100)+"%";clearTimeout(reader._saveTimer);reader._saveTimer=setTimeout(()=>studyPut(book).catch(()=>{}),450)},{passive:true});
 }
 const roomData={note:["今日纸条","A SMALL NOTE","把今天想说的话，轻轻放在这里。"],chat:["聊天","01 / CONVERSATION","想说的话，不必留在网页里。回到我们的对话窗口吧。"],memory:["记忆库","02 / OUR ARCHIVE","把重要的日子和细小的故事留在这里。"],album:["相册","03 / PHOTOGRAPHS","每张照片都可以有自己的位置。"],music:["音乐","04 / SOUNDTRACK","记录此刻在听什么，不直接托管版权音频。"],more:["更多","05 / MORE","主题设置、资料编辑与空间管理会收纳在这里。"],calendar:["日历","06 / CALENDAR","记录日子、纪念日和两个人的计划。"],mood:["心情日历","07 / TWO HEARTS","每天两颗心情豆，把心情轻轻放在这里。"],diary:["双人日记","08 / OUR DIARY","你写一页，TA 也可以留下一页。"],countdown:["倒数日","09 / IMPORTANT DAYS","把值得期待的日子，放在眼前。"],letters:["信箱","10 / LETTERS","有些话，可以留到一个特别的时刻再拆开。"],study:["书房","11 / READING ROOM","把一本书带进来，慢慢读，也把读到的句子留在页边。"]};
@@ -864,7 +864,7 @@ document.addEventListener("click",async e=>{
  }
  const open=e.target.closest("[data-study-open]");if(open){studyActiveBookId=open.dataset.studyOpen;renderStudyRoom();return}
  const del=e.target.closest("[data-study-delete]");if(del){if(!confirm("从书架移除这本书？相关阅读进度和批注也会一起删除。"))return;try{await studyDelete(del.dataset.studyDelete);renderStudyRoom()}catch(err){alert("移除失败："+err.message)}return}
- if(e.target.closest("#study-back-shelf")){studyActiveBookId=null;renderStudyRoom();return}
+ if(e.target.closest("#study-back-shelf")){if(studySelectionHandler)document.removeEventListener("selectionchange",studySelectionHandler);studySelectionHandler=null;studySelectedQuote="";studyActiveBookId=null;renderStudyRoom();return}
  if(e.target.closest("#study-quote")){const selection=window.getSelection?.(),quote=String(selection||"").trim()||studySelectedQuote;if(!quote){alert("先在正文里长按或拖动，选中一段文字。");return}studySelectedQuote=quote.slice(0,1200);$("study-selected-quote").textContent=studySelectedQuote;$("study-annotation-form").hidden=false;$("study-annotation-form").scrollIntoView({behavior:"smooth",block:"nearest"});return}
  if(e.target.closest("#study-cancel-quote")){$("study-annotation-form").hidden=true;studySelectedQuote="";return}
   const annotationDelete=e.target.closest("[data-study-delete-annotation]");if(annotationDelete){if(!confirm("删除这条页边批注？"))return;try{const books=await studyGetAll(),book=books.find(x=>x.id===studyActiveBookId);if(!book)return;book.annotations=(Array.isArray(book.annotations)?book.annotations:[]).filter(a=>String(a.id)!==annotationDelete.dataset.studyDeleteAnnotation);await studyPut(book);renderStudyRoom()}catch(err){alert("删除失败："+(err.message||"本地数据库不可用"))}return}
