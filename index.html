@@ -450,6 +450,15 @@ body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
 @media(max-width:390px){.chat-room{min-height:calc(100dvh - 210px)}.chat-thread{max-height:calc(100dvh - 345px);padding-top:10px}.chat-row{max-width:92%}.chat-compose{bottom:calc(70px + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:no-preference){.chat-send{transition:transform .18s ease,filter .18s ease}.chat-send:active{transform:scale(.94);filter:brightness(.96)}}
 
+
+.chat-tools{display:flex;align-items:center;gap:7px}
+.chat-tool{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.34);color:var(--muted);font-size:15px}
+.chat-image{display:block;width:min(210px,58vw);max-height:250px;object-fit:cover;margin:0 0 7px;border-radius:10px;border:1px solid rgba(255,255,255,.55);cursor:zoom-in}
+.chat-message p:empty{display:none}
+.chat-compose{gap:6px}
+.chat-import-input{display:none}
+.chat-thread{scroll-behavior:smooth}
+
 </style>
 </head>
 <body>
@@ -532,36 +541,43 @@ function showRoom(key){
 }
 
 
+
 const CHAT_KEY="lune-chat-messages";
-function readChat(){try{const v=JSON.parse(localStorage.getItem(CHAT_KEY)||"[]");return Array.isArray(v)?v.filter(x=>x&&typeof x.text==="string"):[]}catch(e){return []}}
+function readChat(){try{const v=JSON.parse(localStorage.getItem(CHAT_KEY)||"[]");return Array.isArray(v)?v.filter(x=>x&&typeof x.text==="string"||x&&typeof x.image==="string"):[]}catch(e){return []}}
 let chatMessages=readChat();
 function chatTime(value){const d=new Date(value);return Number.isNaN(d.getTime())?"":new Intl.DateTimeFormat("zh-CN",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(d)}
 function chatDate(value){const d=new Date(value);return Number.isNaN(d.getTime())?"":new Intl.DateTimeFormat("zh-CN",{year:"numeric",month:"long",day:"numeric"}).format(d)}
 function chatAvatar(isMine){const src=isMine?profile.userAvatar:profile.companionAvatar;const name=isMine?(profile.userName||"我"):(profile.companionName||"TA");return src?'<img src="'+safe(src)+'" alt="">':safe(name.slice(0,1))}
 function renderChat(){
- const name=profile.companionName||"我们的对话";
- let rows="",lastDate="";
+ const name=profile.companionName||"我们的对话";let rows="",lastDate="";
  for(const m of chatMessages){
-  const date=chatDate(m.createdAt);
-  if(date!==lastDate){rows+='<div class="chat-date">'+safe(date)+'</div>';lastDate=date}
-  rows+='<article class="chat-row mine"><div class="chat-bubble-avatar">'+chatAvatar(true)+'</div><div class="chat-message"><p>'+safe(m.text)+'</p><div class="chat-meta"><time>'+safe(chatTime(m.createdAt))+'</time><button type="button" data-chat-edit="'+safe(m.id)+'">编辑</button><button type="button" data-chat-delete="'+safe(m.id)+'">删除</button></div></div></article>';
+  const date=chatDate(m.createdAt);if(date!==lastDate){rows+='<div class="chat-date">'+safe(date)+'</div>';lastDate=date}
+  const photo=m.image?'<img class="chat-image" src="'+safe(m.image)+'" alt="聊天图片" data-chat-image="'+safe(m.image)+'" data-chat-image-title="'+safe(m.text||"聊天图片")+'">':"";
+  rows+='<article class="chat-row mine"><div class="chat-bubble-avatar">'+chatAvatar(true)+'</div><div class="chat-message">'+photo+'<p>'+safe(m.text||"")+'</p><div class="chat-meta"><time>'+safe(chatTime(m.createdAt))+'</time><button type="button" data-chat-edit="'+safe(m.id)+'">编辑</button><button type="button" data-chat-delete="'+safe(m.id)+'">删除</button></div></div></article>';
  }
  const empty=chatMessages.length?'':'<div class="chat-empty"><div><div class="chat-empty-mark">水</div><strong>从一句话开始吧</strong><p>这里会安静地收好你写下的消息。等以后接入对话服务，再让 TA 真正回应你。</p></div></div>';
- return '<section class="chat-room"><div class="chat-topline"><div class="chat-person"><div class="chat-avatar">'+(profile.companionAvatar?'<img src="'+safe(profile.companionAvatar)+'" alt="">':safe(name.slice(0,1)))+'</div><div><strong>'+safe(name)+'</strong><small>留给两个人的对话空间</small></div></div><span class="chat-local-tag">本地记录</span></div><div class="chat-thread" id="chat-thread" aria-live="polite">'+(rows||empty)+'</div><form class="chat-compose" id="chat-form"><textarea id="chat-input" name="text" rows="1" maxlength="2000" placeholder="写下想对 TA 说的话……" aria-label="消息内容"></textarea><button class="chat-send" type="submit" aria-label="发送消息">↑</button></form><div class="chat-hint">消息保存在当前设备 · 暂未连接 AI 回复</div></section>';
+ return '<section class="chat-room"><div class="chat-topline"><div class="chat-person"><div class="chat-avatar">'+(profile.companionAvatar?'<img src="'+safe(profile.companionAvatar)+'" alt="">':safe(name.slice(0,1)))+'</div><div><strong>'+safe(name)+'</strong><small>留给两个人的对话空间</small></div></div><div class="chat-tools"><span class="chat-local-tag">本地记录</span><button class="chat-tool" type="button" id="chat-export" aria-label="导出聊天记录" title="导出聊天记录">↓</button><button class="chat-tool" type="button" id="chat-import-trigger" aria-label="导入聊天记录" title="导入聊天记录">↑</button><input class="chat-import-input" id="chat-import-file" type="file" accept="application/json,.json"></div></div><div class="chat-thread" id="chat-thread" aria-live="polite">'+(rows||empty)+'</div><form class="chat-compose" id="chat-form"><input id="chat-image-input" type="file" accept="image/*" hidden><button class="chat-tool" id="chat-attach" type="button" aria-label="添加图片" title="添加图片">＋</button><textarea id="chat-input" name="text" rows="1" maxlength="2000" placeholder="写下想对 TA 说的话……" aria-label="消息内容"></textarea><button class="chat-send" type="submit" aria-label="发送消息">↑</button></form><div class="chat-hint">文字与图片保存在当前设备 · 暂未连接 AI 回复</div></section>';
 }
-function persistChat(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(chatMessages));return true}catch(e){alert("当前设备的存储空间不足，这条消息没有保存。");return false}}
+function persistChat(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(chatMessages));return true}catch(e){alert("当前设备的存储空间不足，这条消息没有保存。请先导出聊天记录，或减少图片数量。");return false}}
 function scrollChatToBottom(){const thread=$("chat-thread");if(thread)thread.scrollTop=thread.scrollHeight}
+function downloadChat(){const blob=new Blob([JSON.stringify({format:"LUNE_CHAT",version:1,exportedAt:new Date().toISOString(),messages:chatMessages},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="LUNE-chat-"+localDate()+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+
 
 async function compressMusicCover(file){if(!file)return "";if(!file.type.startsWith("image/"))throw new Error("请选择图片文件");return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const scale=Math.min(1,700/Math.max(img.width,img.height)),canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL("image/jpeg",.84))};img.src=reader.result};reader.readAsDataURL(file)})}
 
-document.addEventListener("submit",e=>{
+document.addEventListener("submit",async e=>{
  if(e.target.id!=="chat-form")return;
- e.preventDefault();const input=$("chat-input"),text=String(input?.value||"").trim();if(!text)return;
- chatMessages.push({id:String(Date.now())+"-"+Math.random().toString(36).slice(2,7),text,createdAt:new Date().toISOString()});
- if(!persistChat()){chatMessages.pop();return}
+ e.preventDefault();const form=e.target,input=$("chat-input"),text=String(input?.value||"").trim(),file=$("chat-image-input")?.files?.[0];if(!text&&!file)return;
+ let image="";if(file){if(!file.type.startsWith("image/")){alert("请选择图片文件。");return}try{image=await compressMusicCover(file)}catch(err){alert("图片读取失败，请换一张图片。");return}}
+ const item={id:String(Date.now())+"-"+Math.random().toString(36).slice(2,7),text,image,createdAt:new Date().toISOString()};
+ chatMessages.push(item);if(!persistChat()){chatMessages.pop();return}
  showRoom("chat");scrollChatToBottom();
 });
 document.addEventListener("click",e=>{
+ if(e.target.closest("#chat-attach")){$("chat-image-input")?.click();return}
+ if(e.target.closest("#chat-export")){downloadChat();return}
+ if(e.target.closest("#chat-import-trigger")){$("chat-import-file")?.click();return}
+ const image=e.target.closest("[data-chat-image]");if(image){openPhoto(image.dataset.chatImage,image.dataset.chatImageTitle);return}
  const edit=e.target.closest("[data-chat-edit]");
  if(edit){const item=chatMessages.find(x=>String(x.id)===edit.dataset.chatEdit);if(!item)return;const next=prompt("修改这条消息",item.text);if(next===null)return;const value=next.trim();if(!value){alert("消息不能为空。");return}const before=item.text;item.text=value;if(!persistChat())item.text=before;else showRoom("chat");return}
  const del=e.target.closest("[data-chat-delete]");
@@ -569,6 +585,17 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("focusin",e=>{if(e.target.id==="chat-input")setTimeout(()=>e.target.scrollIntoView({block:"nearest",behavior:"smooth"}),180)});
 document.addEventListener("input",e=>{if(e.target.id==="chat-input"){e.target.style.height="auto";e.target.style.height=Math.min(e.target.scrollHeight,120)+"px"}});
+
+document.addEventListener("change",async e=>{
+ if(e.target.id!=="chat-import-file")return;const file=e.target.files?.[0];e.target.value="";if(!file)return;
+ try{const parsed=JSON.parse(await file.text()),items=Array.isArray(parsed)?parsed:parsed.messages;if(!Array.isArray(items))throw new Error("格式不正确");
+ const clean=items.filter(x=>x&&typeof x.text==="string"&&(typeof x.image==="string"||!x.image)).map((x,i)=>({id:String(x.id||("import-"+Date.now()+"-"+i)),text:x.text.slice(0,2000),image:typeof x.image==="string"?x.image:"",createdAt:Number.isNaN(Date.parse(x.createdAt))?new Date().toISOString():x.createdAt}));
+ if(!confirm("找到 "+clean.length+" 条消息。选择“确定”将合并到现有聊天记录。"))return;
+ const previous=chatMessages;const seen=new Set(chatMessages.map(x=>x.id));chatMessages=[...chatMessages,...clean.filter(x=>!seen.has(x.id))].sort((a,b)=>Date.parse(a.createdAt)-Date.parse(b.createdAt));
+ if(!persistChat()){chatMessages=previous;return}showRoom("chat");scrollChatToBottom();
+ }catch(err){alert("无法导入：请使用 LUNE 导出的聊天 JSON 文件。")}
+});
+
 
 document.addEventListener("submit",async e=>{if(e.target.id!=="music-form")return;e.preventDefault();const form=e.target,fd=new FormData(form),link=String(fd.get("link")||"").trim();if(link){try{const u=new URL(link);if(!["http:","https:"].includes(u.protocol))throw 0}catch(err){alert("音乐链接请填写有效的 https:// 或 http:// 地址。");return}}try{const next={...localMusic,title:String(fd.get("title")||"").trim(),artist:String(fd.get("artist")||"").trim(),link};const file=form.elements.cover.files[0];if(file)next.cover=await compressMusicCover(file);try{localStorage.setItem("lune-music",JSON.stringify(next))}catch(err){alert("封面可能太大，暂时无法保存。请换一张较小的图片。");return}localMusic=next;overview();showRoom("music")}catch(err){alert("封面读取失败，请换一张图片再试。")}});
 document.addEventListener("click",e=>{if(e.target.closest("#music-clear")){localMusic={};localStorage.removeItem("lune-music");overview();showRoom("music")}});
@@ -602,7 +629,7 @@ $("photo-viewer").addEventListener("click",e=>{if(e.target.id==="photo-viewer")c
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhoto()});
 function home(){ $("room").classList.remove("active");$("home").style.display="block";document.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom==="home"?"page":"false"));window.scrollTo(0,0)}
 document.querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",()=>showRoom(b.dataset.room)));document.querySelectorAll("[data-nav-room]").forEach(b=>b.addEventListener("click",()=>b.dataset.navRoom==="home"?home():showRoom(b.dataset.navRoom)));$("back").addEventListener("click",home);
-$("backup").addEventListener("click",()=>{const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),config:{togetherSince:cfg.togetherSince||""},memories:cache.memories,gallery:[...cache.gallery,...localGallery],calendarEvents:localEvents,notes:todayNotes,nowPlaying:{...(cache.music||{}),...(localMusic||{})}},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="LUNE-backup-"+localDate()+".json";a.click();URL.revokeObjectURL(url)});
+$("backup").addEventListener("click",()=>{const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),config:{togetherSince:cfg.togetherSince||""},memories:cache.memories,gallery:[...cache.gallery,...localGallery],calendarEvents:localEvents,notes:todayNotes,chatMessages:chatMessages,nowPlaying:{...(cache.music||{}),...(localMusic||{})}},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="LUNE-backup-"+localDate()+".json";a.click();URL.revokeObjectURL(url)});
 setPerson("name-me","avatar-me",profile.userName,profile.userAvatar,"我");setPerson("name-partner","avatar-partner",profile.companionName,profile.companionAvatar,"L");
 if(cfg.accessCode){$("gate").classList.add("show");$("gate-form").addEventListener("submit",e=>{e.preventDefault();if($("gate-code").value===cfg.accessCode){$("gate").classList.remove("show");sessionStorage.setItem("lune-unlocked","1")}else $("gate-error").textContent="口令不对，再试一次。"});if(sessionStorage.getItem("lune-unlocked")==="1")$("gate").classList.remove("show")}
 const splashScreen=$("splash-screen");
