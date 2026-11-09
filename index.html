@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f3f0ed">
+<meta name="theme-color" content="#e8f6fa">
 <meta name="description" content="一间留给两个人的家。">
-<title>我们的生活画布</title>
+<title>LUNE · 雾散之前</title>
 <style>
 :root{color-scheme:light;--bg:#f3f0ed;--paper:#faf8f5;--paper2:#eeeae6;--ink:#393638;--muted:#8b8584;--line:#ded8d4;--soft:#e9e3df;--red:#89545e;--red-soft:#b98d91;--serif:"Iowan Old Style","Baskerville","Songti SC","Noto Serif CJK SC",serif;--sans:Inter,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif}
 [data-theme=night]{color-scheme:dark;--bg:#171719;--paper:#202023;--paper2:#29282b;--ink:#eee9e5;--muted:#a29a98;--line:#3c383a;--soft:#302d30;--red:#b77c85;--red-soft:#80545b}
@@ -274,9 +274,56 @@ body{
 }
 @media(prefers-reduced-motion:no-preference){.more-tile{transition:transform .22s ease,box-shadow .22s ease}.more-tile:active{transform:scale(.982);box-shadow:0 5px 15px rgba(63,43,49,.06)}}
 
+
+/* WATER STORY VISUAL REFRESH · isolated branch */
+:root{color-scheme:light;--bg:#e8f6fa;--paper:rgba(250,254,255,.68);--paper2:rgba(220,243,249,.72);--ink:#294b59;--muted:#71909b;--line:rgba(255,255,255,.82);--soft:rgba(134,194,211,.22);--red:#4d9db5;--red-soft:#80c7dc;--serif:"Iowan Old Style","Baskerville","Songti SC","Noto Serif CJK SC",serif;--sans:"Quicksand","Nunito","PingFang SC","Microsoft YaHei",sans-serif;--water-shadow:0 12px 34px rgba(91,157,178,.13)}
+[data-theme=night]{color-scheme:dark;--bg:#172d38;--paper:rgba(35,65,77,.76);--paper2:rgba(47,83,96,.78);--ink:#e5f5f8;--muted:#a0c0ca;--line:rgba(177,222,234,.18);--soft:rgba(151,205,219,.14);--red:#8fd7e9;--red-soft:#5caabd;--water-shadow:0 12px 34px rgba(0,0,0,.18)}
+html,body{background:var(--bg)}
+body{background:radial-gradient(ellipse at 8% 9%,rgba(164,225,239,.55),transparent 36%),radial-gradient(ellipse at 92% 26%,rgba(255,255,255,.72),transparent 33%),linear-gradient(165deg,#c9edf7 0%,#e8f7fb 47%,#f7fcfe 100%);color:var(--ink);font-family:var(--sans)}
+[data-theme=night] body{background:radial-gradient(ellipse at 10% 8%,rgba(66,130,150,.24),transparent 38%),radial-gradient(ellipse at 90% 24%,rgba(90,143,158,.13),transparent 34%),linear-gradient(165deg,#172d38 0%,#1c3946 52%,#203e49 100%)}
+body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.24;background-image:radial-gradient(rgba(255,255,255,.9) .7px,transparent .7px);background-size:17px 17px;mask-image:linear-gradient(180deg,#000,transparent 82%)}
+.shell{position:relative;z-index:1;width:min(620px,calc(100% - 30px));padding:clamp(22px,5vh,42px) 0 22px}
+.intro{padding:20px 5px 18px;align-items:center}.eyebrow,.section-label,.room-kicker{letter-spacing:.22em;color:var(--muted)}
+.intro h1{font-size:clamp(25px,6vw,34px);letter-spacing:.09em;color:var(--ink)}.clock strong{font-family:var(--serif);font-size:26px;color:var(--ink)}
+.surface{background:var(--paper);border:1px solid var(--line);border-radius:19px;box-shadow:var(--water-shadow),inset 0 1px 0 rgba(255,255,255,.7);-webkit-backdrop-filter:blur(14px) saturate(1.25);backdrop-filter:blur(14px) saturate(1.25)}
+.couple{min-height:118px;padding:13px 20px;border-radius:22px}.avatar{width:60px;height:60px;border-color:rgba(255,255,255,.9);background:linear-gradient(145deg,#e6f8fc,#ccecf4);color:#4d9db5}
+[data-theme=night] .avatar{background:linear-gradient(145deg,#315767,#244451);color:#b7e9f3}
+.heart path{stroke:var(--red);stroke-width:1.7}.days b,.memory-mark,.quick-mark{color:var(--red)}
+.memory{min-height:64px;padding:12px 16px}.music,.calendar,.gallery{border-radius:20px}.music,.calendar{min-height:136px;padding:13px}.gallery{padding:13px 12px 10px}
+.photo{box-shadow:0 10px 25px rgba(56,122,143,.18);border:2px solid rgba(255,255,255,.92);border-radius:15px}
+.quick button{min-height:62px;padding:11px 13px;border-radius:18px}.quick strong{font-size:14px}.quick small{font-size:8px}
+.footer{padding:14px 5px 0;letter-spacing:.16em}
+.nav{background:rgba(246,253,255,.78);border:1px solid rgba(255,255,255,.9);box-shadow:0 12px 36px rgba(59,126,148,.18);border-radius:20px;-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
+[data-theme=night] .nav{background:rgba(28,54,65,.9);border-color:rgba(173,222,234,.18)}.nav button[aria-current=page]{background:rgba(139,211,229,.22);color:var(--red)}
+.room-head{border-color:var(--soft)}.room-title{font-size:clamp(34px,9vw,46px);letter-spacing:.05em}
+.room-card,.items figure,.editor,.memory-entry{border-color:var(--soft)}.room-card,.editor{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--water-shadow)}
+.editor input,.editor textarea,.gate input{background:rgba(255,255,255,.54);border:1px solid rgba(125,190,207,.34);border-radius:12px;color:var(--ink)}
+[data-theme=night] .editor input,[data-theme=night] .editor textarea,[data-theme=night] .gate input{background:rgba(9,25,32,.25);border-color:rgba(177,222,234,.2);color:var(--ink)}
+.editor-submit,.backup{border:1px solid rgba(255,255,255,.8);background:linear-gradient(135deg,#d5f2f8,#bce7f1);color:#315968;border-radius:14px;box-shadow:0 6px 18px rgba(93,168,190,.13)}
+[data-theme=night] .editor-submit,[data-theme=night] .backup{background:linear-gradient(135deg,#39697a,#2d5968);color:#e5f5f8}
+.gate{z-index:50;background:linear-gradient(165deg,#c9edf7,#f7fcfe)}[data-theme=night] .gate{background:linear-gradient(165deg,#172d38,#203e49)}
+.gate-card{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--water-shadow);backdrop-filter:blur(18px)}
+.gate-title{letter-spacing:.28em;color:var(--ink)}.gate button{border-radius:14px;background:linear-gradient(135deg,#d5f2f8,#bce7f1);border-color:rgba(255,255,255,.9);color:#315968}
+.photo-viewer{background:rgba(15,39,49,.92)}
+@media(max-width:390px){.shell{width:calc(100% - 26px);padding-top:20px}.couple{padding-inline:13px}.duo{gap:8px}.nav{width:calc(100% - 14px);bottom:calc(6px + env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:no-preference){.surface,.nav button,.quick button{transition:transform .24s cubic-bezier(.22,1,.36,1),box-shadow .24s ease,background .24s ease}.surface:active,.quick button:active{transform:scale(.988)}}
+.splash-screen{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:26px;background:radial-gradient(ellipse at 12% 18%,rgba(166,226,240,.8),transparent 40%),radial-gradient(ellipse at 86% 74%,rgba(255,255,255,.9),transparent 38%),linear-gradient(165deg,#c9edf7 0%,#e8f7fb 50%,#f7fcfe 100%);color:#294b59;opacity:1;transition:opacity .38s cubic-bezier(.22,1,.36,1)}
+.splash-screen.hide{opacity:0;pointer-events:none}.splash-inner{width:min(340px,100%);display:flex;flex-direction:column;align-items:center;text-align:center;gap:17px}
+.splash-mark{font-size:10px;letter-spacing:.38em;color:#6b9aa9;animation:water-rise .7s both}
+.splash-orbit{width:128px;height:128px;border:1px solid rgba(255,255,255,.85);border-radius:50%;display:grid;place-items:center;position:relative;box-shadow:inset 0 0 32px rgba(255,255,255,.42),0 12px 35px rgba(92,165,186,.12);animation:water-breathe 4s ease-in-out infinite}
+.splash-orbit:before,.splash-orbit:after{content:"";position:absolute;inset:13px;border:1px solid rgba(255,255,255,.7);border-radius:50%;animation:water-ripple 4s ease-out infinite}.splash-orbit:after{inset:27px;animation-delay:1.3s}
+.splash-orbit span{font:42px/1 "Iowan Old Style","Baskerville","Songti SC",serif;letter-spacing:.08em;color:#4b9db6}
+.splash-title{font:400 clamp(27px,8vw,34px)/1.45 "Iowan Old Style","Baskerville","Songti SC",serif;letter-spacing:.16em;animation:water-rise .7s .12s both}
+.splash-sub{font-size:9px;letter-spacing:.26em;color:#6d929e;animation:water-rise .7s .22s both}
+.splash-enter{margin-top:15px;min-width:174px;height:46px;padding:0 24px;border:1px solid rgba(255,255,255,.95);border-radius:24px;background:rgba(255,255,255,.52);box-shadow:0 8px 25px rgba(87,157,179,.14),inset 0 1px 0 white;color:#315968;font-size:11px;letter-spacing:.24em;backdrop-filter:blur(16px);animation:water-rise .7s .32s both}
+.splash-enter:active{transform:scale(.97)}
+@keyframes water-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes water-breathe{50%{transform:translateY(-5px) scale(1.025)}}@keyframes water-ripple{0%{transform:scale(.86);opacity:0}35%{opacity:.65}100%{transform:scale(1.14);opacity:0}}
+@media(prefers-reduced-motion:reduce){.splash-orbit,.splash-orbit:before,.splash-orbit:after{animation:none}.splash-inner>*{animation:none}}
+
 </style>
 </head>
 <body>
+<div class="splash-screen" id="splash-screen" role="dialog" aria-label="欢迎回家"><div class="splash-inner"><div class="splash-mark">L U N E &nbsp; / &nbsp; O U R &nbsp; L I T T L E &nbsp; U N I V E R S E</div><div class="splash-orbit" aria-hidden="true"><span>水</span></div><h1 class="splash-title">雾散之前，<br>我们在这里。</h1><div class="splash-sub">SAME TIDE · SAME LITTLE WORLD</div><button class="splash-enter" id="splash-enter" type="button">进入我们的世界　↗</button></div></div>
 <div class="gate" id="gate"><form class="gate-card" id="gate-form"><div class="gate-title">L U N E</div><p>这扇门只留给知道口令的人。<br>输入口令，回家。</p><input id="gate-code" type="password" placeholder="输入门锁口令" required><button type="submit">开门</button><div class="gate-error" id="gate-error"></div></form></div>
 <main class="shell" id="home">
 
@@ -390,6 +437,16 @@ document.querySelectorAll("[data-room]").forEach(b=>b.addEventListener("click",(
 $("backup").addEventListener("click",()=>{const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),config:{togetherSince:cfg.togetherSince||""},memories:cache.memories,gallery:[...cache.gallery,...localGallery],calendarEvents:localEvents,notes:todayNotes,nowPlaying:{...(cache.music||{}),...(localMusic||{})}},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="LUNE-backup-"+localDate()+".json";a.click();URL.revokeObjectURL(url)});
 setPerson("name-me","avatar-me",profile.userName,profile.userAvatar,"我");setPerson("name-partner","avatar-partner",profile.companionName,profile.companionAvatar,"L");
 if(cfg.accessCode){$("gate").classList.add("show");$("gate-form").addEventListener("submit",e=>{e.preventDefault();if($("gate-code").value===cfg.accessCode){$("gate").classList.remove("show");sessionStorage.setItem("lune-unlocked","1")}else $("gate-error").textContent="口令不对，再试一次。"});if(sessionStorage.getItem("lune-unlocked")==="1")$("gate").classList.remove("show")}
+const splashScreen=$("splash-screen");
+if(splashScreen){
+ const alreadyEntered=sessionStorage.getItem("lune-water-splash-entered")==="1";
+ if(alreadyEntered)splashScreen.remove();
+ else $("splash-enter").addEventListener("click",()=>{
+  sessionStorage.setItem("lune-water-splash-entered","1");
+  splashScreen.classList.add("hide");
+  setTimeout(()=>splashScreen.remove(),420);
+ });
+}
 tick();setInterval(tick,30000);Promise.all([readJSON("./data/memories.json",[]),readJSON("./data/gallery.json",[]),readJSON("./data/now-playing.json",{})]).then(([memories,gallery,music])=>{cache={memories:[...(Array.isArray(memories)?memories:[]),...localMemories],gallery:Array.isArray(gallery)?gallery:[],music:music||{}};overview()});
 </script>
 </body>
