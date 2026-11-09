@@ -320,6 +320,99 @@ body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
 @keyframes water-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes water-breathe{50%{transform:translateY(-5px) scale(1.025)}}@keyframes water-ripple{0%{transform:scale(.86);opacity:0}35%{opacity:.65}100%{transform:scale(1.14);opacity:0}}
 @media(prefers-reduced-motion:reduce){.splash-orbit,.splash-orbit:before,.splash-orbit:after{animation:none}.splash-inner>*{animation:none}}
 
+
+/* WATER STORY · ROOM INTERIORS */
+.room{padding-top:calc(18px + env(safe-area-inset-top));padding-bottom:calc(108px + env(safe-area-inset-bottom))}
+.room.active{animation:room-arrive .42s cubic-bezier(.2,.75,.25,1) both}
+@keyframes room-arrive{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.room .back{display:inline-flex;align-items:center;gap:9px;padding:10px 14px;margin:0 0 22px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.38);color:var(--muted);font-size:11px;letter-spacing:.06em;box-shadow:0 5px 18px rgba(75,145,165,.07);backdrop-filter:blur(12px)}
+[data-theme=night] .room .back{background:rgba(255,255,255,.045)}
+.room-head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;padding:10px 5px 22px;margin-bottom:20px;border-bottom:1px solid var(--soft)}
+.room-head:after{content:"";position:absolute;bottom:-1px;left:5px;width:54px;height:1px;background:var(--red-soft)}
+.room-kicker{font-size:9px;letter-spacing:.24em;text-transform:uppercase}
+.room-title{margin:8px 0 0;font-family:var(--serif);font-weight:400;color:var(--ink);line-height:1.12}
+.room-intro{max-width:46%;font-size:11px;line-height:1.8;letter-spacing:.04em;color:var(--muted);text-align:right}
+.water-room-stage{position:relative;isolation:isolate}
+.water-room-heading{display:flex;align-items:center;gap:10px;margin:0 5px 15px;color:var(--muted);font-size:9px;letter-spacing:.2em}
+.water-room-heading:before{content:"";width:17px;height:17px;border:1px solid var(--red-soft);border-radius:50%;box-shadow:inset 0 0 0 4px rgba(128,199,220,.1)}
+.water-room-heading:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--soft),transparent)}
+.water-room-stage>.editor{margin-bottom:18px}
+.editor{padding:20px;gap:0}
+.editor>h3{color:var(--ink)!important;letter-spacing:.04em}
+.editor>p{line-height:1.8!important;color:var(--muted)!important}
+.editor label{display:block;margin:15px 0 7px;color:var(--muted);font-size:10px;letter-spacing:.1em}
+.editor input:not([type=file]),.editor textarea{width:100%;min-height:43px;padding:11px 13px;font:13px var(--sans);line-height:1.65;outline:none;box-sizing:border-box;transition:border-color .2s,box-shadow .2s}
+.editor textarea{min-height:112px;resize:vertical}
+.editor input:focus,.editor textarea:focus{border-color:var(--red-soft);box-shadow:0 0 0 3px rgba(128,199,220,.13)}
+.editor input[type=file]{display:block;width:100%;max-width:100%;padding:10px;border:1px dashed rgba(109,174,192,.4);border-radius:12px;color:var(--muted);font-size:11px;background:rgba(255,255,255,.22)}
+.editor-submit{min-height:43px;padding:0 18px;margin-top:17px;font-size:11px;letter-spacing:.08em;cursor:pointer;transition:transform .18s,filter .18s}
+.editor-submit:active{transform:scale(.98);filter:saturate(1.12)}
+.editor-note,.profile-hint{display:block;margin-top:11px;color:var(--muted);font-size:10px;line-height:1.7}
+.memory-list{display:grid;gap:10px;margin:16px 0 22px}
+.memory-entry{display:grid;grid-template-columns:82px 1fr;gap:13px;padding:17px 16px;border:1px solid var(--line);border-radius:17px;background:var(--paper);box-shadow:0 7px 22px rgba(91,157,178,.07)}
+.memory-entry time{padding-top:4px;color:var(--red);font:11px var(--serif);letter-spacing:.04em}
+.memory-entry h3{margin:0 0 7px;color:var(--ink);font:18px/1.4 var(--serif);font-weight:400}
+.memory-entry p{margin:0;color:var(--muted);font-size:12px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.memory-entry button{margin-top:10px;padding:5px 0;border:0;background:none;color:var(--muted);font-size:10px}
+.empty{padding:27px 20px;margin:16px 0;text-align:center;border:1px dashed rgba(109,174,192,.35);background:rgba(255,255,255,.22);box-shadow:none}
+.empty strong{display:block;color:var(--ink);font:20px var(--serif);font-weight:400}
+.empty p{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.8}
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 24px}
+.items figure{position:relative;overflow:hidden;margin:0;padding:7px;border:1px solid var(--line);border-radius:17px;background:var(--paper);box-shadow:0 8px 22px rgba(91,157,178,.09)}
+.items figure img{display:block;width:100%;aspect-ratio:1/1.12;object-fit:cover;border-radius:12px;background:var(--paper2)}
+.items figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px;padding:10px 4px 5px}
+.items figcaption strong{flex:1 1 100%;overflow:hidden;color:var(--ink);font:15px var(--serif);font-weight:400;text-overflow:ellipsis;white-space:nowrap}
+.items figcaption small{color:var(--muted);font-size:9px}
+.photo-delete{margin-left:auto;padding:4px 7px;border:1px solid var(--soft);border-radius:8px;background:transparent;color:var(--muted);font-size:9px}
+.music-preview{display:flex;align-items:center;gap:18px;padding:18px;margin:15px 0;border:1px solid var(--line);border-radius:19px;background:var(--paper);box-shadow:var(--water-shadow)}
+.music-preview .vinyl{flex:0 0 86px;width:86px;height:86px}
+.music-preview h3{margin:0 0 5px;color:var(--ink);font:20px var(--serif);font-weight:400}
+.music-preview p{margin:0 0 9px;color:var(--muted);font-size:11px}
+.music-preview a{color:var(--red);font-size:10px;text-decoration:none}
+.room-card{padding:20px;margin:15px 0}
+.room-card h3{margin:0 0 8px;color:var(--ink);font:21px var(--serif);font-weight:400}
+.room-card p{color:var(--muted);font-size:12px;line-height:1.9}
+.room-card a{color:var(--red);font-size:11px;text-decoration:none}
+.more-hero{position:relative;overflow:hidden;padding:19px 16px 27px;margin-bottom:20px;border:1px solid var(--line);border-radius:21px;background:linear-gradient(135deg,rgba(255,255,255,.44),rgba(188,231,241,.22));box-shadow:var(--water-shadow)}
+.more-hero:after{content:"水";position:absolute;right:12px;bottom:-36px;color:rgba(100,176,197,.12);font:126px var(--serif);pointer-events:none}
+.more-hero h2{position:relative;z-index:1;margin:15px 0 5px;color:var(--ink);font:42px var(--serif);font-weight:400;letter-spacing:.12em}
+.more-hero p{position:relative;z-index:1;margin:0;color:var(--muted);font-size:11px}
+.more-rule{display:block;width:80px;height:1px;margin-top:18px;background:var(--red-soft)}
+.more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:0 0 24px}
+.more-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-width:0;min-height:152px;padding:16px;border:1px solid var(--line);border-radius:19px;background:var(--paper);color:var(--ink);text-align:left;box-shadow:var(--water-shadow);backdrop-filter:blur(12px)}
+.more-tile strong{margin-top:23px;font:23px var(--serif);font-weight:400}
+.more-tile small{margin-top:5px;color:var(--muted);font-size:10px;line-height:1.6}
+.more-tile .more-index{color:var(--muted);font-size:8px;letter-spacing:.18em}
+.more-tile .more-arrow{position:absolute;right:14px;top:12px;color:var(--red);font-size:17px}
+.more-tile i{position:absolute;right:15px;bottom:12px;color:var(--red-soft);font-size:24px;font-style:normal;opacity:.7}
+.more-section-label{display:flex;justify-content:space-between;gap:10px;padding:0 5px 10px;margin:25px 0 13px;border-bottom:1px solid var(--soft);color:var(--muted);font-size:9px;letter-spacing:.12em}
+.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.profile-person{min-width:0;padding:12px;border:1px solid var(--soft);border-radius:15px;background:rgba(255,255,255,.2)}
+.profile-person-head{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.profile-preview{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;overflow:hidden;border:1px solid var(--line);border-radius:50%;background:var(--paper2);color:var(--red);font:16px var(--serif)}
+.profile-preview img{width:100%;height:100%;object-fit:cover}
+.profile-person-title{color:var(--ink);font:15px var(--serif)}
+.profile-person-sub{margin-top:3px;color:var(--muted);font-size:9px}
+.profile-person label{font-size:9px}
+.profile-person input:not([type=file]){min-height:38px;padding:8px;font-size:11px}
+.profile-date{margin-top:13px}
+.profile-save-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.profile-save-row .editor-submit{flex:0 0 auto}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;border-top:1px solid var(--soft)}
+.setting-row strong,.setting-row small{display:block}
+.setting-row strong{color:var(--ink);font-size:12px;font-weight:500}
+.setting-row small{margin-top:4px;color:var(--muted);font-size:10px}
+.theme-toggle{padding:9px 13px;border:1px solid var(--line);border-radius:999px;background:var(--paper2);color:var(--ink);font-size:10px}
+.backup{display:block;width:100%;min-height:45px;margin:24px 0 0;padding:0 18px;font-size:11px;letter-spacing:.1em}
+@media(max-width:390px){
+ .room-head{align-items:flex-start;flex-direction:column;gap:7px}.room-intro{max-width:100%;text-align:left}
+ .memory-entry{grid-template-columns:1fr;gap:5px}.memory-entry time{font-size:10px}
+ .profile-grid{gap:8px}.profile-person{padding:9px}.profile-person-head{align-items:flex-start;flex-direction:column}
+ .more-tile{min-height:142px;padding:13px}.more-tile strong{font-size:21px}
+ .editor{padding:15px}.music-preview{gap:12px;padding:14px}.music-preview .vinyl{flex-basis:70px;width:70px;height:70px}
+}
+@media(prefers-reduced-motion:no-preference){.more-tile,.items figure,.memory-entry{transition:transform .22s ease,box-shadow .22s ease}.more-tile:active,.items figure:active{transform:scale(.985)}}
+
 </style>
 </head>
 <body>
@@ -398,7 +491,7 @@ function showRoom(key){
  }else{
   h='<section class="more-hero"><div class="more-kicker">LUNE / OUR LITTLE WORLD</div><h2>我们的</h2><p>记住的、写下的、一起走过的。</p><span class="more-rule"></span></section><section class="more-grid" aria-label="更多空间入口"><button class="more-tile" data-room="memory"><span class="more-index">01 / MEMORY</span><span class="more-arrow">↗</span><strong>记忆</strong><small>珍藏那些不想忘记的瞬间</small><i>☆</i></button><button class="more-tile" data-room="note"><span class="more-index">02 / NOTES</span><span class="more-arrow">↗</span><strong>今日纸条</strong><small>留给彼此的一句话</small><i>▤</i></button><button class="more-tile" data-room="calendar"><span class="more-index">03 / DAYS</span><span class="more-arrow">↗</span><strong>日历</strong><small>纪念日与期待中的日子</small><i>▦</i></button><button class="more-tile" data-room="album"><span class="more-index">04 / MOMENTS</span><span class="more-arrow">↗</span><strong>相册</strong><small>把走过的时光收好</small><i>◫</i></button><button class="more-tile" data-room="music"><span class="more-index">05 / MUSIC</span><span class="more-arrow">↗</span><strong>我们的歌</strong><small>收藏此刻的声音</small><i>♫</i></button></section><div class="more-section-label"><span>SPACE SETTINGS</span><span>把这里调整成喜欢的样子</span></div><form class="editor" id="profile-form"><h3 style="font:21px var(--serif);font-weight:400;margin:0 0 6px">两个人的资料</h3><p style="font-size:10px;color:var(--muted);margin:0 0 16px">把名字、头像和相伴的起点，留在这间小屋里。</p><div class="profile-grid"><section class="profile-person"><div class="profile-person-head"><div class="profile-preview" id="profile-preview-me">'+(profile.userAvatar?'<img src="'+safe(profile.userAvatar)+'" alt="">':safe(profile.userName||"我").slice(0,1))+'</div><div><div class="profile-person-title">我</div><div class="profile-person-sub">你的名字与头像</div></div></div><label for="profile-me-name">名字</label><input id="profile-me-name" name="userName" type="text" maxlength="16" value="'+safe(profile.userName)+'" placeholder="怎么称呼你"><label for="profile-me-avatar">更换头像</label><input id="profile-me-avatar" name="userAvatar" type="file" accept="image/*"></section><section class="profile-person"><div class="profile-person-head"><div class="profile-preview" id="profile-preview-partner">'+(profile.companionAvatar?'<img src="'+safe(profile.companionAvatar)+'" alt="">':safe(profile.companionName||"L").slice(0,1))+'</div><div><div class="profile-person-title">对方</div><div class="profile-person-sub">TA 的名字与头像</div></div></div><label for="profile-partner-name">名字</label><input id="profile-partner-name" name="companionName" type="text" maxlength="16" value="'+safe(profile.companionName)+'" placeholder="怎么称呼对方"><label for="profile-partner-avatar">更换头像</label><input id="profile-partner-avatar" name="companionAvatar" type="file" accept="image/*"></section></div><div class="profile-date"><label for="profile-together-date">相伴开始的日期</label><input id="profile-together-date" name="togetherSince" type="date" value="'+safe(profile.togetherSince)+'"></div><div class="profile-save-row"><button class="editor-submit" type="submit">保存资料</button><span class="profile-hint">头像会自动压缩，资料仅保存在当前设备。</span></div></form><div class="surface room-card"><h3>空间光线</h3><p>选择此刻想要的氛围。</p><div class="setting-row"><div><strong>显示主题</strong><small>在日间与夜间氛围之间切换</small></div><button class="theme-toggle" id="theme-toggle" type="button">'+(document.documentElement.dataset.theme==="night"?"☼ 日间":"☾ 夜间")+'</button></div></div>';
  }
- $("room-content").innerHTML=h;document.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom===key?"page":"false"));window.scrollTo(0,0)
+ $("room-content").innerHTML='<div class="water-room-stage"><div class="water-room-heading"><span>OUR LITTLE WORLD</span></div>'+h+'</div>';document.querySelectorAll("[data-nav-room]").forEach(b=>b.setAttribute("aria-current",b.dataset.navRoom===key?"page":"false"));window.scrollTo(0,0)
 }
 
 async function compressMusicCover(file){if(!file)return "";if(!file.type.startsWith("image/"))throw new Error("请选择图片文件");return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const scale=Math.min(1,700/Math.max(img.width,img.height)),canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL("image/jpeg",.84))};img.src=reader.result};reader.readAsDataURL(file)})}
